@@ -1,0 +1,1 @@
+Q1 | 2026-07-12 | Phase 0 | What consensus-specs ref (branch/commit/PR) does eth-act/lighthouse PR #39 target for EIP-8025 content? No EIP-8025-specific spec reference found in PR body, feature-flag names, doc-comments, or vendored paths; only an inherited general ef-tests pin (v1.7.0-alpha.8). Needs author/maintainer confirmation. | open
