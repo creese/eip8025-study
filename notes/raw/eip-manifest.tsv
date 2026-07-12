@@ -1,0 +1,6 @@
+index	path	status	old_path_if_renamed	diff_file
+001	EIPS/eip-8025.md	M		notes/raw/eip-files/001.diff
+002	assets/eip-8025/proof-flow.excalidraw	A		notes/raw/eip-files/002.diff
+003	assets/eip-8025/proof-flow.png	A		notes/raw/eip-files/003.diff
+004	assets/eip-8025/prover-lifecycle.excalidraw	A		notes/raw/eip-files/004.diff
+005	assets/eip-8025/prover-lifecycle.png	A		notes/raw/eip-files/005.diff

@@ -1,0 +1,24 @@
+d5653bc4 Merge pull request #5 from frisitano/feat/eip8025-update
+dabd422c center title and refine labels in proof-flow diagram
+2456bc21 Merge pull request #4 from frisitano/feat/eip8025-update
+e37bb976 update images
+007d854b remove email
+1cf894d6 cleanup
+4439ab40 chore cleanup html
+fcfa4396 eip8025 updates
+eee9b27c Merge pull request #3 from jsign/jsign-round-2
+6dc49ac3 feedback fixes
+08589950 Update EIPS/eip-8025.md
+60a6e622 address feedback
+4f503d83 chore: lint
+2cf440ca Merge pull request #1 from jsign/jsign-el-ext
+d4617e5f Merge branch 'feat/eip8025' into jsign-el-ext
+0fbdd1d8 feedback
+2d4f8356 Merge pull request #2 from frisitano/feat/eip8025-cl-context
+4cc94d12 address feedback
+c12592c7 add CL spec detail for EIP8025
+ee54db9c change to more top-down explanation style and lift more the private vs public inputs of the guest program
+237483c5 include more execution layer details
+760d9232 CI fix
+c448d31f PR feedback
+f3ee6945 Update EIP-8025: Reactivate from Stagnant with full rewrite

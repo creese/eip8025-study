@@ -124,3 +124,10 @@ No fallback needed; proceeding with pin phase.
   Stagnant → Draft. The live eips.ethereum.org page still shows
   Stagnant, consistent with the PR not yet being merged. No action
   taken; flagging as expected given PR state, not a ref-mismatch.
+
+## Decision log
+
+- 2026-07-12 | Phase 1a-i | EIP PR harvest diff base =
+  merge-base 2215c17cde2c7ee0bb5068f2beb573c4776e92ac (not master
+  baseRefOid, which has advanced past the fork point per the Phase 0
+  decision-input note).

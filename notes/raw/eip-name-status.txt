@@ -1,0 +1,5 @@
+M	EIPS/eip-8025.md
+A	assets/eip-8025/proof-flow.excalidraw
+A	assets/eip-8025/proof-flow.png
+A	assets/eip-8025/prover-lifecycle.excalidraw
+A	assets/eip-8025/prover-lifecycle.png

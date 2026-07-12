@@ -1,0 +1,6 @@
+ EIPS/eip-8025.md                            | 1116 +++++++++++++++++-
+ assets/eip-8025/proof-flow.excalidraw       | 1677 +++++++++++++++++++++++++++
+ assets/eip-8025/proof-flow.png              |  Bin 0 -> 162642 bytes
+ assets/eip-8025/prover-lifecycle.excalidraw |  409 +++++++
+ assets/eip-8025/prover-lifecycle.png        |  Bin 0 -> 158502 bytes
+ 5 files changed, 3184 insertions(+), 18 deletions(-)
