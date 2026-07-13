@@ -1,4 +1,4 @@
-# Phase 1a-iii — EIP-8025 full-text snapshot harvest (pre/post PR)
+# Phase 1a-3 — EIP-8025 full-text snapshot harvest (pre/post PR)
 
 This is a HARVEST session, not synthesis: save file contents exactly
 as stored, no paraphrasing, no interpretation, no Markdown fences, no
@@ -14,7 +14,7 @@ POST_REV=d5653bc4d9b86997e069567dcd1eb8766b0c8a55
 REFS="$STUDY_ROOT/notes/refs.md"
 RAW_DIR="$STUDY_ROOT/notes/raw"
 WORK_ROOT="$STUDY_ROOT/.work"
-WORK_DIR="$WORK_ROOT/P1a-iii"
+WORK_DIR="$WORK_ROOT/P1a-3"
 POST_FINAL="$RAW_DIR/eip-8025-post-pr.md"
 PRE_FINAL="$RAW_DIR/eip-8025-pre-pr.md"
 
@@ -148,13 +148,11 @@ GIT_OPTIONAL_LOCKS=0 git -C "$EIPS_CLONE" status --porcelain=v1 > "$STATUS_BEFOR
 (nonzero rc: shared failure rule).
 
 ## EIP path resolution — from study artifacts only, no assumptions
-1. Read "$RAW_DIR/eip-manifest.tsv" (data rows only).
-2. Select rows whose path basename is exactly `eip-8025.md`
-   (the path matches `(^|/)eip-8025\.md$`).
-- Exactly one row: use it. EIP_PATH = its path column.
-- Zero rows or more than one: stop (shared failure rule), report
-  all candidate rows — do not choose silently.
-3. Status handling from that row:
+1. Run exactly:
+   ```bash
+   awk -F'\t' 'NR>1 && $2 ~ /(^|\/)eip-8025\.md$/ {print}' \
+     "$STUDY_ROOT/notes/raw/eip-manifest.tsv"
+2. Status handling from that row:
 - M: PRE_PATH = EIP_PATH.
 - Rxx: EIP_PATH = new path; PRE_PATH = old_path_if_renamed.
 - A, D, or anything else: stop (shared failure rule), report the
