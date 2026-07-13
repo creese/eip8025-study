@@ -149,10 +149,11 @@ GIT_OPTIONAL_LOCKS=0 git -C "$EIPS_CLONE" status --porcelain=v1 > "$STATUS_BEFOR
 
 ## EIP path resolution — from study artifacts only, no assumptions
 1. Read "$RAW_DIR/eip-manifest.tsv" (data rows only).
-2. Select rows whose path contains "eip-8025".
+2. Select rows whose path basename is exactly `eip-8025.md`
+   (the path matches `(^|/)eip-8025\.md$`).
 - Exactly one row: use it. EIP_PATH = its path column.
 - Zero rows or more than one: stop (shared failure rule), report
-	all candidate rows — do not choose silently.
+  all candidate rows — do not choose silently.
 3. Status handling from that row:
 - M: PRE_PATH = EIP_PATH.
 - Rxx: EIP_PATH = new path; PRE_PATH = old_path_if_renamed.
