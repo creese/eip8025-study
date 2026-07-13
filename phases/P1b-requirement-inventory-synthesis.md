@@ -42,6 +42,13 @@ Stop and report if either of these already exists:
 Write the matrix only to "$TMP_TSV" until extraction, reconciliation,
 and all validation checks pass. Do not write directly to "$FINAL_TSV".
 
+Write "$TMP_TSV" in small bounded chunks. Do not embed the complete
+inventory in one shell command, heredoc, or Python source file.
+
+After each chunk, verify that every completed row has exactly nine
+tab-separated fields. Do not alter, merge, or regenerate requirement
+content unless validation identifies a specific row error.
+
 On any failure before publication, remove "$TMP_TSV" only if this
 session created it, then stop.
 
