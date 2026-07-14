@@ -81,10 +81,23 @@ The user makes all re-pin, scope, go/no-go, provisional-baseline, and
 proposal-content decisions. A model may identify the need for such a
 decision but must never make it.
 
+## Command success
+
+The success of every command that produces evidence, changes project
+state, or gates later work must be checked — at minimum its exit code,
+plus any stderr policy defined by the current phase specification —
+before dependent work continues. Output from an unchecked command is
+never treated as successful harvest, publication, or gate passage.
+
 ## Artifact governance
 
 - `notes/raw/` is the append-only published-evidence store. Existing
   raw artifacts must never be edited, replaced, or deleted.
+- New raw artifacts are staged outside `notes/raw/` in the
+  phase-declared staging location, validated there as a complete
+  artifact set, and published into `notes/raw/` only after that
+  validation succeeds. Publication is no-clobber: it must fail rather
+  than overwrite an existing raw artifact.
 - Temporary, staging, stderr, diagnostic, and recovery files belong in
   the phase-declared location under `.work/` or `/tmp`. They must
   never be created under `notes/raw/` and are never cited as evidence.

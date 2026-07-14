@@ -18,6 +18,23 @@ It must incorporate applicable requirements from its drafting inputs
 rather than depend on those files at execution time. The new phase
 specification must be self-contained and executable.
 
+An executable phase specification must define, for its own
+operations:
+
+* failure handling for each step, including what is reported and what
+  is cleaned up or preserved;
+* recovery from an interrupted or partial publication;
+* safe, idempotent resume behavior, so a rerun either completes the
+  remaining work cleanly or stops without corrupting or duplicating
+  state;
+* the coordination and ordering of publication when the phase both
+  publishes append-only evidence and modifies a control file such as
+  `notes/refs.md`, including a guard against duplicate control-file
+  entries;
+* the durable artifacts — including any required validation receipt —
+  that a later read-only audit needs to verify each `Done when`
+  criterion.
+
 Translate the design brief's completion goal into explicit `Done when`
 criteria.
 
