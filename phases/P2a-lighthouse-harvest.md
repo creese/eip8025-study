@@ -9,6 +9,18 @@ manual-fallback export was recorded for PR #39. This specification is
 executable only after the user has reviewed its git diff and
 explicitly authorized execution.
 
+Remediation status: the 2026-07-14 phase-completion audit reported
+BLOCK on the harvest-receipt criterion — one recorded nonzero exit
+code inherent to the B.6 guard, and D1.4–D1.8 recorded as results
+without command transcripts. Step G defines the sole authorized
+corrective execution. It is read-only over the published harvest
+evidence and notes/refs.md, requires no repository fetch, no network
+access, and no Grandine inspection, changes no existing published
+artifact and no notes/refs.md content, and publishes exactly one new
+raw artifact: notes/raw/lh-remediation-receipt.txt. This revised
+specification is executable only after the user has reviewed its
+actual git diff and explicitly authorized execution.
+
 ## Variables
 
 Set all of the following, echo all of them, run the path-confirmation
@@ -23,6 +35,8 @@ WORK_DIR="$STUDY_ROOT/.work/p2a-harvest"
 STAGE_DIR="$WORK_DIR/staging"
 RECEIPT="$STAGE_DIR/lh-harvest-receipt.txt"
 RESUME_LOG="$WORK_DIR/resume-validation.log"
+REM_STAGE="$WORK_DIR/remediation"
+REM_RECEIPT="$REM_STAGE/lh-remediation-receipt.txt"
 BASE=dfb259171a65cacd6db57b8874af8f543cabcb7a
 PR_HEAD=0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5
 PIN_SIGP_UNSTABLE=7d2b64341bcabaed85332fa59e7be28d3740e88a
@@ -48,6 +62,11 @@ resume, already-complete, and recovery branches (A.2, A.3, B.7, F).
 Those branches must never create, append to, or modify the staged or
 published receipt: after step D1 finishes the receipt, it is closed,
 and the published copy is immutable raw evidence.
+
+REM_STAGE and REM_RECEIPT belong to step G (remediation) only.
+REM_RECEIPT is staged under REM_STAGE, validated there, and published
+exactly once by the step G no-clobber procedure. Step G never creates,
+appends to, or modifies the staged or published harvest receipt.
 
 Never use HEAD as a variable name; always $PR_HEAD. No command in
 this session may depend on the current working directory: every git
@@ -77,6 +96,11 @@ Final published artifacts (all under notes/raw/):
 - "$RAW_DIR"/lh-threads.md
 - "$RAW_DIR"/lh-harvest-receipt.txt (published last; its presence in
   notes/raw/ marks the raw set as completely published)
+- "$RAW_DIR"/lh-remediation-receipt.txt (remediation artifact,
+  created only by step G after the 2026-07-14 completion-audit BLOCK;
+  it postdates the closed harvest receipt, so it is excluded from the
+  harvest receipt's inventories and from the published-set
+  verification's expected set)
 
 Plus exactly one merge-base drift record appended to "$REFS" (step E),
 only after raw publication succeeds.
@@ -156,7 +180,10 @@ create, append to, or modify the staged or published receipt.
    files — none missing, none extra.
 4. Parse checksum rows only between `BEGIN SHA256 INVENTORY` and
    `END SHA256 INVENTORY`. Recompute sha256 of every published
-   artifact except the receipt; each value must equal the inventory
+   harvest artifact except the receipt — lh-remediation-receipt.txt,
+   if present, postdates the closed receipt, is excluded here, and is
+   verified only by its own Done when criterion; each value must
+   equal the inventory
    value for its canonical final path. The parsed inventory must list
    exactly those artifacts — none missing, none extra. Perform the
    analogous exact-set comparison against the marker-delimited BYTE
@@ -175,12 +202,24 @@ Then take exactly one branch:
    never evidence), then mkdir -p "$STAGE_DIR"/lh-files and run steps
    B, C, D, E in order.
 2. Already published — RECEIPT_PUBLISHED, all seven other final paths
-   exist, drift record COMPLETE: run the published-set verification
-   above; only if it passes, report that the Phase 2a outputs exist
-   and verified against the receipt, list them, and stop. Never
-   report the phase as already published on path existence alone.
-   Re-run nothing; completion is established by the phase-completion
-   audit, not by this report.
+   exist, drift record COMPLETE. Take exactly one sub-branch on
+   "$RAW_DIR"/lh-remediation-receipt.txt:
+   a. Remediation pending — it does not exist: run step G only. Step
+      G performs its own fully transcripted verification of the
+      published set, so the RESUME_LOG-based published-set
+      verification is not separately required. Skip steps B, C, D,
+      E, and F entirely.
+   b. It exists and its final line is exactly
+      "END OF PHASE 2A REMEDIATION RECEIPT": run the published-set
+      verification above; only if it passes, report that the Phase 2a
+      outputs and the remediation receipt exist and verified, list
+      them, and stop. Never report the phase as already published on
+      path existence alone. Re-run nothing; completion is established
+      by the phase-completion audit, not by this report.
+   c. It exists but lacks that exact final line — interrupted
+      remediation publication: stop, report the observed final line,
+      and await the user's decision. Never edit, replace, delete, or
+      overwrite it.
 3. Resume, drift record only — RECEIPT_PUBLISHED, all seven other
    final paths exist, drift record ABSENT: run the published-set
    verification above; if it passes, run the reduced gate in B.7,
@@ -245,7 +284,11 @@ create, append to, or modify the staged or published receipt.
 6. Drift-record guard: run the drift-record classification; it must
    report ABSENT (state classification should already have routed
    this case; this is a final guard so the record is written exactly
-   once).
+   once). For this guard, a count of 0 with grep exit code 1 is the
+   passing ABSENT result — grep -c reports exit code 1 whenever the
+   count is 0 — and the receipt records that output and exit code
+   verbatim. The Done when receipt criterion scopes its single
+   permitted nonzero recorded exit code to exactly this command.
 7. Reduced gate for the drift-only resume branch (A.3): run checks 1
    and 6, then confirm the pinned head object exists locally:
    git -C "$LH_CLONE" cat-file -e "$PR_HEAD"^{commit}
@@ -605,6 +648,125 @@ published receipt.
    checksum-verified already-published files; the receipt still
    published last), then continue with step E under its guard.
 
+## G. Remediation — sole corrective execution after the 2026-07-14 audit BLOCK
+
+Step G runs only from branch A.2a: the eight harvest artifacts are
+published, the drift record is COMPLETE, and
+"$RAW_DIR"/lh-remediation-receipt.txt does not exist. It is a
+fixed-command verification session: it saves command transcripts
+verbatim and performs no interpretation, summarization, or synthesis.
+It never fetches, never uses the network, never inspects Grandine,
+never reads "$LH_CLONE" content beyond the path-confirmation checks,
+never modifies "$REFS", and never edits, replaces, or deletes
+anything under "$RAW_DIR". Its only write targets are "$WORK_DIR"
+(temporary) and the single new published artifact. The session stderr
+and exit-code policies apply to every step G command; in addition,
+every step G check command must exit 0 — step G has no
+expected-nonzero command.
+
+1. Staging: if "$REM_STAGE" exists and is non-empty, move it aside to
+   "$WORK_DIR"/remediation-superseded-<UTC timestamp> (temporary
+   files, never evidence), then mkdir -p "$REM_STAGE". Create
+   "$REM_RECEIPT" with this exact first line:
+
+   PHASE 2A REMEDIATION RECEIPT
+
+   Immediately after it, record the run date and the trigger: the
+   2026-07-14 phase-completion audit BLOCK on the harvest-receipt
+   criterion (one recorded nonzero exit code inherent to the B.6
+   guard; D1.4–D1.8 recorded as results without command transcripts).
+   Record every step G command below in "$REM_RECEIPT" as it runs:
+   the exact command, its verbatim output, and its exit code.
+2. Re-verification transcripts, computed only from "$REFS" and the
+   published artifacts under "$RAW_DIR" (canonical final paths, never
+   staged or temporary copies):
+   a. Pin re-verification: run the two B.1 grep commands against
+      "$REFS"; both rc values must be 0, BASE's role as the
+      Lighthouse PR harvest diff base and PR_HEAD's role as the head
+      of eth-act/lighthouse PR #39 must be confirmed from the
+      captured contexts, and both contexts are recorded verbatim.
+   b. N=$(wc -l < "$RAW_DIR"/lh-name-status.txt); record N.
+   c. Manifest data-row count
+      (tail -n +2 "$RAW_DIR"/lh-manifest.tsv | wc -l) equals N.
+   d. awk -F'\t' 'NR>1 && NF!=5' "$RAW_DIR"/lh-manifest.tsv produces
+      no output (five-field check).
+   e. awk -F'\t' 'NR>1 && ($2 ~ /^"/ || $4 ~ /^"/)'
+      "$RAW_DIR"/lh-manifest.tsv produces no output (no Git-quoted
+      path field).
+   f. Exact diff-file set: build under "$REM_STAGE" the sorted list
+      of manifest diff_file values and the sorted listing of
+      "$RAW_DIR"/lh-files/ mapped to the same path form; compare with
+      diff (exit code 0 — none missing, none extra, no duplicates).
+   g. Each of the six single files and lh-harvest-receipt.txt exists
+      (test -f per file).
+   h. lh-threads.md checks: each of the five exact-command headings
+      from C.7 occurs exactly once (grep -cF per heading equals 1);
+      the headRefOid in the saved `gh pr view` output equals
+      $PR_HEAD; the set of distinct "hasNextPage" values in the file
+      is exactly {"false"}.
+   i. Byte-inventory recomputation: build under "$REM_STAGE" the
+      sorted <decimal byte count><TAB><canonical final path> rows for
+      every published harvest artifact except lh-harvest-receipt.txt
+      (the six single files plus every lh-files/<index>.diff);
+      extract the rows between BEGIN BYTE INVENTORY and END BYTE
+      INVENTORY from the published lh-harvest-receipt.txt; diff the
+      two files (exit code 0 — exact match, none missing, none
+      extra).
+   j. SHA256-inventory recomputation: the same procedure with
+      sha256sum against the rows between BEGIN SHA256 INVENTORY and
+      END SHA256 INVENTORY (exit code 0).
+   k. Recorded-exit-code survey: transcript
+      grep -n "exit code:" "$RAW_DIR"/lh-harvest-receipt.txt
+      verbatim, then verify that every recorded exit code is 0 except
+      exactly one line reading "exit code: 1", and that this line
+      lies inside the "=== B.6 Drift-record guard ===" section, where
+      the guard's recorded count output is 0 (DRIFT_COUNT=0 = ABSENT,
+      the required passing gate state; grep -c reports exit code 1
+      whenever the count is 0).
+3. UNEXPECTED PATHS check: append to "$REM_RECEIPT" a section
+   beginning with the exact line "UNEXPECTED PATHS".
+
+   Build and record the sorted list of top-level paths under
+   "$RAW_DIR" matching lh-* that are not one of the nine Phase 2a
+   destinations (the eight final harvest destinations plus
+   lh-remediation-receipt.txt). Record the exact command, its verbatim
+   output, and its exit code.
+
+   The resulting list must be empty. If it is empty, append the exact
+   line:
+
+   UNEXPECTED PATHS: none
+
+   If any unexpected path exists: stop, report every observed path,
+   publish nothing, and await the user's disposition decision. Do not
+   read, checksum, move, modify, or delete the unexpected path during
+   remediation.
+4. Any failed step G check — a nonzero exit code, a mismatch, a
+   missing file, or a survey result other than the one specified in
+   2.k: stop; report the failing command, its exit code, and its
+   stderr file path; preserve "$WORK_DIR"; publish nothing.
+5. Close "$REM_RECEIPT" with the exact final line
+   "END OF PHASE 2A REMEDIATION RECEIPT". After this line the staged
+   remediation receipt is complete and must never be appended to or
+   modified.
+6. Publication — no-clobber, single file:
+   a. Confirm "$RAW_DIR" is a real directory and not a symbolic link.
+   b. If "$RAW_DIR"/lh-remediation-receipt.txt already exists:
+      cmp -s it against "$REM_RECEIPT"; if identical, it is already
+      published — continue to step 7; otherwise stop, report both
+      paths, and await the user's decision. Never overwrite, edit, or
+      delete it.
+   c. Publish "$REM_RECEIPT" to "$RAW_DIR"/lh-remediation-receipt.txt
+      with the exact O_CREAT|O_EXCL python3 helper from D2, stderr
+      policy applied, exit code checked; then
+      cmp -s "$REM_RECEIPT" "$RAW_DIR"/lh-remediation-receipt.txt and
+      check the exit code. On any failure: stop, report, preserve
+      "$REM_STAGE"; a rerun re-enters through A.2 and, on finding a
+      final file without the closing line (A.2c), awaits the user's
+      decision.
+7. Report per the Report section and stop. Step G appends nothing to
+   "$REFS" and runs no step B, C, D, E, or F action.
+
 ## Report (session output)
 Capture and check the exit code of every reporting command (wc -l,
 wc -c, ls, etc.). If a reporting command fails after the artifacts
@@ -637,13 +799,22 @@ re-run by hand.
 - Confirmation that nothing was summarized, interpreted, or committed
 - List of all files created or changed (full paths), including
   temporary files under "$WORK_DIR"
+- In a remediation session (branch A.2a / step G), instead of the
+  harvest-run items above: the resolved STUDY_ROOT, RAW_DIR,
+  WORK_DIR, REM_STAGE, and REM_RECEIPT values; the result of every
+  step G check; the UNEXPECTED PATHS section verbatim; confirmation
+  that the only path created under notes/raw/ by the session is
+  lh-remediation-receipt.txt; confirmation that no existing raw
+  artifact and no notes/refs.md content was edited, replaced, or
+  deleted; and the list of all files created or changed (full
+  paths), including temporary files under "$WORK_DIR"
 - Any deviation already stopped the session per its rule
 Then stop.
 
 ## Done when
 Each criterion below is a final condition that a later read-only
 audit can verify independently from the published artifacts, the
-receipt, and notes/refs.md. Session-behavior rules — verbatim
+harvest and remediation receipts, and notes/refs.md. Session-behavior rules — verbatim
 harvesting, stopping on failed gates, not committing, keeping
 temporary files out of notes/raw/ — are governed by the sections
 above and CLAUDE.md, are confirmed in the session report, and are not
@@ -663,15 +834,38 @@ completion criteria here.
   exact-command heading followed by its verbatim fenced output; the
   headRefOid in the saved `gh pr view` output equals PR_HEAD; every
   hasNextPage value in the saved GraphQL output is false
-- lh-harvest-receipt.txt records the gate and set-validation commands
-  with their verbatim outputs and exit codes; every recorded exit
-  code is 0. It contains exactly one marker-delimited BYTE INVENTORY
-  and exactly one marker-delimited SHA256 INVENTORY in the D1 formats.
-  Both inventories are sorted by canonical final path, contain each
-  non-receipt artifact exactly once, contain no duplicate or
-  additional path, and match the byte counts and checksums recomputed
-  from the published artifacts
+- lh-harvest-receipt.txt records gate checks B.1–B.6 and
+  set-validation checks D1.1–D1.3 as commands with their verbatim
+  outputs and exit codes, and records the D1.4–D1.8 results and
+  inventories; every recorded exit code is 0, with exactly one
+  permitted exception: the B.6 drift-record guard count command,
+  whose recorded output is 0 and whose recorded exit code is 1
+  (grep -c reports exit code 1 whenever the count is 0, and
+  DRIFT_COUNT=0 = ABSENT is the required passing gate state; full
+  command transcripts for the D1.4–D1.8 checks are supplied by the
+  remediation-receipt criterion below). It contains exactly one
+  marker-delimited BYTE INVENTORY and exactly one marker-delimited
+  SHA256 INVENTORY in the D1 formats. Both inventories are sorted by
+  canonical final path, contain each non-receipt harvest artifact
+  exactly once, contain no duplicate or additional path, and match
+  the byte counts and checksums recomputed from the published harvest
+  artifacts (lh-remediation-receipt.txt postdates the closed harvest
+  receipt and is excluded from both inventories)
 - notes/refs.md contains exactly one Phase 2a merge-base drift
   record, and it is COMPLETE per the drift-record classification
   (heading plus all three template list items with 40-hex observed
   values)
+- notes/raw/lh-remediation-receipt.txt exists, its first line is
+  exactly "PHASE 2A REMEDIATION RECEIPT", ends with the exact final
+  line "END OF PHASE 2A REMEDIATION RECEIPT", and records every step G
+  check as a command with its verbatim output and exit code, every
+  recorded exit code 0: the pin re-verification contexts; the
+  row-count, five-field, quoted-path, exact diff-file-set, and
+  single-file-existence checks; the lh-threads.md checks; the byte and
+  sha256 inventory recomputations matching the harvest receipt's
+  marker-delimited inventories exactly; and the recorded-exit-code
+  survey of lh-harvest-receipt.txt showing every recorded exit code 0
+  except the single B.6 guard line. It contains an UNEXPECTED PATHS
+  section whose recorded check finds no top-level notes/raw/lh-* path
+  outside the nine Phase 2a destinations and which contains the exact
+  line "UNEXPECTED PATHS: none"
