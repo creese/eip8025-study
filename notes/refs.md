@@ -131,8 +131,9 @@ No fallback needed; proceeding with pin phase.
   merge-base 2215c17cde2c7ee0bb5068f2beb573c4776e92ac (not master
   baseRefOid, which has advanced past the fork point per the Phase 0
   decision-input note).
-- 2026-07-13 | Phase 2a | Lighthouse PR harvest diff base =
-  PR base dfb259171a65... (not merge-base 494b00a3... with
-  sigp/unstable; that merge-base is retained only for drift/context
-  reporting).
+- 2026-07-13 | Phase 2a | Lighthouse PR harvest diff base = PR base
+  dfb259171a65cacd6db57b8874af8f543cabcb7a (not merge-base
+  494b00a3491e2c5e281f6972aa00694b17f16722 with
+  `sigp/lighthouse@unstable`; that merge-base is retained only for
+  drift/context reporting).
 
