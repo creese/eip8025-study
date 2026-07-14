@@ -14,6 +14,49 @@ details from its design brief into the phase file. Then reduce the
 roadmap entry to phase navigation and any rationale that remains
 useful.
 
+## Phase completion audits
+
+Before advancing, run a dedicated audit of the completed phase against
+every criterion in its `Done when` section, using the published outputs
+themselves.
+
+The audit session must not create or revise the next phase
+specification.
+
+If the phase does not pass, report the unmet criterion and stop.
+
+After the audit reports PASS, the user reviews and accepts the result
+before starting specification authoring.
+
+## Specification authoring
+
+If the next phase specification does not exist, run a separate session
+to create it.
+
+Follow `CLAUDE.md` and use:
+
+* the corresponding design brief and applicable shared design material
+  in this file;
+* applicable decisions recorded in `notes/refs.md`;
+* existing phase specifications only as structural references.
+
+The new phase specification must be self-contained and executable.
+
+A specification-authoring session must not execute the phase, inspect
+the target repository, use network access, or modify study evidence.
+
+If an unresolved decision prevents a safe executable specification,
+stop and report the blocker.
+
+After creating or revising a phase specification, inspect the actual
+git diff and report:
+
+* whether the target specification was created or changed;
+* any unresolved drafting blocker;
+* all files changed.
+
+Commit behavior is governed by `CLAUDE.md`.
+
 ## Phase map
 
 | Phase | Purpose | Primary output | Next step |
@@ -63,7 +106,10 @@ For thread resolution state, prefer GraphQL:
 ```
 gh api graphql -f query='query{repository(owner:"<owner>",name:"<repo>"){pullRequest(number:<n>){reviewThreads(first:100){nodes{isResolved,comments(first:50){nodes{author{login},body,path,createdAt}}}}}}}'
 ```
-Fallback: manual browser export into `notes/raw/` before the session (preflight decides this in Phase 0).
+Fallback: manual browser export into `notes/raw/` before the session,
+as decided in Phase 0. If neither the preferred commands nor the
+recorded fallback is available, stop and report; do not continue with
+partial PR-thread evidence.
 **Rule:** resolved/unresolved state may be incomplete regardless of method. A `reviewer-contested` classification must cite the specific comment present in raw evidence — never an inferred thread state.
 
 ## Shared design material — diff manifests
@@ -76,7 +122,9 @@ Fallback: manual browser export into `notes/raw/` before the session (preflight 
 authoritative drafting source until phases/P2a-lighthouse-harvest.md
 is finalized.
 1. Gate: `git fetch`; compare head SHA to pin; on mismatch, stop, log delta in `notes/refs.md`, await your re-pin decision.
-2. Harvest (2a):
+2. Run the following harvest operations exactly. The phase
+   specification may replace placeholders with variables, but must not
+   omit or substitute an operation:
    - `git diff --name-status -M <base>..<head>` → build `notes/raw/lh-manifest.tsv` (reconciliation source of truth)
    - `git diff --stat <base>..<head>` (human-readable summary only)
    - `git log --oneline <base>..<head>`
