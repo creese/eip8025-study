@@ -1,0 +1,177 @@
+PHASE 2A REMEDIATION RECEIPT
+Run date: 2026-07-14
+Trigger: 2026-07-14 phase-completion audit BLOCK on the harvest-receipt
+criterion (one recorded nonzero exit code inherent to the B.6 guard;
+D1.4-D1.8 recorded as results without command transcripts).
+
+=== G.2.a Pin re-verification ===
+$ grep -nF -C 2 -- "dfb259171a65cacd6db57b8874af8f543cabcb7a" "/work/notes/refs.md"
+24-- State: OPEN, isDraft: true, mergedAt: null
+25-- head: `optional-proofs-unstable` @ `0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5`
+26:- base: `unstable` (in eth-act/lighthouse) @ `dfb259171a65cacd6db57b8874af8f543cabcb7a`
+27-- headRepositoryOwner: eth-act
+28-
+--
+40-- `git merge-base` of PR base (`dfb259171a65...`) vs PR head
+41-  (`0dd6c3b8c...`), i.e. merge-base vs PR base branch:
+42:  `dfb259171a65cacd6db57b8874af8f543cabcb7a` (equal to the stated base
+43-  itself — the PR head is a straight descendant of eth-act/unstable's
+44-  base commit, with no divergence on that pairing).
+--
+133-  decision-input note).
+134-- 2026-07-13 | Phase 2a | Lighthouse PR harvest diff base = PR base
+135:  dfb259171a65cacd6db57b8874af8f543cabcb7a (not merge-base
+136-  494b00a3491e2c5e281f6972aa00694b17f16722 with
+137-  `sigp/lighthouse@unstable`; that merge-base is retained only for
+--
+147-  494b00a3491e2c5e281f6972aa00694b17f16722).
+148-- Context only: the harvest diff base remains the pinned BASE
+149:  dfb259171a65cacd6db57b8874af8f543cabcb7a per the 2026-07-13
+150-  decision-log entry. Drift in sigp/lighthouse@unstable does not
+151-  invalidate this harvest and is not a pin mismatch.
+exit code: 0
+
+$ grep -nF -C 2 -- "0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5" "/work/notes/refs.md"
+23-- Title: "Add optional EIP-8025 execution proofs"
+24-- State: OPEN, isDraft: true, mergedAt: null
+25:- head: `optional-proofs-unstable` @ `0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5`
+26-- base: `unstable` (in eth-act/lighthouse) @ `dfb259171a65cacd6db57b8874af8f543cabcb7a`
+27-- headRepositoryOwner: eth-act
+exit code: 0
+Role confirmation: BASE_CONTEXT identifies BASE as the Lighthouse PR
+harvest diff base per the 2026-07-13 decision-log entry; HEAD_CONTEXT
+identifies PR_HEAD as the head of eth-act/lighthouse PR #39 (under the
+'## Pin: eth-act/lighthouse PR #39' section).
+
+=== G.2.b Name-status line count ===
+$ wc -l < "/work/notes/raw"/lh-name-status.txt
+172
+exit code: 0
+
+=== G.2.c Manifest data-row count equals N ===
+$ tail -n +2 "/work/notes/raw"/lh-manifest.tsv | wc -l
+172
+exit code: 0
+Result: MATCH (172 == 172)
+
+=== G.2.d Five-field manifest check ===
+$ awk -F'\t' 'NR>1 && NF!=5' "/work/notes/raw"/lh-manifest.tsv
+
+(output above is empty if no violations)
+exit code: 0
+
+=== G.2.e Quoted-path field check ===
+$ awk -F'\t' 'NR>1 && ($2 ~ /^"/ || $4 ~ /^"/)' "/work/notes/raw"/lh-manifest.tsv
+
+(output above is empty if no Git-quoted path fields)
+exit code: 0
+
+=== G.2.f Exact diff-file set comparison ===
+$ tail -n +2 "/work/notes/raw"/lh-manifest.tsv | awk -F'\t' '{print $5}' | sed 's#.*/##' | sort > "/work/.work/p2a-harvest/remediation"/manifest-difffiles.txt
+$ ls "/work/notes/raw"/lh-files/ | sort > "/work/.work/p2a-harvest/remediation"/actual-difffiles.txt
+$ diff "/work/.work/p2a-harvest/remediation"/manifest-difffiles.txt "/work/.work/p2a-harvest/remediation"/actual-difffiles.txt
+
+(output above is empty if sets match exactly)
+exit code: 0
+
+=== G.2.g Single-file existence checks ===
+$ test -f "/work/notes/raw/lh-name-status.txt"
+exit code: 0
+$ test -f "/work/notes/raw/lh-manifest.tsv"
+exit code: 0
+$ test -f "/work/notes/raw/lh-diffstat.txt"
+exit code: 0
+$ test -f "/work/notes/raw/lh-log.txt"
+exit code: 0
+$ test -f "/work/notes/raw/lh-deps.diff"
+exit code: 0
+$ test -f "/work/notes/raw/lh-threads.md"
+exit code: 0
+$ test -f "/work/notes/raw/lh-harvest-receipt.txt"
+exit code: 0
+
+=== G.2.h lh-threads.md heading + content checks ===
+$ grep -cF -- \##\ \`gh\ pr\ view\ 39\ --repo\ eth-act/lighthouse\ --json\ title\,state\,body\,baseRefName\,headRefName\,headRefOid\,baseRefOid\,isDraft\,mergedAt\,closed\` "/work/notes/raw/lh-threads.md"
+1
+exit code: 0
+$ grep -cF -- \##\ \`gh\ api\ repos/eth-act/lighthouse/issues/39/comments\ --paginate\` "/work/notes/raw/lh-threads.md"
+1
+exit code: 0
+$ grep -cF -- \##\ \`gh\ api\ repos/eth-act/lighthouse/pulls/39/comments\ --paginate\` "/work/notes/raw/lh-threads.md"
+1
+exit code: 0
+$ grep -cF -- \##\ \`gh\ api\ repos/eth-act/lighthouse/pulls/39/reviews\ --paginate\` "/work/notes/raw/lh-threads.md"
+1
+exit code: 0
+$ grep -cF -- \##\ \`gh\ api\ graphql\ -f\ query=\'query\{repository\(owner:\"eth-act\"\,name:\"lighthouse\"\)\{pullRequest\(number:39\)\{reviewThreads\(first:100\)\{pageInfo\{hasNextPage\ endCursor\}\,nodes\{isResolved\,comments\(first:50\)\{pageInfo\{hasNextPage\ endCursor\}\,nodes\{author\{login\}\,body\,path\,createdAt\}\}\}\}\}\}\}\'\` "/work/notes/raw/lh-threads.md"
+1
+exit code: 0
+
+$ grep -o '"headRefOid":"[^"]*"' "/work/notes/raw/lh-threads.md" | head -1 | sed 's/.*:"\(.*\)"/\1/'
+0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5
+exit code: 0
+Result: headRefOid MATCHES PR_HEAD (0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5)
+
+$ grep -o '"hasNextPage":[a-z]*' "/work/notes/raw/lh-threads.md" | sort -u
+"hasNextPage":false
+exit code: 0
+Result: all hasNextPage values are false (distinct set = {false})
+
+=== G.2.i Byte-inventory recomputation ===
+$ for f in lh-name-status.txt lh-manifest.tsv lh-diffstat.txt lh-log.txt lh-deps.diff lh-threads.md; do BYTES=$(wc -c < "/work/notes/raw/$f"); printf '%s\t%s\n' "$BYTES" "notes/raw/$f"; done > byte-inventory-recomputed.tsv (part 1)
+$ for f in "/work/notes/raw"/lh-files/*.diff; do BYTES=$(wc -c < "$f"); printf '%s\t%s\n' "$BYTES" "notes/raw/lh-files/$(basename $f)"; done >> byte-inventory-recomputed.tsv (part 2)
+$ sort -k2 -t$'\t' byte-inventory-recomputed.tsv -o byte-inventory-recomputed.tsv
+recomputed row count: 178
+
+$ sed -n '/^BEGIN BYTE INVENTORY$/,/^END BYTE INVENTORY$/p' "/work/notes/raw"/lh-harvest-receipt.txt | sed '1d;$d' > byte-inventory-published.tsv
+published row count: 178
+
+$ diff byte-inventory-recomputed.tsv byte-inventory-published.tsv
+
+(output above is empty if exact match)
+exit code: 0
+
+=== G.2.j SHA256-inventory recomputation ===
+$ for f in lh-name-status.txt lh-manifest.tsv lh-diffstat.txt lh-log.txt lh-deps.diff lh-threads.md; do SUM=$(sha256sum "/work/notes/raw/$f" | awk '{print $1}'); printf '%s\t%s\n' "$SUM" "notes/raw/$f"; done > sha256-inventory-recomputed.tsv (part 1)
+$ for f in "/work/notes/raw"/lh-files/*.diff; do SUM=$(sha256sum "$f" | awk '{print $1}'); printf '%s\t%s\n' "$SUM" "notes/raw/lh-files/$(basename $f)"; done >> sha256-inventory-recomputed.tsv (part 2)
+$ sort -k2 -t$'\t' sha256-inventory-recomputed.tsv -o sha256-inventory-recomputed.tsv
+recomputed row count: 178
+
+$ sed -n '/^BEGIN SHA256 INVENTORY$/,/^END SHA256 INVENTORY$/p' "/work/notes/raw"/lh-harvest-receipt.txt | sed '1d;$d' > sha256-inventory-published.tsv
+published row count: 178
+
+$ diff sha256-inventory-recomputed.tsv sha256-inventory-published.tsv
+
+(output above is empty if exact match)
+exit code: 0
+
+=== G.2.k Recorded-exit-code survey of lh-harvest-receipt.txt ===
+$ grep -n "exit code:" "/work/notes/raw"/lh-harvest-receipt.txt
+20:exit code: 0
+28:exit code: 0
+34:exit code: 0
+39:exit code: 0
+44:exit code: 0
+49:exit code: 0
+54:exit code: 1
+61:exit code: 0
+66:exit code: 0
+73:exit code: 0
+exit code: 0
+
+Verification: all recorded exit codes are 0 except exactly one line,
+line 54 ("exit code: 1"), which lies inside the
+"=== B.6 Drift-record guard ===" section (heading at line 50), where the
+guard's recorded count output is 0 (DRIFT_COUNT=0 = ABSENT, the required
+passing gate state; grep -c reports exit code 1 whenever the count is 0).
+Result: matches the single permitted exception exactly.
+
+UNEXPECTED PATHS
+$ ls -1 "/work/notes/raw" | grep '^lh-' | sort > observed-lh-paths.txt
+$ printf '%s\n' lh-name-status.txt lh-manifest.tsv lh-diffstat.txt lh-log.txt lh-files lh-deps.diff lh-threads.md lh-harvest-receipt.txt lh-remediation-receipt.txt | sort > allowed-lh-paths.txt
+$ comm -23 observed-lh-paths.txt allowed-lh-paths.txt
+
+exit code: 0
+UNEXPECTED PATHS: none
+
+END OF PHASE 2A REMEDIATION RECEIPT
