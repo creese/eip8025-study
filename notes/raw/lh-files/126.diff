@@ -1,0 +1,14 @@
+diff --git a/lighthouse/environment/Cargo.toml b/lighthouse/environment/Cargo.toml
+index 6d6ffa172..669bd0db2 100644
+--- a/lighthouse/environment/Cargo.toml
++++ b/lighthouse/environment/Cargo.toml
+@@ -4,6 +4,9 @@ version = "0.1.2"
+ authors = ["Paul Hauner <paul@paulhauner.com>"]
+ edition = { workspace = true }
+ 
++[features]
++test-utils = []
++
+ [dependencies]
+ async-channel = { workspace = true }
+ clap = { workspace = true }

@@ -1,0 +1,16 @@
+diff --git a/consensus/proto_array/Cargo.toml b/consensus/proto_array/Cargo.toml
+index ee86277f9..c424c01f6 100644
+--- a/consensus/proto_array/Cargo.toml
++++ b/consensus/proto_array/Cargo.toml
+@@ -19,3 +19,11 @@ superstruct = { workspace = true }
+ typenum = { workspace = true }
+ types = { workspace = true }
+ yaml_serde = { workspace = true }
++
++[dev-dependencies]
++criterion = { workspace = true }
++fixed_bytes = { workspace = true }
++
++[[bench]]
++name = "find_head"
++harness = false

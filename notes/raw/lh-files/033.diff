@@ -1,0 +1,36 @@
+diff --git a/beacon_node/beacon_chain/tests/attestation_verification.rs b/beacon_node/beacon_chain/tests/attestation_verification.rs
+index da7f380e3..03b8ae58a 100644
+--- a/beacon_node/beacon_chain/tests/attestation_verification.rs
++++ b/beacon_node/beacon_chain/tests/attestation_verification.rs
+@@ -1636,6 +1636,7 @@ async fn attestation_verification_use_head_state_fork() {
+                 MakeAttestationOptions {
+                     fork: capella_fork,
+                     limit: None,
++                    payload_present_override: None,
+                 },
+             )
+             .0
+@@ -1667,6 +1668,7 @@ async fn attestation_verification_use_head_state_fork() {
+                 MakeAttestationOptions {
+                     fork: bellatrix_fork,
+                     limit: None,
++                    payload_present_override: None,
+                 },
+             )
+             .0
+@@ -1741,6 +1743,7 @@ async fn aggregated_attestation_verification_use_head_state_fork() {
+                 MakeAttestationOptions {
+                     fork: capella_fork,
+                     limit: None,
++                    payload_present_override: None,
+                 },
+             )
+             .0
+@@ -1768,6 +1771,7 @@ async fn aggregated_attestation_verification_use_head_state_fork() {
+                 MakeAttestationOptions {
+                     fork: bellatrix_fork,
+                     limit: None,
++                    payload_present_override: None,
+                 },
+             )
+             .0

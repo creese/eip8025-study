@@ -1,0 +1,12 @@
+diff --git a/beacon_node/network/src/lib.rs b/beacon_node/network/src/lib.rs
+index 2a7fedb53..dc45f53c7 100644
+--- a/beacon_node/network/src/lib.rs
++++ b/beacon_node/network/src/lib.rs
+@@ -11,6 +11,7 @@ mod subnet_service;
+ mod sync;
+ 
+ pub use lighthouse_network::NetworkConfig;
++pub use network_beacon_processor::NetworkBeaconProcessor;
+ pub use service::{
+     NetworkMessage, NetworkReceivers, NetworkSenders, NetworkService, ValidatorSubscriptionMessage,
+ };

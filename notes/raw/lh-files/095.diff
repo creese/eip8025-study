@@ -1,0 +1,12 @@
+diff --git a/beacon_node/network/src/sync/custody_backfill_sync/mod.rs b/beacon_node/network/src/sync/custody_backfill_sync/mod.rs
+index c85610613..74318006d 100644
+--- a/beacon_node/network/src/sync/custody_backfill_sync/mod.rs
++++ b/beacon_node/network/src/sync/custody_backfill_sync/mod.rs
+@@ -126,6 +126,7 @@ pub struct CustodyBackFillSync<T: BeaconChainTypes> {
+     network_globals: Arc<NetworkGlobals<T::EthSpec>>,
+ }
+ 
++#[cfg_attr(feature = "disable-backfill", allow(dead_code))]
+ impl<T: BeaconChainTypes> CustodyBackFillSync<T> {
+     pub fn new(
+         beacon_chain: Arc<BeaconChain<T>>,

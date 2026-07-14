@@ -1,0 +1,14 @@
+diff --git a/validator_client/validator_services/Cargo.toml b/validator_client/validator_services/Cargo.toml
+index 258296826..93ee2dcfb 100644
+--- a/validator_client/validator_services/Cargo.toml
++++ b/validator_client/validator_services/Cargo.toml
+@@ -8,7 +8,8 @@ authors = ["Sigma Prime <contact@sigmaprime.io>"]
+ beacon_node_fallback = { workspace = true }
+ bls = { workspace = true }
+ either = { workspace = true }
+-eth2 = { workspace = true }
++eth2 = { workspace = true, features = ["events"] }
++execution_layer = { workspace = true }
+ futures = { workspace = true }
+ graffiti_file = { workspace = true }
+ logging = { workspace = true }

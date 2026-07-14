@@ -1,0 +1,60 @@
+diff --git a/beacon_node/src/config.rs b/beacon_node/src/config.rs
+index 045b432dc..8cef79c21 100644
+--- a/beacon_node/src/config.rs
++++ b/beacon_node/src/config.rs
+@@ -359,6 +359,29 @@ pub fn get_config<E: EthSpec>(
+         clap_utils::parse_required(cli_args, "execution-timeout-multiplier")?;
+     el_config.execution_timeout_multiplier = Some(execution_timeout_multiplier);
+ 
++    if let Some(endpoint) = cli_args.get_one::<String>("proof-engine-endpoint") {
++        el_config.proof_engine_endpoint = Some(parse_only_one_value(
++            endpoint,
++            SensitiveUrl::parse,
++            "--proof-engine-endpoint",
++        )?);
++        client_config.network.enable_execution_proof = true;
++    }
++
++    if let Some(proof_types) = cli_args.get_one::<String>("proof-types") {
++        let proof_types = proof_types
++            .split(',')
++            .filter(|proof_type| !proof_type.trim().is_empty())
++            .map(|proof_type| {
++                proof_type
++                    .trim()
++                    .parse::<execution_layer::eip8025::ProofType>()
++                    .map_err(|e| format!("Invalid --proof-types value: {e}"))
++            })
++            .collect::<Result<Vec<_>, _>>()?;
++        el_config.proof_types = execution_layer::eip8025::types::ProofTypes::from(proof_types);
++    }
++
+     // Store the EL config in the client config.
+     client_config.execution_layer = Some(el_config);
+ 
+@@ -829,6 +852,14 @@ pub fn get_config<E: EthSpec>(
+     client_config.chain.optimistic_finalized_sync =
+         !cli_args.get_flag("disable-optimistic-finalized-sync");
+ 
++    if let Some(quorum) = clap_utils::parse_optional::<usize>(cli_args, "execution-proof-quorum")? {
++        client_config.chain.execution_proof_quorum.enabled = true;
++        client_config
++            .chain
++            .execution_proof_quorum
++            .min_valid_proof_types = quorum;
++    }
++
+     if cli_args.get_flag("genesis-backfill") {
+         client_config.chain.genesis_backfill = true;
+     }
+@@ -1443,6 +1474,10 @@ pub fn set_network_config(
+         config.disable_quic_support = true;
+     }
+ 
++    if parse_flag(cli_args, "enable-mplex") {
++        config.enable_mplex = true;
++    }
++
+     if parse_flag(cli_args, "disable-upnp") {
+         config.upnp_enabled = false;
+     }

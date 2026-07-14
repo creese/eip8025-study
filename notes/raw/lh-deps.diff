@@ -1,0 +1,376 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 129be32fc..001f12fa7 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -2855,8 +2855,10 @@ dependencies = [
+  "fs2",
+  "hex",
+  "kzg",
++ "lighthouse_network",
+  "logging",
+  "milhouse",
++ "network",
+  "proto_array",
+  "rayon",
+  "serde",
+@@ -3386,14 +3388,18 @@ dependencies = [
+  "alloy-rlp",
+  "alloy-rpc-types-eth",
+  "arc-swap",
++ "async-stream",
++ "async-trait",
+  "bls",
+  "builder_client",
+  "bytes",
+  "eth2",
+  "ethereum_serde_utils",
+  "ethereum_ssz",
++ "ethereum_ssz_derive",
+  "fixed_bytes",
+  "fork_choice",
++ "futures",
+  "hash-db",
+  "hash256-std-hasher",
+  "hex",
+@@ -3408,6 +3414,7 @@ dependencies = [
+  "pretty_reqwest_error",
+  "rand 0.9.2",
+  "reqwest",
++ "reqwest-eventsource",
+  "sensitive_url",
+  "serde",
+  "serde_json",
+@@ -6952,6 +6959,22 @@ dependencies = [
+  "syn 2.0.117",
+ ]
+ 
++[[package]]
++name = "proof_engine_test"
++version = "8.1.3"
++dependencies = [
++ "anyhow",
++ "beacon_chain",
++ "execution_layer",
++ "futures",
++ "network",
++ "simulator",
++ "task_executor",
++ "tokio",
++ "tracing",
++ "types",
++]
++
+ [[package]]
+ name = "proptest"
+ version = "1.9.0"
+@@ -7018,6 +7041,7 @@ dependencies = [
+ name = "proto_array"
+ version = "0.2.0"
+ dependencies = [
++ "criterion",
+  "ethereum_ssz",
+  "ethereum_ssz_derive",
+  "fixed_bytes",
+@@ -8200,22 +8224,29 @@ dependencies = [
+ name = "simulator"
+ version = "0.2.0"
+ dependencies = [
++ "anyhow",
++ "beacon_chain",
+  "clap",
+  "environment",
++ "eth2",
+  "execution_layer",
+  "futures",
+  "kzg",
++ "lighthouse_network",
+  "logging",
++ "network_utils",
+  "node_test_rig",
+  "parking_lot",
+  "rayon",
+  "sensitive_url",
+  "serde_json",
++ "task_executor",
+  "tokio",
+  "tracing",
+  "tracing-subscriber",
+  "typenum",
+  "types",
++ "validator_http_api",
+ ]
+ 
+ [[package]]
+@@ -9521,6 +9552,7 @@ dependencies = [
+  "doppelganger_service",
+  "environment",
+  "eth2",
++ "execution_layer",
+  "fdlimit",
+  "graffiti_file",
+  "hyper 1.8.1",
+@@ -9536,6 +9568,7 @@ dependencies = [
+  "slot_clock",
+  "tokio",
+  "tracing",
++ "typenum",
+  "types",
+  "validator_http_api",
+  "validator_http_metrics",
+@@ -9677,6 +9710,7 @@ dependencies = [
+  "bls",
+  "either",
+  "eth2",
++ "execution_layer",
+  "futures",
+  "graffiti_file",
+  "logging",
+diff --git a/Cargo.toml b/Cargo.toml
+index 71398530f..6560e810d 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -68,6 +68,7 @@ members = [
+     "testing/ef_tests",
+     "testing/execution_engine_integration",
+     "testing/node_test_rig",
++    "testing/proof_engine",
+     "testing/simulator",
+     "testing/state_transition_vectors",
+     "testing/validator_test_rig",
+@@ -141,7 +142,7 @@ eth2_network_config = { path = "common/eth2_network_config" }
+ eth2_wallet = { path = "crypto/eth2_wallet" }
+ ethereum_hashing = "0.8.0"
+ ethereum_serde_utils = "0.8.0"
+-ethereum_ssz = { version = "0.10.0", features = ["context_deserialize"] }
++ethereum_ssz = { version = "0.10.4", features = ["context_deserialize"] }
+ ethereum_ssz_derive = "0.10.0"
+ execution_layer = { path = "beacon_node/execution_layer" }
+ filesystem = { path = "common/filesystem" }
+@@ -219,7 +220,7 @@ slashing_protection = { path = "validator_client/slashing_protection" }
+ slot_clock = { path = "common/slot_clock" }
+ smallvec = "1"
+ snap = "1"
+-ssz_types = { version = "0.14.0", features = ["context_deserialize", "runtime_types"] }
++ssz_types = { version = "0.14.1", features = ["context_deserialize", "runtime_types"] }
+ state_processing = { path = "consensus/state_processing" }
+ store = { path = "beacon_node/store" }
+ strum = { version = "0.27", features = ["derive"] }
+@@ -275,4 +276,3 @@ debug = true
+ 
+ [patch.crates-io]
+ quick-protobuf = { git = "https://github.com/sigp/quick-protobuf.git", rev = "87c4ccb9bb2af494de375f5f6c62850badd26304" }
+-
+diff --git a/beacon_node/execution_layer/Cargo.toml b/beacon_node/execution_layer/Cargo.toml
+index a23ea948e..e37a85f14 100644
+--- a/beacon_node/execution_layer/Cargo.toml
++++ b/beacon_node/execution_layer/Cargo.toml
+@@ -10,14 +10,18 @@ alloy-primitives = { workspace = true }
+ alloy-rlp = { workspace = true }
+ alloy-rpc-types-eth = { workspace = true }
+ arc-swap = "1.6.0"
++async-stream = "0.3"
++async-trait = "0.1"
+ bls = { workspace = true }
+ builder_client = { path = "../builder_client" }
+ bytes = { workspace = true }
+ eth2 = { workspace = true, features = ["events", "lighthouse", "network"] }
+ ethereum_serde_utils = { workspace = true }
+ ethereum_ssz = { workspace = true }
++ethereum_ssz_derive = { workspace = true }
+ fixed_bytes = { workspace = true }
+ fork_choice = { workspace = true }
++futures = { workspace = true }
+ hash-db = "0.15.2"
+ hash256-std-hasher = "0.15.2"
+ hex = { workspace = true }
+@@ -32,6 +36,7 @@ parking_lot = { workspace = true }
+ pretty_reqwest_error = { workspace = true }
+ rand = { workspace = true }
+ reqwest = { workspace = true }
++reqwest-eventsource = "0.6"
+ sensitive_url = { workspace = true }
+ serde = { workspace = true }
+ serde_json = { workspace = true }
+diff --git a/consensus/proto_array/Cargo.toml b/consensus/proto_array/Cargo.toml
+index ee86277f9..c424c01f6 100644
+--- a/consensus/proto_array/Cargo.toml
++++ b/consensus/proto_array/Cargo.toml
+@@ -19,3 +19,11 @@ superstruct = { workspace = true }
+ typenum = { workspace = true }
+ types = { workspace = true }
+ yaml_serde = { workspace = true }
++
++[dev-dependencies]
++criterion = { workspace = true }
++fixed_bytes = { workspace = true }
++
++[[bench]]
++name = "find_head"
++harness = false
+diff --git a/lighthouse/environment/Cargo.toml b/lighthouse/environment/Cargo.toml
+index 6d6ffa172..669bd0db2 100644
+--- a/lighthouse/environment/Cargo.toml
++++ b/lighthouse/environment/Cargo.toml
+@@ -4,6 +4,9 @@ version = "0.1.2"
+ authors = ["Paul Hauner <paul@paulhauner.com>"]
+ edition = { workspace = true }
+ 
++[features]
++test-utils = []
++
+ [dependencies]
+ async-channel = { workspace = true }
+ clap = { workspace = true }
+diff --git a/testing/ef_tests/Cargo.toml b/testing/ef_tests/Cargo.toml
+index ac51e827a..bb7cba0b1 100644
+--- a/testing/ef_tests/Cargo.toml
++++ b/testing/ef_tests/Cargo.toml
+@@ -26,8 +26,10 @@ fork_choice = { workspace = true }
+ fs2 = { workspace = true }
+ hex = { workspace = true }
+ kzg = { workspace = true }
++lighthouse_network = { workspace = true }
+ logging = { workspace = true }
+ milhouse = { workspace = true }
++network = { workspace = true }
+ proto_array = { workspace = true }
+ rayon = { workspace = true }
+ serde = { workspace = true }
+diff --git a/testing/proof_engine/Cargo.toml b/testing/proof_engine/Cargo.toml
+new file mode 100644
+index 000000000..235cc15e8
+--- /dev/null
++++ b/testing/proof_engine/Cargo.toml
+@@ -0,0 +1,16 @@
++[package]
++name = "proof_engine_test"
++edition.workspace = true
++version.workspace = true
++
++[dependencies]
++anyhow = { workspace = true }
++beacon_chain = { workspace = true }
++execution_layer = { workspace = true }
++futures = { workspace = true }
++network = { workspace = true, features = ["disable-backfill"] }
++simulator = { path = "../simulator", features = ["test-utils"] }
++task_executor = { workspace = true }
++tokio = { workspace = true }
++tracing = { workspace = true }
++types = { workspace = true }
+diff --git a/testing/proof_engine_zkboost/Cargo.toml b/testing/proof_engine_zkboost/Cargo.toml
+new file mode 100644
+index 000000000..120188907
+--- /dev/null
++++ b/testing/proof_engine_zkboost/Cargo.toml
+@@ -0,0 +1,38 @@
++[workspace]
++members = ["."]
++resolver = "2"
++
++[workspace.dependencies]
++zkboost-server = { git = "https://github.com/eth-act/zkboost", branch = "master" }
++zkboost-types = { git = "https://github.com/eth-act/zkboost", branch = "master" }
++
++[package]
++name = "proof_engine_zkboost_test"
++version = "0.1.0"
++edition = "2024"
++
++[features]
++portable = ["types/portable"]
++
++[dependencies]
++anyhow = "1"
++axum = "0.7"
++bytes = "1"
++ethereum_ssz = { version = "0.10.4", features = ["context_deserialize"] }
++execution_layer = { path = "../../beacon_node/execution_layer" }
++futures = "0.3"
++metrics-exporter-prometheus = "0.16"
++reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "stream", "rustls-tls"] }
++sensitive_url = { version = "0.1", features = ["serde"] }
++serde = { version = "1", features = ["derive"] }
++serde_json = "1"
++strum = { version = "0.27", features = ["derive"] }
++tokio = { version = "1", features = ["rt-multi-thread", "sync", "signal", "macros"] }
++tokio-stream = { version = "0.1", features = ["sync"] }
++tokio-util = { version = "0.7", features = ["codec", "compat", "time"] }
++tracing = "0.1"
++tree_hash = "0.12.0"
++types = { path = "../../consensus/types" }
++url = "2"
++zkboost-server = { workspace = true }
++zkboost-types = { workspace = true }
+diff --git a/testing/simulator/Cargo.toml b/testing/simulator/Cargo.toml
+index a1b1b6f95..1a8a94271 100644
+--- a/testing/simulator/Cargo.toml
++++ b/testing/simulator/Cargo.toml
+@@ -3,22 +3,32 @@ name = "simulator"
+ version = "0.2.0"
+ authors = ["Paul Hauner <paul@paulhauner.com>"]
+ edition = { workspace = true }
++
++[features]
++test-utils = []
+ # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+ 
+ [dependencies]
++anyhow = { workspace = true }
++beacon_chain = { workspace = true }
+ clap = { workspace = true }
+-environment = { workspace = true }
++environment = { workspace = true, features = ["test-utils"] }
++eth2 = { workspace = true, features = ["events"] }
+ execution_layer = { workspace = true }
+ futures = { workspace = true }
+ kzg = { workspace = true }
++lighthouse_network = { workspace = true }
+ logging = { workspace = true }
++network_utils = { workspace = true }
+ node_test_rig = { path = "../node_test_rig" }
+ parking_lot = { workspace = true }
+ rayon = { workspace = true }
+ sensitive_url  = { workspace = true }
+ serde_json = { workspace = true }
++task_executor = { workspace = true }
+ tokio = { workspace = true }
+ tracing = { workspace = true }
+ tracing-subscriber = { workspace = true }
+ typenum = { workspace = true }
+ types = { workspace = true }
++validator_http_api = { workspace = true }
+diff --git a/validator_client/Cargo.toml b/validator_client/Cargo.toml
+index 6990a2f61..5d0331450 100644
+--- a/validator_client/Cargo.toml
++++ b/validator_client/Cargo.toml
+@@ -18,6 +18,7 @@ dirs = { workspace = true }
+ doppelganger_service = { workspace = true }
+ environment = { workspace = true }
+ eth2 = { workspace = true }
++execution_layer = { workspace = true }
+ fdlimit = "0.3.0"
+ graffiti_file = { workspace = true }
+ hyper = { workspace = true }
+@@ -33,6 +34,7 @@ slashing_protection = { workspace = true }
+ slot_clock = { workspace = true }
+ tokio = { workspace = true }
+ tracing = { workspace = true }
++typenum = { workspace = true }
+ types  = { workspace = true }
+ validator_http_api = { workspace = true }
+ validator_http_metrics = { workspace = true }
+diff --git a/validator_client/validator_services/Cargo.toml b/validator_client/validator_services/Cargo.toml
+index 258296826..93ee2dcfb 100644
+--- a/validator_client/validator_services/Cargo.toml
++++ b/validator_client/validator_services/Cargo.toml
+@@ -8,7 +8,8 @@ authors = ["Sigma Prime <contact@sigmaprime.io>"]
+ beacon_node_fallback = { workspace = true }
+ bls = { workspace = true }
+ either = { workspace = true }
+-eth2 = { workspace = true }
++eth2 = { workspace = true, features = ["events"] }
++execution_layer = { workspace = true }
+ futures = { workspace = true }
+ graffiti_file = { workspace = true }
+ logging = { workspace = true }

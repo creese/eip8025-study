@@ -1,0 +1,12 @@
+diff --git a/validator_client/http_api/src/test_utils.rs b/validator_client/http_api/src/test_utils.rs
+index f83d9f4d5..42e6b00ca 100644
+--- a/validator_client/http_api/src/test_utils.rs
++++ b/validator_client/http_api/src/test_utils.rs
+@@ -142,6 +142,7 @@ impl ApiTester {
+             config: http_config,
+             sse_logging_components: None,
+             slot_clock,
++            proof_service: None,
+         });
+         let ctx = context;
+         let (shutdown_tx, shutdown_rx) = oneshot::channel();

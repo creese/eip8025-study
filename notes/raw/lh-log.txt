@@ -1,0 +1,25 @@
+0dd6c3b8c Minimal CI fixes after proof-sync revert
+c07e8c280 Fix CI compile, docs and zkboost dependency failures
+70396010d Fix SSZ encoding of ExecutionProofsByRange requests
+d44086aa1 feat: restore optional proof test coverage
+d7e234419 Isolate optional proof CI caches
+d8a80b985 Fix optional proof CI failures
+ad6123173 Add optional execution proofs
+494b00a34 Fix O(n²) find_head and stack overflow in filter_block_tree (#9090)
+da42d3745 Ensure PTC votes accurately reflect data availability (#9412)
+eeae8514b Remove unused spec field from AvailableBlock (#9411)
+d98de9f8d Reject importing Gloas block until parent's payload is imported (#9382)
+91456fb21 Regression test for range sync CGC race condition (#8039)
+d617c826f Gloas data column reprocess queue (#9339)
+eab5163d6 Remove RequestState trait from lookup sync (#9391)
+c2ac519c6 Disable Mplex by default (#9365)
+d7d56e631 Delete unnecessary SyncMessage variants (#9379)
+bbe7ead81 Move BlockProcessingResult match out of block lookups (#9327)
+b781227f1 Deprecate blob lookup sync (#9383)
+578b6a62c Add `POST beacon/bid` endpoint (#9347)
+cf259e7c5 Make proposer_score_boost non-optional in ChainSpec (#9386)
+f0aaf6555 Use correct slot in custody request (#9380)
+74a5609ab Delete bogus `InvalidBestNode` error (#9364)
+8396dc87d Deprecate gossip blobs (#9126)
+ba3abf943 Rust 1.96 lints (#9368)
+5636030b4 Add gossip validation spec tests for proposer/attester slashings (#9323)

@@ -1,0 +1,12 @@
+diff --git a/beacon_node/network/src/sync/network_context/requests/blobs_by_range.rs b/beacon_node/network/src/sync/network_context/requests/blobs_by_range.rs
+index 9c6f51619..1da0fb52f 100644
+--- a/beacon_node/network/src/sync/network_context/requests/blobs_by_range.rs
++++ b/beacon_node/network/src/sync/network_context/requests/blobs_by_range.rs
+@@ -33,6 +33,7 @@ impl<E: EthSpec> ActiveRequestItems for BlobsByRangeRequestItems<E> {
+         if blob.index >= self.max_blobs_per_block {
+             return Err(LookupVerifyError::UnrequestedIndex(blob.index));
+         }
++
+         if !blob.verify_blob_sidecar_inclusion_proof() {
+             return Err(LookupVerifyError::InvalidInclusionProof);
+         }

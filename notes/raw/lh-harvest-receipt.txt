@@ -1,0 +1,464 @@
+=== B.1 Pin verification against refs.md ===
+$ grep -nF -C 2 -- "dfb259171a65cacd6db57b8874af8f543cabcb7a" "/work/notes/refs.md"
+24-- State: OPEN, isDraft: true, mergedAt: null
+25-- head: `optional-proofs-unstable` @ `0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5`
+26:- base: `unstable` (in eth-act/lighthouse) @ `dfb259171a65cacd6db57b8874af8f543cabcb7a`
+27-- headRepositoryOwner: eth-act
+28-
+--
+40-- `git merge-base` of PR base (`dfb259171a65...`) vs PR head
+41-  (`0dd6c3b8c...`), i.e. merge-base vs PR base branch:
+42:  `dfb259171a65cacd6db57b8874af8f543cabcb7a` (equal to the stated base
+43-  itself — the PR head is a straight descendant of eth-act/unstable's
+44-  base commit, with no divergence on that pairing).
+--
+133-  decision-input note).
+134-- 2026-07-13 | Phase 2a | Lighthouse PR harvest diff base = PR base
+135:  dfb259171a65cacd6db57b8874af8f543cabcb7a (not merge-base
+136-  494b00a3491e2c5e281f6972aa00694b17f16722 with
+137-  `sigp/lighthouse@unstable`; that merge-base is retained only for
+exit code: 0
+
+$ grep -nF -C 2 -- "0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5" "/work/notes/refs.md"
+23-- Title: "Add optional EIP-8025 execution proofs"
+24-- State: OPEN, isDraft: true, mergedAt: null
+25:- head: `optional-proofs-unstable` @ `0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5`
+26-- base: `unstable` (in eth-act/lighthouse) @ `dfb259171a65cacd6db57b8874af8f543cabcb7a`
+27-- headRepositoryOwner: eth-act
+exit code: 0
+
+=== B.2 Fetch PR head ===
+$ git -C "$LH_CLONE" fetch https://github.com/eth-act/lighthouse.git +refs/pull/39/head:refs/remotes/harvest/pr-39
+From https://github.com/eth-act/lighthouse
+ * [new ref]             refs/pull/39/head -> harvest/pr-39
+exit code: 0
+
+=== B.3 PR head equality check ===
+$ git -C "$LH_CLONE" rev-parse refs/remotes/harvest/pr-39
+0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5
+exit code: 0
+
+=== B.4 Base object existence ===
+$ git -C "$LH_CLONE" cat-file -e "$BASE"^{commit}
+(no stdout output)
+exit code: 0
+
+=== B.5 Ancestry integrity check ===
+$ git -C "$LH_CLONE" merge-base "$BASE" "$PR_HEAD"
+dfb259171a65cacd6db57b8874af8f543cabcb7a
+exit code: 0
+
+=== B.6 Drift-record guard ===
+$ grep -cF -- "## Phase 2a merge-base drift record" "$REFS"
+0
+exit code: 1
+DRIFT_COUNT=0 (must be 0 = ABSENT)
+note: grep -c exit code 1 is expected/standard when count is 0 (no matching lines); DRIFT_COUNT=0 confirms ABSENT, consistent with A's classification.
+
+=== D1.1 N = lh-name-status.txt line count ===
+$ wc -l < "$STAGE_DIR"/lh-name-status.txt
+172
+exit code: 0
+
+=== D1.2 Manifest data-row count equals N ===
+$ tail -n +2 "$STAGE_DIR"/lh-manifest.tsv | wc -l
+172
+exit code: 0
+MATCH
+
+=== D1.3 Five-field manifest row check ===
+$ awk -F'\t' 'NR>1 && NF!=5' "$STAGE_DIR"/lh-manifest.tsv
+
+(empty output = pass)
+exit code: 0
+
+=== D1.4 lh-files/ contains exactly N files matching manifest ===
+actual file count in lh-files/: 172
+MATCH: file set equals manifest-listed diff_files
+
+=== D1.5 All six staged single files exist ===
+lh-name-status.txt: EXISTS
+lh-manifest.tsv: EXISTS
+lh-diffstat.txt: EXISTS
+lh-log.txt: EXISTS
+lh-deps.diff: EXISTS
+lh-threads.md: EXISTS
+
+=== D1.6 Byte inventory ===
+BEGIN BYTE INVENTORY
+11412	notes/raw/lh-deps.diff
+10660	notes/raw/lh-diffstat.txt
+5686	notes/raw/lh-files/001.diff
+1660	notes/raw/lh-files/002.diff
+8338	notes/raw/lh-files/003.diff
+2776	notes/raw/lh-files/004.diff
+2229	notes/raw/lh-files/005.diff
+1517	notes/raw/lh-files/006.diff
+1909	notes/raw/lh-files/007.diff
+17312	notes/raw/lh-files/008.diff
+17464	notes/raw/lh-files/009.diff
+834	notes/raw/lh-files/010.diff
+9471	notes/raw/lh-files/011.diff
+1372	notes/raw/lh-files/012.diff
+715	notes/raw/lh-files/013.diff
+2145	notes/raw/lh-files/014.diff
+3448	notes/raw/lh-files/015.diff
+586	notes/raw/lh-files/016.diff
+14826	notes/raw/lh-files/017.diff
+880	notes/raw/lh-files/018.diff
+24777	notes/raw/lh-files/019.diff
+15945	notes/raw/lh-files/020.diff
+1527	notes/raw/lh-files/021.diff
+2788	notes/raw/lh-files/022.diff
+3047	notes/raw/lh-files/023.diff
+10168	notes/raw/lh-files/024.diff
+13418	notes/raw/lh-files/025.diff
+1118	notes/raw/lh-files/026.diff
+1446	notes/raw/lh-files/027.diff
+11074	notes/raw/lh-files/028.diff
+1001	notes/raw/lh-files/029.diff
+3030	notes/raw/lh-files/030.diff
+8364	notes/raw/lh-files/031.diff
+3137	notes/raw/lh-files/032.diff
+1527	notes/raw/lh-files/033.diff
+12686	notes/raw/lh-files/034.diff
+2466	notes/raw/lh-files/035.diff
+3079	notes/raw/lh-files/036.diff
+847	notes/raw/lh-files/037.diff
+7593	notes/raw/lh-files/038.diff
+5031	notes/raw/lh-files/039.diff
+16439	notes/raw/lh-files/040.diff
+1202	notes/raw/lh-files/041.diff
+3519	notes/raw/lh-files/042.diff
+983	notes/raw/lh-files/043.diff
+2524	notes/raw/lh-files/044.diff
+6704	notes/raw/lh-files/045.diff
+7704	notes/raw/lh-files/046.diff
+2008	notes/raw/lh-files/047.diff
+2116	notes/raw/lh-files/048.diff
+4128	notes/raw/lh-files/049.diff
+22062	notes/raw/lh-files/050.diff
+1616	notes/raw/lh-files/051.diff
+1277	notes/raw/lh-files/052.diff
+4128	notes/raw/lh-files/053.diff
+13187	notes/raw/lh-files/054.diff
+1405	notes/raw/lh-files/055.diff
+4357	notes/raw/lh-files/056.diff
+1112	notes/raw/lh-files/057.diff
+334	notes/raw/lh-files/058.diff
+6820	notes/raw/lh-files/059.diff
+1448	notes/raw/lh-files/060.diff
+3778	notes/raw/lh-files/061.diff
+8033	notes/raw/lh-files/062.diff
+8616	notes/raw/lh-files/063.diff
+8504	notes/raw/lh-files/064.diff
+1167	notes/raw/lh-files/065.diff
+2457	notes/raw/lh-files/066.diff
+2514	notes/raw/lh-files/067.diff
+3398	notes/raw/lh-files/068.diff
+7964	notes/raw/lh-files/069.diff
+5610	notes/raw/lh-files/070.diff
+8720	notes/raw/lh-files/071.diff
+1934	notes/raw/lh-files/072.diff
+11899	notes/raw/lh-files/073.diff
+6287	notes/raw/lh-files/074.diff
+5206	notes/raw/lh-files/075.diff
+2709	notes/raw/lh-files/076.diff
+5080	notes/raw/lh-files/077.diff
+3481	notes/raw/lh-files/078.diff
+706	notes/raw/lh-files/079.diff
+8415	notes/raw/lh-files/080.diff
+7750	notes/raw/lh-files/081.diff
+464	notes/raw/lh-files/082.diff
+2381	notes/raw/lh-files/083.diff
+48534	notes/raw/lh-files/084.diff
+18829	notes/raw/lh-files/085.diff
+10295	notes/raw/lh-files/086.diff
+12510	notes/raw/lh-files/087.diff
+9766	notes/raw/lh-files/088.diff
+9501	notes/raw/lh-files/089.diff
+1540	notes/raw/lh-files/090.diff
+8606	notes/raw/lh-files/091.diff
+24590	notes/raw/lh-files/092.diff
+33348	notes/raw/lh-files/093.diff
+1326	notes/raw/lh-files/094.diff
+601	notes/raw/lh-files/095.diff
+23680	notes/raw/lh-files/096.diff
+553	notes/raw/lh-files/097.diff
+30555	notes/raw/lh-files/098.diff
+1763	notes/raw/lh-files/099.diff
+907	notes/raw/lh-files/100.diff
+713	notes/raw/lh-files/101.diff
+2720	notes/raw/lh-files/102.diff
+15011	notes/raw/lh-files/103.diff
+24229	notes/raw/lh-files/104.diff
+4909	notes/raw/lh-files/105.diff
+2592	notes/raw/lh-files/106.diff
+2310	notes/raw/lh-files/107.diff
+1913	notes/raw/lh-files/108.diff
+1125	notes/raw/lh-files/109.diff
+3118	notes/raw/lh-files/110.diff
+2575	notes/raw/lh-files/111.diff
+864	notes/raw/lh-files/112.diff
+486	notes/raw/lh-files/113.diff
+4499	notes/raw/lh-files/114.diff
+1475	notes/raw/lh-files/115.diff
+729	notes/raw/lh-files/116.diff
+907	notes/raw/lh-files/117.diff
+13233	notes/raw/lh-files/118.diff
+557	notes/raw/lh-files/119.diff
+841	notes/raw/lh-files/120.diff
+4082	notes/raw/lh-files/121.diff
+901	notes/raw/lh-files/122.diff
+676	notes/raw/lh-files/123.diff
+12298	notes/raw/lh-files/124.diff
+871	notes/raw/lh-files/125.diff
+428	notes/raw/lh-files/126.diff
+1524	notes/raw/lh-files/127.diff
+1095	notes/raw/lh-files/128.diff
+1502	notes/raw/lh-files/129.diff
+2901	notes/raw/lh-files/130.diff
+3632	notes/raw/lh-files/131.diff
+3242	notes/raw/lh-files/132.diff
+547	notes/raw/lh-files/133.diff
+1155	notes/raw/lh-files/134.diff
+689	notes/raw/lh-files/135.diff
+5479	notes/raw/lh-files/136.diff
+6796	notes/raw/lh-files/137.diff
+1046	notes/raw/lh-files/138.diff
+854	notes/raw/lh-files/139.diff
+706	notes/raw/lh-files/140.diff
+11942	notes/raw/lh-files/141.diff
+15065	notes/raw/lh-files/142.diff
+242960	notes/raw/lh-files/143.diff
+1531	notes/raw/lh-files/144.diff
+12061	notes/raw/lh-files/145.diff
+6756	notes/raw/lh-files/146.diff
+1307	notes/raw/lh-files/147.diff
+16914	notes/raw/lh-files/148.diff
+300	notes/raw/lh-files/149.diff
+1357	notes/raw/lh-files/150.diff
+4033	notes/raw/lh-files/151.diff
+2748	notes/raw/lh-files/152.diff
+1078	notes/raw/lh-files/153.diff
+19276	notes/raw/lh-files/154.diff
+12846	notes/raw/lh-files/155.diff
+2310	notes/raw/lh-files/156.diff
+3850	notes/raw/lh-files/157.diff
+767	notes/raw/lh-files/158.diff
+1350	notes/raw/lh-files/159.diff
+513	notes/raw/lh-files/160.diff
+483	notes/raw/lh-files/161.diff
+3914	notes/raw/lh-files/162.diff
+1871	notes/raw/lh-files/163.diff
+1659	notes/raw/lh-files/164.diff
+1219	notes/raw/lh-files/165.diff
+2909	notes/raw/lh-files/166.diff
+3520	notes/raw/lh-files/167.diff
+818	notes/raw/lh-files/168.diff
+642	notes/raw/lh-files/169.diff
+496	notes/raw/lh-files/170.diff
+14797	notes/raw/lh-files/171.diff
+2108	notes/raw/lh-files/172.diff
+1434	notes/raw/lh-log.txt
+14105	notes/raw/lh-manifest.tsv
+8381	notes/raw/lh-name-status.txt
+2342	notes/raw/lh-threads.md
+END BYTE INVENTORY
+
+lh-deps.diff byte count: 11412 (non-empty: dependency manifests were touched)
+
+=== D1.7 lh-threads.md validation ===
+heading count: 5 (expect 5)
+headRefOid in saved gh pr view output: 0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5
+PR_HEAD: 0dd6c3b8cf3b1eece82a0a7ee87282a222d93bf5
+headRefOid MATCH
+distinct hasNextPage values found: "hasNextPage":false
+all hasNextPage values false: CONFIRMED
+
+=== D1.8 SHA256 inventory ===
+BEGIN SHA256 INVENTORY
+6cf2c1d2a0fb83aac1e13fa6ed57ec445716dc6f392419d82e8c7e96c4d40116	notes/raw/lh-deps.diff
+d5f4f5c3f69518da676afbe689c6b643a3c45d2189be818f9cb91d04ae6946bf	notes/raw/lh-diffstat.txt
+e9b18a0ec234c8e3cfc60e5fc2115f380947a40d427ce01c655b7aa01ddb9d93	notes/raw/lh-files/001.diff
+bed8c4fa6d15bebecac4a98cf4c6086b6ab4a571fe10cd296c650a2ebfdee358	notes/raw/lh-files/002.diff
+35da4eaf374b2c708ddf74d0bc274e94de9b6c4fe5f48a916d2e56a1330566bf	notes/raw/lh-files/003.diff
+82e6a302c0397eec590e4a729588c4ec4101463148f7e20bac327327657c67af	notes/raw/lh-files/004.diff
+d2dbab4b0df6e96a029f707efbfec813efe76896531af2dc0b050dc3b0e69683	notes/raw/lh-files/005.diff
+45fea32162e3eae3abf6d16889c19afe102b30491279bdc322dc63ec69ad3bcd	notes/raw/lh-files/006.diff
+cc8a7559d1889dbbb6164b9b55fa6c71d94607a31c14bcd771783403e30a296e	notes/raw/lh-files/007.diff
+efb6e7a28e6bbd1ea98d81ec00da60187b7aa869548b39e548ebbaf9acfb3295	notes/raw/lh-files/008.diff
+9aeb9952ef7fc04bf3d1f39930fb6c4623636defa0a1bda3d41ed6ff8e2e257a	notes/raw/lh-files/009.diff
+96232b91623f4177c3b2bbb364d8a67457bb45a3aa960b036fd073e0489b7ce2	notes/raw/lh-files/010.diff
+286257e2f698c7b1bd35041bdfc477e2e88ab17ae7ca21f0947c361843547b2d	notes/raw/lh-files/011.diff
+42e738e8c42133b909837675f03a7c497e30059b3962226369d369da87d44fd3	notes/raw/lh-files/012.diff
+ac8fec79fcec100a84a456f8fb27b27fbd7990d2a40e8ec93386499f739600be	notes/raw/lh-files/013.diff
+6e38c0b9f49ac9f4872eecaf914554e9f7b42b7c25056d1e2e788f64047c0d60	notes/raw/lh-files/014.diff
+b2236ddd257a59a51aebaf7ef724d14074f89dc211fe6bd665805170ae46d0f8	notes/raw/lh-files/015.diff
+9e2d704becdb2ec02acc3747094ed3bead20dd390ed79260a55cde59f2df6f99	notes/raw/lh-files/016.diff
+5e4d7aacda17660200bb89504889a83645f9e0c8ac7a1d95aee66d6393928a19	notes/raw/lh-files/017.diff
+cae0faf655d4031654f0047b03c7ef9848d0ec08a815a475cb98c658f9d03daa	notes/raw/lh-files/018.diff
+88ac101d63967fdf51f893e4103a4de79bd39106fca1145d0fccca2153aa9c1f	notes/raw/lh-files/019.diff
+bb5811a4156edaacaa78b3a5a792e9ac73f8968b4aea82215247331d00c45456	notes/raw/lh-files/020.diff
+5636bab3e3075ead89fe3ac20d93d9f8b6dce03acb74e60c3659b6bba284ccb9	notes/raw/lh-files/021.diff
+726bfc9ca8c44053ea6958c1f9b79b9b798c86f2bdc3c5f58c5e7e0a24b2e42d	notes/raw/lh-files/022.diff
+0e08ba7eeecbb1f1f3c1ff5b56398993a34950f152cda0bd8cabd2a0d59d6464	notes/raw/lh-files/023.diff
+bda2e8a5bda28fbb6c992000eb1d5e9922f8930e9dc45d457a55a47da2ac32e5	notes/raw/lh-files/024.diff
+5579f95b29d173f6a0b6839180ed12332b6390955f1e338694f763376a3b3ba0	notes/raw/lh-files/025.diff
+f09f74559663ce54a15d01b81c8704f3b92d8901817145045b7f9ef3ac3f7b78	notes/raw/lh-files/026.diff
+06464602a9c494ad39691b1c6f7bef30f450e3edadd945ee8c34a79710173fb8	notes/raw/lh-files/027.diff
+1b87b097d620c007ef877eb7e994907b31c816e577d7b41465e544cfd0587576	notes/raw/lh-files/028.diff
+8b47c8dc54badbe9eabc8a14f042dae9b2bbcb08e557f1c1ffedaf638b3d5524	notes/raw/lh-files/029.diff
+19e8ec366c6a330c74824b09f09cb5078bab1e0b7844092a0eec9de50942a59f	notes/raw/lh-files/030.diff
+99639e01a83438638bf70a86a510abd04121b0ce6d4cebebdf108c0d85ccb563	notes/raw/lh-files/031.diff
+d65dc77590c5c51c2683d0bc5db52e31a1310c41d480a1e792a3fd9da653281c	notes/raw/lh-files/032.diff
+348c0a8a2f0d323c652597341638118f921e0edb8d39578e80261f49610b022d	notes/raw/lh-files/033.diff
+fdacc9ae45c0a30768b60837b68628f3ee487c44ad2e231d2d6ab22b585b4098	notes/raw/lh-files/034.diff
+acda52f862a524820f5537c07e1ed8393c5fb17df8e29f4b856b0ab7c2d7d808	notes/raw/lh-files/035.diff
+80a6e116c6ae5c47d2fbf7a4bb6a22aec1b7a6a0a8da169846a61106a675ec93	notes/raw/lh-files/036.diff
+4e9931aaf111e1083983d9329c23a047e26e7b9acb68be7125a2f35c4f0b53dc	notes/raw/lh-files/037.diff
+4d4259f11495850b7117644635d619e1e73d6555ed975e8c913eb44f811f93ff	notes/raw/lh-files/038.diff
+239fb251fbf7d7d24227bd24cf75ee47b84e9f3471ee13388b69bee9b417c05d	notes/raw/lh-files/039.diff
+c1c87db1ef555cf5a6ef74d753e5b4ec8f3c0a8de661333b1109685e28a10d50	notes/raw/lh-files/040.diff
+2117e12cdfd75016baf95e0c62b24a7ffcf4cc1f5a41bb1f14453ab0e7127d37	notes/raw/lh-files/041.diff
+8e594b6dffec02b705c13951f1e5b328a7f8348c3044d3cec2a10e6a9b1c6f6b	notes/raw/lh-files/042.diff
+016c9af19f104363baef51c05a955964c2ad0c1e0d8c753504fdc029007056c5	notes/raw/lh-files/043.diff
+e7e0f686bc894aadef0961376c7661c5346ca2972de68e833cdcbd334369a623	notes/raw/lh-files/044.diff
+ec389d549ac4e57f0a4b6746f852945641ae1b45a07ca325124a69a83dd9dac9	notes/raw/lh-files/045.diff
+3fc1e5d2accc243fdf8faad7c34113fd69708332f6a7f4af02fc5cac55698efc	notes/raw/lh-files/046.diff
+8cffb342494ef3d4d0681dcb8d81b629114ecc61e41eefcc1b29ce3e5735e065	notes/raw/lh-files/047.diff
+fbf7ea526656f1c212b27ac8e35d2487ff9f8fe60c83948ae1496fd1720de793	notes/raw/lh-files/048.diff
+f11c21e552ff64f311fb0be73425537cbe0e0128c0af18ce689ac6cb2481e0fa	notes/raw/lh-files/049.diff
+c29d65fd83bb35eea71972b170d2b1b57442de2c1b3032632acd23b8e0c96c16	notes/raw/lh-files/050.diff
+fb091ef3f2f00c6b3d43c6b044878f42607c8e3ea4081488e9cdde5dff82bab1	notes/raw/lh-files/051.diff
+a0adfea34524bb0454c4f793071e7ea35fb6f0ac552fea1bb713cad2cc0737e4	notes/raw/lh-files/052.diff
+9332ac14cd16bf909657bada6ebac6adfd66bb74f4fd0153778b3ea32fa595d1	notes/raw/lh-files/053.diff
+9f7ddf99cbb07fd992f09c5c00cab504f5a077683e6e298565da95fb48c67f72	notes/raw/lh-files/054.diff
+86e690ccbc970812cc4a8daab6be8de4bacd926a2cf81944e78ac56ed72ce65a	notes/raw/lh-files/055.diff
+5a8ad1fa8abd4caffd8c4a78001e5969623cc765b99b710341742abf44577541	notes/raw/lh-files/056.diff
+76036821bb98ac2761cc2a2e09fd15f306d67e5ae80830e0236d8bc30a89b90b	notes/raw/lh-files/057.diff
+9c95dd177883171e923f7c029f734ee759195db8f9e2abae46198117a03ce718	notes/raw/lh-files/058.diff
+db35a9d4489549cdae6d167a4e64fba96199e58104ec3433f213a01a807b5850	notes/raw/lh-files/059.diff
+bd86bab3e4ce54d80510affa79328c762f4aff3f3587280a908da2568979ff6e	notes/raw/lh-files/060.diff
+4e36afb88345a17de6b12460950f6b54f19c7cec6e5def243b53c1396abc493c	notes/raw/lh-files/061.diff
+9acaf9282f912a8dfc7abaa161454cd46c83f39912e824ef8dcb863856b36305	notes/raw/lh-files/062.diff
+945d54d1845ab188a97718026e5c8da0b27296af77948a4b4aabb3c2aa180e89	notes/raw/lh-files/063.diff
+43d2d75ef007c2e06c77e183d6f94ab91fa35e99dcf8b2ccc4ef1a140f4049c7	notes/raw/lh-files/064.diff
+29e32191ad732ea9452863061c150cb2c0e9985c1671724713b637b294bf0393	notes/raw/lh-files/065.diff
+aad9541e006bf8fa8f58b31fb885741c3f7d75cf766954d2d29b34b2a090f8e7	notes/raw/lh-files/066.diff
+1e95a33fa28430560eff22735867807344872326e8832ab3e1570b4a981e21c0	notes/raw/lh-files/067.diff
+ab8ae6173dda3104f6f9f824c13029a51dc6842445ce3e3ce79104d38a66f428	notes/raw/lh-files/068.diff
+f4201d2ad5065f27a4b4eba94051c87d45f317e4556a21f34007d73aec3ad9cf	notes/raw/lh-files/069.diff
+7ef0c7e6d30d18f27098fa9ad978fac6d90a8cad76cfb993bec5c35d06141145	notes/raw/lh-files/070.diff
+8bdf5ac9b8c046c46cd9badf1939d69a7fb38637b1f4845f65e2f6d1a0e9ab8b	notes/raw/lh-files/071.diff
+e9eb7a780c396b196afdb4da32b92f51a6059f984ee04be56b7b2bb90e132b2f	notes/raw/lh-files/072.diff
+f05940f71db85b86fb844903ec2d19e03b7b65676853528bdf6505e8d669ad9a	notes/raw/lh-files/073.diff
+11ad7c8a3e02c418b345e850e4e2f1585f2626c8f6480145367742399bc8b21b	notes/raw/lh-files/074.diff
+76ad3218e600eadd68622131ecef109646f3070f82b90c3858d16163b87618d1	notes/raw/lh-files/075.diff
+e192eb62cadb3a8647602a8d040b5d5a0bdb59358188085220038c7e09f86f27	notes/raw/lh-files/076.diff
+1e096d295eb417316338fd169cdf8dbf0dcbc61c7e65b75e9cecd8860668a8af	notes/raw/lh-files/077.diff
+ebf6f69fc06438d2b52fbac84df70d41bddd4c138d320ece18af44825594c76b	notes/raw/lh-files/078.diff
+89ecd161aaa95d731528100b19b235c25f8ae4f1f3aa6d8f241e6be0b78d6527	notes/raw/lh-files/079.diff
+4b6eeba037147c3b11143a00ecc95572619b0cc52c7367bdbd560b5f795aa80e	notes/raw/lh-files/080.diff
+d0fbaed025494915a58d63485a37ed3ade5a9ac5421e2683d1a48cd3c0b48d29	notes/raw/lh-files/081.diff
+66b4ebc739139a7e153750f7445488f38806d0ccf122155ad16e8be094a06d82	notes/raw/lh-files/082.diff
+31b189c9bc58f5df459e1860ef7e5008ca8ae5ab1949b791b0a9699cef13857d	notes/raw/lh-files/083.diff
+fd3791e0baf4922b6e07d295e0ff6db0f53e9498b5dbf3062788315bdc74ab49	notes/raw/lh-files/084.diff
+575867f801730e8ea464a527f5274dd28dc43e6d04ae459d8e6c39cc7be3df32	notes/raw/lh-files/085.diff
+05747970d99e341e570f4cceca71c816d58e23199d6149b20487183526236b8c	notes/raw/lh-files/086.diff
+5269b38da0b5bbb7240008658573e87652cc06b91f50f0bff3bfa308d9e13f1c	notes/raw/lh-files/087.diff
+919156cfedfd838480b54d61a5f94dc28bd5ff08e448959408939f1d236a23ed	notes/raw/lh-files/088.diff
+0f8de0c14de7231775e5cc0f80a741bf3e63e35dc3392a5f05eb380b0237f5e6	notes/raw/lh-files/089.diff
+6b62abc86b4fbf293914bfa5e74f980014de2fae722531e144bb0b94381ecba4	notes/raw/lh-files/090.diff
+d48abbc800b4166455f122873b5fdf9ca09274dc16f03182102a92799878321d	notes/raw/lh-files/091.diff
+3a586fd71873da4edfd85cefa83c952d81c93e0400e9b101f5a26aca140fb645	notes/raw/lh-files/092.diff
+b7e3b0c9f89620914838d680622c1b2bef0dbf6330f17c2d03ee9909165c7af9	notes/raw/lh-files/093.diff
+870b0273fd6738296dbc7b57b3b1461216bab6d580088a4332a75917ee37ac9f	notes/raw/lh-files/094.diff
+b541a1499f3221ea47a092ce5133509d8e67c5096faf743b8dd6d9d936ecbda7	notes/raw/lh-files/095.diff
+712eb0be31006e6d5ceb42789530e78bb7db02fe4ed7ac625dd67a38155da641	notes/raw/lh-files/096.diff
+f4a0fcc2bb2bf1c306949c5f886ac33fac9d6f6a2452135a76a9e02efd361cba	notes/raw/lh-files/097.diff
+2da5d5221fbe1e827330432abf3d862aa65bca5db90f39968d16b6dead41e913	notes/raw/lh-files/098.diff
+990aaf9ab85a840a29593870584b0ae4555f1e5292722348c9c63a40203542b5	notes/raw/lh-files/099.diff
+b2e8b5da3478a09c031b3630fcf9213265952ca11ad0aa893dfcc581d2bdc52a	notes/raw/lh-files/100.diff
+335831f8d16a582f3421c1556fd81a0be2e33cd911838d772bb6f770f3b29983	notes/raw/lh-files/101.diff
+3807f5ada94594aff9784f77f0c7c2589e91fbd0146f8b468c4aedc0e2c4ecdb	notes/raw/lh-files/102.diff
+0646a94d78567c9b22e6b12fa365e9dff6ae0ec1483fead8e1e36b0ca83255e6	notes/raw/lh-files/103.diff
+30044d110f379bba94f6b85b1003684a55e593604e56629d3972c3a2d4c01d0a	notes/raw/lh-files/104.diff
+2cdb86338d05f598812a9e367748fd0e7e6cb0743ab6451026dda90c3c248680	notes/raw/lh-files/105.diff
+2f1502ea268fd2f4ccffb878f837d4e9d4914ac4ecdad819067e46335a297cc3	notes/raw/lh-files/106.diff
+b994b5db483c524493f673e80457ea3c832a703a198e3421803c0b19ece8c344	notes/raw/lh-files/107.diff
+f79be35c8a35885ab8548d237a60f552135d40a8a5e0c05dc4b6372271d53d8a	notes/raw/lh-files/108.diff
+ef92bc8d0546dc1a8d3935aeac81d68994d43dc28960403b3733823fb447e960	notes/raw/lh-files/109.diff
+da2a8d01a791abf63a3305465609999792f1f7e1763a0dc70307a5d82573de14	notes/raw/lh-files/110.diff
+ef43e65b0cf3661c091d8d08be2701c01c6905151f0da7cbdbdf25e1097b0623	notes/raw/lh-files/111.diff
+29cdfb1d5583b940fa68bf9ea7f855e9afb888f67393d804a419591607732662	notes/raw/lh-files/112.diff
+1d5f621d98577020ab67b00925254b49f9f1e848861ae4adbece5ad5aee73bc1	notes/raw/lh-files/113.diff
+1a96c6d9715f45ef9a551b3a75de66c45fe118aa3c944b906f1021725e87d4b1	notes/raw/lh-files/114.diff
+7e466bc8d1fb43122efbfc1d6a52a37348f94da41e654f1ce355a9a301da729d	notes/raw/lh-files/115.diff
+459fb01a59fd6255bbf51262266ba0b40533716a43bf97d35874e3c12002ba6f	notes/raw/lh-files/116.diff
+c6598b7ab3139c6aa36dd36be738a89115e60ae18fd94b9a63839e6fedd3630d	notes/raw/lh-files/117.diff
+014d2e5235240aa522ab64e960486d6cf1a281f0a7a185430d730059ca61ba47	notes/raw/lh-files/118.diff
+4a4618d6430d952cc69b373401a47dd47a48546def94979f74e707cf09812b18	notes/raw/lh-files/119.diff
+8ba1407db308e9b43001b6b0c993f0b02ad327b0ce11f1255db78e91f02e15d8	notes/raw/lh-files/120.diff
+6021d48c5d01a0841f6d142202e952de87789e6201253d2ad5e577d35474a0c7	notes/raw/lh-files/121.diff
+00a80b8697068be5a675b9984555aca6f147459a6029d9e38827cec9cc4d0795	notes/raw/lh-files/122.diff
+e4b5a14c57e78a67f02ad94aeea53f6ca3ce07ab61fe9895e9de585d0bec8d56	notes/raw/lh-files/123.diff
+6dc4a14e886757e3287113e1736be78c97a04cccf1da98db6e36cc6119bfe9ef	notes/raw/lh-files/124.diff
+8fa1a69929201776898f9d95c7bf65a434761d3bdf76bd3db271a5f467710eeb	notes/raw/lh-files/125.diff
+9695520ee95c60eb3a69a07e8d029f481ff88f631bb403129673b892c04b3716	notes/raw/lh-files/126.diff
+d941f3ee2f4afd4a5ca5e829b4ff70a73ba7f110de0ddbe93fcc91178982c01b	notes/raw/lh-files/127.diff
+305a520f5f3dc5708f1594ffc855c9aea2190cea153e884e005499399118659b	notes/raw/lh-files/128.diff
+1e41d38815e2ddfdb1d39322147f2c6e482c49d40eaaee41a3e78c98775b5d6e	notes/raw/lh-files/129.diff
+32368abf706d254e79735213526b37cc744c9c5404d8fb106f43dd3dfc5f2eff	notes/raw/lh-files/130.diff
+6ac26ccfcd41a1df494d984486c30adba19ce9ed51e161333ee07fa66e950061	notes/raw/lh-files/131.diff
+315d17c217eab82532a81096a9ec31a39a2bba5443619b6feec9cabffa87e7fb	notes/raw/lh-files/132.diff
+d8ce9c172f69cd00d4ca1811de7b45bfa88461efb33c1cb074a4af1886e3583b	notes/raw/lh-files/133.diff
+d651bb00f4fd1165bb6c5fda1015e1ffbea975bba10a6bbeb8a65f41be3bb7fc	notes/raw/lh-files/134.diff
+063af79df282db6a4eb5d6994818b5d6db6d202eccea45ebe81b9a08850811ba	notes/raw/lh-files/135.diff
+379c34c955c3c50e62fb30b4cab00887c3ed2cc0bb80bbd1f239a11e8a957cf0	notes/raw/lh-files/136.diff
+0a5756a3db7c7ccf18100749ceaeedd5cc25b69fcd41e63aaa7d4f7d8c85d56b	notes/raw/lh-files/137.diff
+4ac476475a1b854a3c7417e435ccd47e486ad5c5c0e847a5b002f8a446332ab9	notes/raw/lh-files/138.diff
+60efbf0b75685c80e2cab8f3084650eda39b0f89373dbf035950d6cf27d09e48	notes/raw/lh-files/139.diff
+f7688cd55fc6ed0fe0ac88efa2131e79dacc47f8976c30eeaec635eef5cb0f4b	notes/raw/lh-files/140.diff
+6a476070b739547377f41f300ecab3edb125848537422e2e28bd8d08d99c7e96	notes/raw/lh-files/141.diff
+96782431bb308f4d9609d3e03ff5c6aaa63ab0c422b85323392a44801714ceb1	notes/raw/lh-files/142.diff
+fbda1a4f9bd0b55396c66e0563cdbfdf4463ff2566b651aa6df30a8a568816ed	notes/raw/lh-files/143.diff
+2c28842ae88f2f3200853fe8b68106ba43b96856e3feba14aceb0420328b3194	notes/raw/lh-files/144.diff
+15c47858b7b99957d3d8d407a3bda51adc15848dacddea72933e62a84dbd75a3	notes/raw/lh-files/145.diff
+6bbde7d0dd6666c1f586a845679fa0a987ed17600812ae770a1289e47dd2a7bc	notes/raw/lh-files/146.diff
+839ef6e905f7ec93c1511cf8892d318ec3bd2e54b6dc85e6c0f55f08bde48d32	notes/raw/lh-files/147.diff
+9e83c7adde6ac6b011d41d4731531b7860f6d6c5d9da30a416dab4d93679d97d	notes/raw/lh-files/148.diff
+f3ea950798b73835977eddbaa1df4c29bf102c266bec40fdea0e0417dea1e051	notes/raw/lh-files/149.diff
+262bc1118302ee575ba63bf82a0226ca75cf26f6ac95e249c515fcea26c7eb45	notes/raw/lh-files/150.diff
+2ec1b4168441264359ee499e218f53430784a2416974299b365b7f75080217ac	notes/raw/lh-files/151.diff
+745e44220027696b7fc6d3c19757b04c7082d027cc8f2d9b5ebe16aacb7b3b4c	notes/raw/lh-files/152.diff
+914e2e1595cccbbc47aec838b45a2656dfd066c1c665acddfbc6ff13f9e4850c	notes/raw/lh-files/153.diff
+300f63e01fb4439bc36c9c5cf819c172aef2cf8d5bc9abf344d1cf86859c1eba	notes/raw/lh-files/154.diff
+4f128c35988a92ab9b6fc28a95184e39c406ce1770be519006e1daf25af339cb	notes/raw/lh-files/155.diff
+3523450280e638aad05492236ef05ace434591e44d0f8846a7f9a41495513fe6	notes/raw/lh-files/156.diff
+de8a0aaae827b586efc28d4c7bce8dc5fda227bcff7b2c4a4bf51d9cf9284bc8	notes/raw/lh-files/157.diff
+66ebedb8768924bce1b2db42e350cc7e901f8350643308faff23494a1da72a28	notes/raw/lh-files/158.diff
+8d5d577d1331c95e2966a8da0f9e376d8e107ca8e6d7a1bd12bbb3dc0c23c300	notes/raw/lh-files/159.diff
+0d1f8587e5a415401958187156d885b5232d7bddea1f987a971e599cc9c8920b	notes/raw/lh-files/160.diff
+25ef6f8952a827e8cc88d08be4aaff0ea616750757bfa333f5f21f3db9b02136	notes/raw/lh-files/161.diff
+5ca0beb8fd3ffd8fc7b34a56c91b28acf961665fcc0671c51db07bc3ec868af0	notes/raw/lh-files/162.diff
+33c75252026fa7bd1336c68e43ac1468c34aff267072bfeb6cd74a09f9716881	notes/raw/lh-files/163.diff
+797de7e1cf096463da0b9067af8c5cd81852bb5aae0575ec67853853c1ab75f8	notes/raw/lh-files/164.diff
+5307554c13493c45428a3d895b330586bb06da58da91624788e952be8c5ad741	notes/raw/lh-files/165.diff
+a395c55a34e7822530c7b0eedd7f482750106ac4c13a04d01a33f768e0de5b6b	notes/raw/lh-files/166.diff
+7603197614e906b8ab3be92208fe7b970ba848460cd821539b616b5d48cff930	notes/raw/lh-files/167.diff
+d6c1aef8a992dca6b79e7fd8dae22b636fe0f97cae50e8f364cf2661939723c7	notes/raw/lh-files/168.diff
+60c617b3934781394a359f597889e1213a04395a946055be107cd263bc944d16	notes/raw/lh-files/169.diff
+2acbcee654ce53709fc6dcc0686d388d1f3f29485195776bb31569c27d4acd2b	notes/raw/lh-files/170.diff
+6f75cd5e73b188256f291b791ee1e1e84787254f8ea519f5ccc067ecf503a02e	notes/raw/lh-files/171.diff
+292a712ec1d49447c88e2dfbd7dc0f014f06e878e2817223c44f33415a92b0d6	notes/raw/lh-files/172.diff
+f451a38b1ff6bde278be28a6393ec1d97448336e2be39869c150bd07ffb7a35d	notes/raw/lh-log.txt
+81c039c79aff673f3b9bd9e003a1c88e436b0cd499bd999f1a2c9e05c8764c2f	notes/raw/lh-manifest.tsv
+3e0227260820344da7afea1cdea2409072dd4cb26d6d413301e4fb0e8bf6c21f	notes/raw/lh-name-status.txt
+53506d90fbef0b54cda8f21ca83c80d8e70482f33f040a2af475f7ca92737857	notes/raw/lh-threads.md
+END SHA256 INVENTORY
+
+=== D1 set validation: ALL CHECKS PASSED ===
+N=172; manifest data rows=172; five-field check passed; lh-files count=172 matching manifest;
+all six single files present; lh-threads.md validated; byte and sha256 inventories recorded above.
+Receipt closed at 2026-07-14T20:15:04Z.

@@ -1,0 +1,4 @@
+diff --git a/testing/proof_engine_zkboost/tests/fixture/new_payload_request.ssz b/testing/proof_engine_zkboost/tests/fixture/new_payload_request.ssz
+new file mode 100644
+index 000000000..6ffe35cc6
+Binary files /dev/null and b/testing/proof_engine_zkboost/tests/fixture/new_payload_request.ssz differ

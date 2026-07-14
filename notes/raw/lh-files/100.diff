@@ -1,0 +1,20 @@
+diff --git a/beacon_node/network/src/sync/network_context/requests.rs b/beacon_node/network/src/sync/network_context/requests.rs
+index 8c091eca8..72dd2c22d 100644
+--- a/beacon_node/network/src/sync/network_context/requests.rs
++++ b/beacon_node/network/src/sync/network_context/requests.rs
+@@ -9,7 +9,6 @@ use tracing::{Span, debug};
+ use types::{Hash256, Slot};
+ 
+ pub use blobs_by_range::BlobsByRangeRequestItems;
+-pub use blobs_by_root::{BlobsByRootRequestItems, BlobsByRootSingleBlockRequest};
+ pub use blocks_by_range::BlocksByRangeRequestItems;
+ pub use blocks_by_root::{BlocksByRootRequestItems, BlocksByRootSingleRequest};
+ pub use data_columns_by_range::DataColumnsByRangeRequestItems;
+@@ -25,7 +24,6 @@ use crate::metrics;
+ use super::{RpcEvent, RpcResponseError, RpcResponseResult};
+ 
+ mod blobs_by_range;
+-mod blobs_by_root;
+ mod blocks_by_range;
+ mod blocks_by_root;
+ mod data_columns_by_range;

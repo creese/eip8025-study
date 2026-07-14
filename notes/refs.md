@@ -137,3 +137,15 @@ No fallback needed; proceeding with pin phase.
   `sigp/lighthouse@unstable`; that merge-base is retained only for
   drift/context reporting).
 
+## Phase 2a merge-base drift record
+- 2026-07-14 | Phase 2a | sigp/lighthouse@unstable observed HEAD:
+  fc80cca0bb17d6b5c99cf46eb87d27e0138a9d11 (2026-07-12 check-time value:
+  7d2b64341bcabaed85332fa59e7be28d3740e88a; moving branch, drift
+  expected).
+- merge-base of PR #39 head vs observed unstable: 494b00a3491e2c5e281f6972aa00694b17f16722
+  (2026-07-12 check-time value:
+  494b00a3491e2c5e281f6972aa00694b17f16722).
+- Context only: the harvest diff base remains the pinned BASE
+  dfb259171a65cacd6db57b8874af8f543cabcb7a per the 2026-07-13
+  decision-log entry. Drift in sigp/lighthouse@unstable does not
+  invalidate this harvest and is not a pin mismatch.

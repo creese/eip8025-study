@@ -1,0 +1,18 @@
+diff --git a/beacon_node/beacon_chain/src/canonical_head.rs b/beacon_node/beacon_chain/src/canonical_head.rs
+index b3ab2e697..1eab7ccf7 100644
+--- a/beacon_node/beacon_chain/src/canonical_head.rs
++++ b/beacon_node/beacon_chain/src/canonical_head.rs
+@@ -967,13 +967,6 @@ impl<T: BeaconChainTypes> BeaconChain<T> {
+                 .start_slot(T::EthSpec::slots_per_epoch()),
+         );
+ 
+-        self.observed_blob_sidecars.write().prune(
+-            new_view
+-                .finalized_checkpoint
+-                .epoch
+-                .start_slot(T::EthSpec::slots_per_epoch()),
+-        );
+-
+         self.observed_column_sidecars.write().prune(
+             new_view
+                 .finalized_checkpoint

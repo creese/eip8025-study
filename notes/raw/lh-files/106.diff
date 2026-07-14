@@ -1,0 +1,60 @@
+diff --git a/beacon_node/src/cli.rs b/beacon_node/src/cli.rs
+index 647b5858c..a18f4b5e0 100644
+--- a/beacon_node/src/cli.rs
++++ b/beacon_node/src/cli.rs
+@@ -387,6 +387,14 @@ pub fn cli_app() -> Command {
+                 .help("Disables the quic transport. The node will rely solely on the TCP transport for libp2p connections.")
+                 .display_order(0)
+         )
++        .arg(
++            Arg::new("enable-mplex")
++                .long("enable-mplex")
++                .action(ArgAction::SetTrue)
++                .help_heading(FLAG_HEADER)
++                .help("Enables mplex multiplexer alongside yamux. Yamux is preferred when both are available.")
++                .display_order(0)
++        )
+         .arg(
+             Arg::new("disable-peer-scoring")
+                 .long("disable-peer-scoring")
+@@ -919,6 +927,24 @@ pub fn cli_app() -> Command {
+                 .action(ArgAction::Set)
+                 .display_order(0)
+         )
++        .arg(
++            Arg::new("proof-engine-endpoint")
++                .long("proof-engine-endpoint")
++                .value_name("PROOF-ENGINE-ENDPOINT")
++                .help("Server endpoint for the optional EIP-8025 proof engine HTTP API.")
++                .requires("execution-endpoint")
++                .action(ArgAction::Set)
++                .display_order(0)
++        )
++        .arg(
++            Arg::new("proof-types")
++                .long("proof-types")
++                .value_name("PROOF-TYPES")
++                .help("Comma-separated EIP-8025 proof types to request from the proof engine.")
++                .requires("proof-engine-endpoint")
++                .action(ArgAction::Set)
++                .display_order(0)
++        )
+         .arg(
+             Arg::new("disable-get-blobs")
+                 .long("disable-get-blobs")
+@@ -1515,6 +1541,15 @@ pub fn cli_app() -> Command {
+                        Lighthouse and only passed to the EL if initial verification fails.")
+                 .display_order(0)
+         )
++        .arg(
++            Arg::new("execution-proof-quorum")
++                .long("execution-proof-quorum")
++                .value_name("K")
++                .help("Non-default: mark a Gloas payload envelope as proof-valid after K distinct valid EIP-8025 proof types for the same new-payload request root.")
++                .requires("proof-engine-endpoint")
++                .action(ArgAction::Set)
++                .display_order(0)
++        )
+         .arg(
+             Arg::new("disable-light-client-server")
+                 .long("disable-light-client-server")

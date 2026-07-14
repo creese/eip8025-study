@@ -1,0 +1,12 @@
+diff --git a/consensus/proto_array/src/proto_array_fork_choice.rs b/consensus/proto_array/src/proto_array_fork_choice.rs
+index 96d230226..2c1195b49 100644
+--- a/consensus/proto_array/src/proto_array_fork_choice.rs
++++ b/consensus/proto_array/src/proto_array_fork_choice.rs
+@@ -514,6 +514,7 @@ impl ProtoArrayForkChoice {
+             prune_threshold: DEFAULT_PRUNE_THRESHOLD,
+             nodes: Vec::with_capacity(1),
+             indices: HashMap::with_capacity(1),
++            children: Vec::with_capacity(1),
+         };
+ 
+         let block = Block {

@@ -1,0 +1,9 @@
+diff --git a/beacon_node/http_api/src/beacon/mod.rs b/beacon_node/http_api/src/beacon/mod.rs
+index 9ec1c476f..db0062c14 100644
+--- a/beacon_node/http_api/src/beacon/mod.rs
++++ b/beacon_node/http_api/src/beacon/mod.rs
+@@ -1,3 +1,4 @@
++pub mod execution_payload_bid;
+ pub mod execution_payload_envelope;
+ pub mod pool;
+ pub mod states;

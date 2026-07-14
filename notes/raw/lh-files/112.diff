@@ -1,0 +1,17 @@
+diff --git a/consensus/fork_choice/src/lib.rs b/consensus/fork_choice/src/lib.rs
+index 159eab0ec..dcc499547 100644
+--- a/consensus/fork_choice/src/lib.rs
++++ b/consensus/fork_choice/src/lib.rs
+@@ -4,9 +4,9 @@ mod metrics;
+ 
+ pub use crate::fork_choice::{
+     AttestationFromBlock, Error, ForkChoice, ForkChoiceView, ForkchoiceUpdateParameters,
+-    InvalidAttestation, InvalidBlock, InvalidPayloadAttestation, PayloadVerificationStatus,
+-    PersistedForkChoice, PersistedForkChoiceV28, PersistedForkChoiceV29, QueuedAttestation,
+-    ResetPayloadStatuses,
++    InvalidAttestation, InvalidBlock, InvalidPayloadAttestation, ParentImportStatus,
++    PayloadVerificationStatus, PersistedForkChoice, PersistedForkChoiceV28, PersistedForkChoiceV29,
++    QueuedAttestation, ResetPayloadStatuses,
+ };
+ pub use fork_choice_store::ForkChoiceStore;
+ pub use proto_array::{

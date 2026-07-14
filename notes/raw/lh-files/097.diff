@@ -1,0 +1,17 @@
+diff --git a/beacon_node/network/src/sync/mod.rs b/beacon_node/network/src/sync/mod.rs
+index 054bab654..7c22d1027 100644
+--- a/beacon_node/network/src/sync/mod.rs
++++ b/beacon_node/network/src/sync/mod.rs
+@@ -9,10 +9,12 @@ mod custody_backfill_sync;
+ pub mod manager;
+ mod network_context;
+ mod peer_sync_info;
++mod proof_sync;
+ mod range_data_column_batch_request;
+ mod range_sync;
+ #[cfg(test)]
+ mod tests;
+ 
+ pub use manager::{BatchProcessResult, SyncMessage};
++pub use network_context::{PeerGroup, SyncNetworkContext};
+ pub use range_sync::ChainId;
