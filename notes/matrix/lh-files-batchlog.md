@@ -1,0 +1,9 @@
+2026-07-15 | batch 001-019 | rows 28 | total 28 | repair: none | validation: OK
+2026-07-15 | batch 020-040 | rows 34 | total 62 | repair: none | validation: OK
+2026-07-15 | batch 041-065 | rows 32 | total 94 | repair: none | validation: OK
+2026-07-15 | batch 066-085 | rows 37 | total 131 | repair: none | validation: OK
+2026-07-15 | batch 086-096 | rows 21 | total 152 | repair: none | validation: OK
+2026-07-15 | batch 097-121 | rows 33 | total 185 | repair: none | validation: OK
+2026-07-15 | batch 122-143 | rows 27 | total 212 | repair: none | validation: OK
+2026-07-15 | batch 144-168 | rows 31 | total 243 | repair: none | validation: OK
+2026-07-15 | batch 169-172 | rows 7 | total 250 | repair: none | validation: OK
