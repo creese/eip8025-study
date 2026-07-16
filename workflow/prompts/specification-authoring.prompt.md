@@ -18,6 +18,7 @@ If the audit result is `BLOCK`, or this authorization statement is
 incomplete, stop and report.
 
 Next phase: `<NEXT_PHASE>`
+Authoring mode: `<create new specification or revise existing specification>`
 Target file: `phases/<NEXT_PHASE_SPEC_FILE>`
 Design brief: `workflow/phase-briefs/<NEXT_PHASE_BRIEF_FILE>`
 Reusable workflow inputs: `<WORKFLOW_INPUT_FILES, or "none">`
