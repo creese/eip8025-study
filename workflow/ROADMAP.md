@@ -22,7 +22,8 @@ stored in `workflow/PHASE-AUDIT.md` and `workflow/SPEC-AUTHORING.md`.
 | 1a-3 | Harvest complete pre-PR and post-PR EIP text | `notes/raw/eip-8025-pre-pr.md`, `notes/raw/eip-8025-post-pr.md` | Phase 1b |
 | 1b | Build the normative requirement inventory | `notes/matrix/requirements.tsv` | Phase 2a |
 | 2a | Harvest Lighthouse PR evidence | `notes/raw/lh-*` | Phase 2b |
-| 2b | Classify Lighthouse files and map them to requirements | `notes/matrix/lh-files.tsv` | Phase 2c |
+| 2b | Classify Lighthouse files and map them to requirements | `notes/matrix/lh-files.tsv` | Phase 2bq |
+| 2bq | Distill P2b session-report leads into a durable non-evidence lead register | `notes/leads/p2b-lead-register.md` | Phase 2c |
 | 2c | Synthesize behavior clusters and reconcile orphan evidence | `notes/02-clusters.md` | Phase 3a |
 | 3a | Harvest Grandine layout and search evidence | `notes/raw/gr-*` | Phase 3b |
 | 3b | Map Grandine implementation surfaces or cited absences | `notes/matrix/gr-surfaces.tsv` | Phase 4 |
