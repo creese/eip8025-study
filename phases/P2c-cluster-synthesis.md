@@ -2,9 +2,11 @@
 
 This is a SYNTHESIS session, not a harvest: reading the two declared
 matrices, judging, grouping, and writing the cluster document are the
-task. The binding rules are: read only the declared inputs; every
-substantive claim cites evidence; outputs are the cluster document,
-the open-question appends, and the validation receipt defined below.
+task, together with a constrained, non-evidence consultation of the
+Phase 2bq lead register per the lead-register rule below. The binding
+rules are: read only the declared inputs; every substantive claim
+cites evidence; outputs are the cluster document, the open-question
+appends, and the validation receipt defined below.
 Do not commit.
 
 This session performs no live research: it must not read anything
@@ -34,6 +36,8 @@ is temporary or diagnostic, is never evidence, and is never cited.
 These artifacts must already exist:
 - "$STUDY_ROOT"/notes/matrix/lh-files.tsv   (Phase 2b classification)
 - "$STUDY_ROOT"/notes/matrix/requirements.tsv (Phase 1b inventory)
+- "$STUDY_ROOT"/notes/leads/p2b-lead-register.md (Phase 2bq lead
+  register; discovery input only, never evidence)
 - "$OPEN_Q"                                  (append-only question log)
 - "$STUDY_ROOT"/notes/refs.md                (context: pins, PROV-SPEC,
   [OPEN-Q1])
@@ -43,6 +47,25 @@ source.
 Then apply the resume rules:
 - If "$FINAL_MD" and "$RECEIPT" both exist AND the last line of
   "$RECEIPT" is the literal end-marker "END-OF-RECEIPT P2c":
+  Whenever a sub-case below reports a completed state, first compare
+  the lead register's current SHA-256 against the value recorded in
+  "$RECEIPT", and report exactly one of two distinct completed
+  states:
+  - register hash matches: a completed, independently re-auditable
+    phase state (unqualified completion);
+  - register absent or hash differs: a completed, publication-time
+    validated artifact set that is NOT currently independently
+    re-auditable. The published synthesis stands (its claims never
+    rest on the register) and nothing is changed or overwritten, but
+    the execution-time lead set and per-lead disposition accounting
+    can no longer be re-derived from the declared input: the receipt
+    is their sole surviving record. Report the delta (recorded vs
+    observed hash, or absence) and leave the disposition — accept
+    the receipt's record, restore the register, or another remedy —
+    to the user.
+  A completed state must never be reported without this comparison,
+  and the second state must never be reported as unqualified
+  completion.
   - If "$TMP_MD" does not exist: the phase already completed. Stop
     and report; change nothing.
   - If "$TMP_MD" exists and cmp shows it byte-identical to
@@ -62,9 +85,12 @@ Then apply the resume rules:
   [[OPEN-Q-PENDING:<subject>]] placeholder tokens, run step 6 (its
   duplicate guard absorbs questions the interrupted run already
   appended) to resolve them. Then re-run every check in "Validation"
-  against "$TMP_MD". If all pass, continue at "Publication"; if any
-  fails, preserve "$TMP_MD", stop, and report the failing checks (do
-  not delete a file this session did not create).
+  against "$TMP_MD", re-deriving the lead dispositions per the
+  lead-register rule if the prior run's records under
+  "$WORK_DIR"/derived are absent. If all pass, continue at
+  "Publication"; if any fails, preserve "$TMP_MD", stop, and report
+  the failing checks (do not delete a file this session did not
+  create).
 - Otherwise (neither final nor staged output exists): proceed with a
   fresh run.
 
@@ -72,6 +98,10 @@ Then apply the resume rules:
 
 - "$STUDY_ROOT"/notes/matrix/lh-files.tsv
 - "$STUDY_ROOT"/notes/matrix/requirements.tsv
+- "$STUDY_ROOT"/notes/leads/p2b-lead-register.md (discovery input
+  only, per the lead-register rule below: it directs attention within
+  the two matrices and contributes no claims, no citations, and no
+  question subjects; this phase never modifies it)
 - "$OPEN_Q" (existing question IDs; append target per the procedure
   below)
 - "$STUDY_ROOT"/notes/refs.md (context only: PROVISIONAL-SPEC-BASELINE
@@ -128,6 +158,70 @@ table format alone cannot express.)
 Shared mistake to avoid: treating WIP scaffolding (devnet hacks,
 TODOs, reverted code) as Lighthouse's intended design.
 
+## Lead-register rule (discovery input; never evidence)
+
+Phase 2bq's lead register,
+"$STUDY_ROOT"/notes/leads/p2b-lead-register.md, is a durable
+non-evidence register of candidate leads distilled from the Phase 2b
+session reports. For this phase it is a discovery and investigation
+index only:
+
+- Consult it solely to direct attention within this phase's declared
+  evidence (the two matrices). Neither the register, its lead
+  identifiers, nor the Phase 2b session reports is evidence: none of
+  them may be cited or otherwise support any claim, and no citation
+  form in this specification can name them.
+- A lead affects "$FINAL_MD" only after it is independently
+  established from this phase's declared inputs and cited under the
+  citation rules below; the resulting claim must stand exactly as it
+  would had the lead never existed.
+- Open-question authority is unchanged: a question this phase logs
+  must be motivated and cited from this phase's declared evidence
+  alone, and its entry — including its subject identifier — never
+  references the register or a lead identifier. That the register
+  contains a similar lead neither permits nor prevents such a
+  question; it is an independently derived Phase 2c question, not a
+  promotion.
+- Promotion proper — carrying a register lead into "$OPEN_Q" on the
+  authority of the register or the Phase 2b session reports, without
+  independent evidence grounding — is prohibited to this phase and
+  reserved to the user.
+- A lead this phase's declared evidence cannot verify enters no claim
+  and no question; it remains in the register, and it is reported as
+  consulted but unverifiable, for the user, in the receipt's
+  lead-disposition record and in session output.
+
+Procedure: read the register once, in full, after task step 2 and
+before or during task step 3. A lead never obliges a document or
+open-question change: content enters "$TMP_MD" only where the
+declared evidence and this phase's schema warrant it on their own,
+and disposition accounting must never expand, pad, or reshape the
+document. For each lead in the register, record under
+"$WORK_DIR"/derived exactly one disposition for the receipt:
+- ESTABLISHED — the lead's subject is covered in "$TMP_MD" by content
+  independently established and cited from the declared matrices per
+  the citation rules (note where in the document; the content must be
+  warranted by the schema regardless of the lead);
+- NO-EFFECT — the declared evidence can verify the lead, but its
+  subject warrants no coverage in "$TMP_MD" and no open question
+  (e.g. immaterial to the cluster schema, out of this document's
+  scope, or adding nothing the schema calls for), with a one-clause
+  reason; or
+- UNVERIFIABLE — the declared evidence cannot verify the lead; no
+  claim and no question was entered for it.
+Dispositions are finalized only once "$TMP_MD" is complete (a lead
+provisionally marked one way may be reclassified before validation).
+They are process records, never evidence, and are never cited from
+"$FINAL_MD". If a lead identifier is textually identical to a matrix
+row_id, a req_id, or another legitimately citable token, record the
+collision in the receipt and apply the register-hygiene check to
+register references only (the register path and register-specific
+labels), never to legitimate matrix citations.
+
+This rule adds a constrained discovery input only: this phase's
+substantive scope, evidence standard, orphan analysis, cluster
+taxonomy, and open-question authority are unchanged.
+
 ## Citation rules for notes/02-clusters.md
 
 Every substantive factual or interpretive claim ends in one of:
@@ -177,6 +271,9 @@ added to them (e.g. why a cluster is empty) is a claim requiring a
 citation as above. Where a claim is interpreted through the remap
 table, the cited [row_id] still names the lh-files.tsv row verbatim;
 the remap table, not an edited citation, carries the reassignment.
+
+The lead register and its lead identifiers are never citations and
+never appear in the document (lead-register rule).
 
 Uncited substantive claims are not permitted, including any
 introduced or strengthened while tightening prose.
@@ -258,9 +355,14 @@ under notes/; never partially publish.
    resulting counts for the receipt. These derived files are working
    copies, never evidence.
 
-3. Cluster synthesis. Write the document to "$TMP_MD" only (never
-   directly to "$FINAL_MD"), in small bounded chunks — do not embed
-   the whole document in one shell command or heredoc. One section
+3. Cluster synthesis. The lead register may direct attention here
+   per the lead-register rule (its consultation procedure runs after
+   step 2 and before or during this step); nothing it contributes is
+   citable, and every claim must stand on the declared matrices
+   exactly as it would had the register never existed. Write the
+   document to "$TMP_MD" only (never directly to "$FINAL_MD"), in
+   small bounded chunks — do not embed the whole document in one
+   shell command or heredoc. One section
    per final (post-remap) cluster, covering every cluster that is a
    taxonomy ID or a remap new_id. Each nonempty cluster section
    contains, in order:
@@ -300,7 +402,7 @@ under notes/; never partially publish.
    present (explicitly "empty" if so):
    - List A — req_ids with zero rows: one entry per orphan req_id that
      includes [Rnnn] as its requirement citation; an assessment
-	 flagging whether this 
+     flagging whether this 
      looks like a Lighthouse gap or a requirement-inventory gap (or
      out of scope for a CL client), with a one-clause reason, cited,
      and PROV-SPEC-tagged where the PROV-SPEC rule applies;
@@ -332,7 +434,8 @@ under notes/; never partially publish.
    - Pending subjects are every distinct [[OPEN-Q-PENDING:<subject>]]
      placeholder in "$TMP_MD", plus any other finding this phase must
      log (each under a stable subject identifier: req_id, row_id, or
-     finding slug). For each subject:
+     finding slug — never a lead identifier or a reference to the
+     lead register, per the lead-register rule). For each subject:
      - Duplicate guard: search "$OPEN_Q" for an existing question
        whose provenance marker names Phase 2c and the same subject
        identifier. If a complete such entry exists — including one
@@ -396,6 +499,16 @@ under notes/; never partially publish.
      consistent with the confidence rule.
    - Hygiene: no reference to files under .work/ or /tmp anywhere in
      the document.
+   - Lead-register hygiene and disposition: no reference to the lead
+     register (its path or register-specific labels) and no lead
+     identifier present in the register appears anywhere in "$TMP_MD"
+     or in any open-question entry this phase appended (subject to
+     the collision handling in the lead-register rule); every lead in
+     the register has exactly one recorded disposition (ESTABLISHED
+     with its document location, NO-EFFECT with its one-clause
+     reason, or UNVERIFIABLE) for the receipt; the register file is
+     unmodified (its SHA-256 still matches the value recorded when
+     it was read).
    If any check fails: fix the specific error in "$TMP_MD" and re-run
    the failed checks, or — if the failure traces to the inputs —
    stop and report. Never publish an unvalidated document. On a stop
@@ -430,9 +543,11 @@ If "$FINAL_MD" exists and "$RECEIPT" is absent or lacks the final
 end-marker line:
 - If "$TMP_MD" exists and cmp shows it byte-identical to "$FINAL_MD":
   the copy succeeded; resume at step 8d (write the staged receipt
-  from the preserved derivations and validation results — re-running
-  step 7 checks against "$FINAL_MD" first if the prior run's results
-  were not preserved), then 8e–8f. At 8e, an existing incomplete
+  from the preserved derivations, lead dispositions, and validation
+  results — re-running step 7 checks against "$FINAL_MD" first, and
+  re-deriving the lead dispositions per the lead-register rule, if
+  the prior run's records were not preserved), then 8e–8f. At 8e, an
+  existing incomplete
   "$RECEIPT" may be overwritten only if it is a byte prefix of the
   complete staged receipt (an interrupted copy of the same content);
   otherwise stop and report both files' states and wait for the
@@ -459,6 +574,14 @@ validation, so it is never published.
   result (every row in exactly one final cluster; counts sum to the
   data-row total);
 - each step-7 validation check, how it was performed, and its result;
+- lead-register handling: the register path with its SHA-256 and lead
+  count as read; the full per-lead disposition record (ESTABLISHED
+  with document location, NO-EFFECT with its one-clause reason, or
+  UNVERIFIABLE); any identifier collisions recorded under the
+  lead-register rule; the register-hygiene check result; and
+  confirmation the register was not modified. Lead
+  identifiers may appear here: the receipt is a process record, never
+  cited from synthesis documents;
 - open-questions handling: "$OPEN_Q" pre-append line count and
   SHA-256 (recorded even when nothing was appended), the
   tail-integrity result, the post-append prefix verification result
@@ -480,6 +603,9 @@ is never cited from synthesis documents.
 
 - Any input anomalies observed but not blocking (may be empty).
 - The list of open-question IDs appended and reused (may be empty).
+- The list of register leads consulted but unverifiable from the
+  declared evidence (may be empty), for the user's promotion
+  decision.
 - The complete list of files created or changed, for user review.
 Interpretive statements in session output carry citations per the
 citation rules; pure filesystem facts need none.
@@ -514,6 +640,19 @@ citation rules; pure filesystem facts need none.
   subject identifier.
 - Every claim depending on the provisional spec baseline carries
   PROV-SPEC and concludes no stronger than needs-input.
+- The lead register was used only as a discovery index: "$FINAL_MD"
+  and every open-question entry appended by this phase contain no
+  reference to the register and no lead identifier (subject to the
+  recorded collision handling); the receipt records the register's
+  SHA-256 and lead count as read, exactly one disposition
+  (ESTABLISHED with document location, NO-EFFECT with a one-clause
+  reason, or UNVERIFIABLE) per lead, and the passing
+  register-unmodified check from validation time. A register change
+  observed after publication does not invalidate the published
+  synthesis, but it removes independent re-auditability of the
+  lead-disposition accounting: the resume rules report it as a
+  qualified completed state for the user's decision, never as
+  unqualified completion.
 - "$RECEIPT" exists, ends with the end-marker line "END-OF-RECEIPT
   P2c", and records the inputs, derivations, partition check,
   validation results, open-question handling (including the
