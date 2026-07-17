@@ -9,15 +9,18 @@ fork, and one search transcript per cluster.
 
 Remediation R (Steps R1–R4) closes an evidence gap identified after
 the original harvest passed audit: the pinned Grandine checkout
-contains an uninitialized `eth2_libp2p` submodule, so the working
-tree covered by Step 4's wiring searches and Step 5's per-cluster
-searches did not include that submodule's content. The remediation
-initializes the submodule at the exact gitlink SHA recorded by the
-pinned commit, replays the affected search commands verbatim,
-records an explicitly submodule-scoped variant of each, and
-publishes supplemental artifacts plus a separate remediation
-receipt. All original Phase 3a artifacts and the original receipt
-are preserved unchanged.
+contains uninitialized submodules, so the working tree covered by
+Step 4's wiring searches and Step 5's per-cluster searches did not
+include their content. The pinned tree records five mode-160000
+gitlinks (`dedicated_executor`, `eth2_libp2p`,
+`grandine-snapshot-tests`, `hive`,
+`slashing-protection-interchange-tests`). The remediation
+initializes each of them at the exact gitlink SHA recorded by the
+pinned parent commit, replays the affected search commands verbatim,
+records an explicitly scoped variant of each replayed search against
+every submodule path, and publishes supplemental artifacts plus a
+separate remediation receipt. All original Phase 3a artifacts and
+the original receipt are preserved unchanged.
 
 This is a **harvest session**. It runs fixed, recorded commands and
 saves source material verbatim. It performs no interpretation,
@@ -29,8 +32,9 @@ CITED-ABSENT classification) belongs to a later phase.
 This session inspects live Grandine sources only. It must not inspect
 Lighthouse sources (live or checked out) in any form. Network access
 is permitted solely to clone/fetch the pinned Grandine repository as
-defined in Step 1 and, for Remediation R, to fetch the `eth2_libp2p`
-submodule at its recorded gitlink SHA as defined in Step R1.
+defined in Step 1 and, for Remediation R, to fetch each of the five
+recorded submodules at its recorded gitlink SHA as defined in
+Step R1.
 
 ## Declared inputs
 
@@ -103,10 +107,12 @@ Every staged artifact is plain text and begins with this header:
 ```
 
 Every Remediation R artifact (Steps R1–R3) additionally carries,
-immediately after the `# Repo:` line:
+immediately after the `# Repo:` line, one line per recorded
+submodule, in the canonical order defined in the Remediation R
+preamble:
 
 ```
-# Submodule: eth2_libp2p @ <full gitlink SHA verified in Step R1>
+# Submodule: <submodule path> @ <full gitlink SHA verified in Step R1>
 ```
 
 In a Step R2 supplemental artifact, each replayed command block
@@ -116,8 +122,10 @@ before the `$` line, the mechanical mapping line
 replayed command line itself must be byte-identical to the command
 line recorded in that source block. Each submodule-scoped variant
 block (Step R2.3) carries, in the same position, the mapping line
-`scoped variant of: <replay source artifact filename> Command <m>`
-instead.
+`scoped variant of: <replay source artifact filename> Command <m>, path: <submodule path>`
+instead. Split blocks produced under Step R2's output-size splitting
+rule carry the `replays (split <k>/<K>):` or
+`scoped variant (split <k>/<K>) of:` mapping forms defined there.
 
 Each recorded command appears as:
 
@@ -320,7 +328,25 @@ required beyond the rules below.
 3. Keep `.work/p3a/` intact after publication (diagnostic value for
    the audit); it is not evidence and needs no cleanup.
 
-## Remediation R — `eth2_libp2p` submodule evidence gap
+## Remediation R — uninitialized-submodule evidence gap
+
+Recorded gitlink inventory (canonical order):
+
+1. `dedicated_executor`
+2. `eth2_libp2p`
+3. `grandine-snapshot-tests`
+4. `hive`
+5. `slashing-protection-interchange-tests`
+
+Execution of the previous revision of this remediation halted at the
+Step R1 gitlink inventory gate: the pinned tree records these five
+mode-160000 gitlinks, not `eth2_libp2p` alone. This revision
+broadens the remediation to all five. Everywhere in Steps R1–R4,
+"each submodule" means each of these five paths, processed in this
+canonical order, and a submodule's **recorded gitlink SHA** means
+the object ID the pinned parent commit records for that path, read
+at execution time in Step R1 — this specification intentionally
+records no literal SHA.
 
 Steps R1–R4 run only after the original artifact set
 (`gr-pin-verification.txt` through `gr-harvest-receipt.txt`) is fully
@@ -332,7 +358,7 @@ verbatim output, negative-evidence preservation, end-marker,
 no-clobber publication, and the general step-failure handling — apply
 unchanged unless a step below says otherwise.
 
-### Step R1 — Remediation gate: original set, parent pin, submodule
+### Step R1 — Remediation gate: original set, parent pin, submodules
 
 Run the Step 1 pin verification gate first, exactly as written (the
 gate always runs, in every session, including a remediation-only
@@ -356,73 +382,93 @@ session). Then, capturing every transcript for
    - `git ls-tree -r HEAD | grep -E '^160000 '` — enumerates the
      actual mode-160000 gitlink entries of the pinned tree (the
      recorded exit code is the pipeline's, i.e. `grep`'s). The
-     pipeline must exit 0 and its output must include an
-     `eth2_libp2p` entry; exit 1 or a missing `eth2_libp2p` line
-     means the remediation premise does not match the pinned tree:
-     stop and report.
+     pipeline must exit 0 and the set of paths in its output must
+     equal exactly the recorded gitlink inventory in the
+     Remediation R preamble — no path missing, none extra. Any other
+     result means the remediation premise does not match the pinned
+     tree: stop **before initializing anything or replaying any
+     search**, stage nothing further, preserve `.work/p3a/` intact,
+     report the complete gitlink inventory transcript verbatim, and
+     wait for the user's decision on the remediation's scope. Never
+     proceed past an inventory mismatch by initializing only the
+     matching subset and deferring the rest to the final session
+     report.
    - `git config -f .gitmodules --get-regexp '^submodule\..*\.(path|url)$'`
-     — records every declared submodule path and URL;
-   - `git ls-tree HEAD -- eth2_libp2p` — must show mode `160000`
-     (a gitlink); its object ID is the **recorded gitlink SHA**, the
-     only revision at which the submodule may be checked out.
-   If `.gitmodules` has no entry for `eth2_libp2p`, stop and report:
-   the submodule cannot be initialized from recorded values, and the
-   user decides how to proceed. If the gitlink enumeration shows any
-   mode-160000 entry other than `eth2_libp2p` (whether or not
-   `.gitmodules` declares it), stop **before initializing anything
-   or replaying any search**: stage nothing further, preserve
-   `.work/p3a/` intact, report the complete gitlink inventory
-   transcript verbatim, and wait for the user's decision on the
-   remediation's scope. Never proceed past additional gitlinks by
-   initializing only `eth2_libp2p` and deferring the rest to the
-   final session report.
-3. Initialize: `git submodule update --init -- eth2_libp2p`, using
-   only the URL recorded in `.gitmodules` and the recorded gitlink
-   SHA (never `--remote`, never a searched, guessed, or discovered
-   branch, ref, or URL). Network access is permitted solely for this
-   fetch. No manual initialization step is required or permitted:
-   this recorded command performs the entire initialization.
-4. Verify:
-   - `git -C eth2_libp2p rev-parse HEAD` equals the recorded gitlink
-     SHA exactly;
-   - `git submodule status -- eth2_libp2p` reports that same SHA with
-     no `+` or `-` prefix;
+     — records every declared submodule path and URL. If
+     `.gitmodules` has no entry for any of the five inventory paths,
+     stop and report: that submodule cannot be initialized from
+     recorded values, and the user decides how to proceed.
+   - For each submodule, in canonical order:
+     `git ls-tree HEAD -- <submodule path>` — must show mode
+     `160000` (a gitlink); its object ID is that submodule's
+     **recorded gitlink SHA**, the only revision at which that
+     submodule may be checked out.
+3. Initialize each submodule, in canonical order, checking each exit
+   code before running the next command:
+   `git submodule update --init -- <submodule path>`, using only the
+   URL recorded in `.gitmodules` and that submodule's recorded
+   gitlink SHA (never `--remote`, never `--recursive`, never a
+   searched, guessed, or discovered branch, ref, or URL). Network
+   access is permitted solely for these fetches. No manual
+   initialization step is required or permitted: these recorded
+   commands perform the entire initialization.
+4. Verify, after all five initializations:
+   - for each submodule: `git -C <submodule path> rev-parse HEAD`
+     equals its recorded gitlink SHA exactly;
+     `git submodule status -- <submodule path>` reports that same
+     SHA with no `+` or `-` prefix; and
+     `git -C <submodule path> status --porcelain` output is empty;
    - `git rev-parse HEAD` still equals the pinned parent SHA, and
      `git status --porcelain` output is empty;
-   - `git -C eth2_libp2p status --porcelain` output is empty;
-   - populated-tree evidence:
-     `find eth2_libp2p -maxdepth 2 -type d -not -path '*/.git*' | sort`
+   - populated-tree evidence, for each submodule:
+     `find <submodule path> -maxdepth 2 -type d -not -path '*/.git*' | sort`
      (nonempty output required);
-   - ignore-scope coverage probe: from the repository root,
-     `rg --files -g 'eth2_libp2p/**'` must exit 0 with nonempty
-     output, establishing that the repository's ignore rules do not
-     exclude the submodule's files from root-wide `rg` searches;
-     empty output or failure is a gate failure. If `rg` is
-     unavailable in this session, record that fact; the probe may be
-     skipped only if every command extracted in Step R2 invokes
-     `grep`, which does not honor ignore files.
+   - nested-gitlink check, for each submodule:
+     `git -C <submodule path> ls-tree -r HEAD | grep -E '^160000 '`
+     — exit 1 with empty output is the required negative evidence
+     that initializing this submodule reopens no further gitlink
+     gap one level down. Exit 0 (nested gitlinks exist) is a gate
+     failure: stop and report the transcript verbatim; the user
+     decides whether a further remediation is needed. Exit ≥ 2 is a
+     step failure.
+   - ignore-scope coverage probe, for each submodule, from the
+     repository root: `rg --files -g '<submodule path>/**'`. The
+     probe is recorded evidence, not a gate: exit 0 with nonempty
+     output shows that root-wide `rg` searches include that
+     submodule's files; exit 1 with empty output shows that the
+     repository's ignore rules exclude them and is preserved
+     verbatim as a valid negative — submodule coverage then rests
+     entirely on that submodule's scoped variants in Step R2, which
+     are mandatory in every case; exit ≥ 2 is a step failure. If
+     `rg` is unavailable in this session, record that fact; the
+     probe may be skipped only if every command extracted in
+     Step R2 invokes `grep`, which does not honor ignore files.
 5. Stage `gr-sub-pin-verification.txt` in `.work/p3a/staging-r1/`
-   containing, in the standard format with the `# Submodule:` header
-   line: the original-set check transcript with the pre-remediation
-   baseline, the inventory transcripts, the initialization command
-   with its exit code, and the verification transcripts.
+   containing, in the standard format with the five `# Submodule:`
+   header lines: the original-set check transcript with the
+   pre-remediation baseline, the inventory transcripts, the five
+   initialization commands with their exit codes, and the
+   verification transcripts.
 
-Failure handling: if the gitlink enumeration shows any mode-160000
-entry other than `eth2_libp2p`, if initialization fails, if any SHA
-does not match, if either tree is not clean, or if the submodule
-tree is empty after initialization, stop; stage nothing further;
-preserve `.work/p3a/` intact; report the observed state versus the
-recorded values (for the gitlink case, the complete inventory
-transcript); wait for the user's decision. Never continue past a failed gate, never
-check out any other submodule revision, and never delete or reset the
-submodule state to force progress. Steps R2–R4 run only after this
-gate has passed in the current session.
+Failure handling: if the gitlink enumeration does not match the
+recorded inventory exactly, if `.gitmodules` lacks an entry for any
+inventory path, if any initialization fails, if any SHA does not
+match, if the parent tree or any submodule tree is not clean, if any
+submodule tree is empty after initialization, or if any nested
+gitlink is found, stop; stage nothing further; preserve `.work/p3a/`
+intact; report the observed state versus the recorded values (for
+the inventory and nested-gitlink cases, the complete transcript
+verbatim); wait for the user's decision. Never continue past a
+failed gate, never check out any submodule revision other than its
+recorded gitlink SHA, and never delete or reset submodule state to
+force progress. Steps R2–R4 run only after this gate has passed in
+the current session.
 
 ### Step R2 — Replay of affected searches → supplemental artifacts
 
 Replay source artifacts: the published
 `notes/raw/gr-fork-case-study.txt` (the case-study wiring searches,
-including the networking domains the submodule affects) and, for
+including the domains the submodules affect) and, for
 every cluster derived from `notes/02-clusters.md` under Step 5's slug
 rule, the published `notes/raw/gr-search-<slug>.txt`. If the derived
 slug list does not match, one-to-one, the `gr-search-*.txt` set
@@ -433,15 +479,15 @@ For each replay source artifact, in order:
 1. Extract, in recorded order, every `## Command` block whose command
    line (its `$` line) invokes `rg` or `grep`. These working-tree
    search commands are the ones whose coverage the uninitialized
-   submodule invalidated; other recorded commands (`git log`, `tree`,
+   submodules invalidated; other recorded commands (`git log`, `tree`,
    `find`, `cat`, `ls`, `cargo`, …) query history or fixed paths that
    submodule initialization does not change, and are not replayed. If
    a replay source artifact contains no such command, stop and report
    — that contradicts the remediation premise.
 2. Replay each extracted command line byte-identically — the same
    command line, unmodified — from `.work/p3a/repo/` (the same
-   working directory as the original harvest), with the submodule now
-   initialized. Record every replay, including those with empty
+   working directory as the original harvest), with all five
+   submodules now initialized. Record every replay, including those with empty
    output, in the standard format with its `replays:` mapping line,
    into the corresponding supplemental artifact in
    `.work/p3a/staging-r1/`:
@@ -449,15 +495,19 @@ For each replay source artifact, in order:
    - `gr-sub-search-<slug>.txt` for each cluster, with the exact
      cluster identifier in the header.
 3. Immediately after each replay, record its **submodule-scoped
-   variant**: the same command line with ` eth2_libp2p` appended as
-   one additional path argument (if the command line ends in a
-   stderr-redirection clause, insert the path argument immediately
-   before it). A byte-identical replay only covers the submodule if
-   the original command's path, glob, and ignore scope happens to
-   include it; appending the path argument adds `eth2_libp2p` to the
-   search scope regardless, so the variant is the explicit submodule
-   evidence in every case. The variant block carries the
-   `scoped variant of:` mapping line. If an extracted command line
+   variants**: one variant per submodule, in canonical order. Each
+   variant is the same command line with ` <submodule path>`
+   appended as one additional path argument (if the command line
+   ends in a stderr-redirection clause, insert the path argument
+   immediately before it). A byte-identical replay only covers a
+   submodule if the original command's path, glob, and ignore scope
+   happens to include it; appending the path argument adds that
+   submodule to the search scope regardless, so the per-path
+   variants are the explicit per-submodule evidence in every case —
+   coverage never depends on root search, ignore, glob, or path
+   behavior. Each variant block carries the
+   `scoped variant of: <replay source artifact filename> Command <m>, path: <submodule path>`
+   mapping line. If an extracted command line
    contains a shell operator other than a trailing
    stderr-redirection clause (`|`, `;`, `&`, `<`, `>`, `$(`,
    backquote), a path argument cannot be appended mechanically: stop
@@ -468,10 +518,36 @@ For each replay source artifact, in order:
    valid for `rg`/`grep` and ≥ 2 is a step failure; an empty-output
    transcript is preserved as the only permissible negative evidence
    and absence is never asserted; for each positive hit retained as a
-   finding — including hits under `eth2_libp2p/` — record the
+   finding — including hits under any submodule path — record the
    matching file path and symbol name next to (not inside) the output
    block; no truncation, paraphrase, reordering, annotation inside
    the output markers, or classification.
+5. Output-size splitting (bounded). The 1 MiB per-command stdout
+   rule applies to replays and scoped variants unchanged, but a
+   replay may not be narrowed by editing its command line, so
+   splitting is by appended path partition. If a replay's or
+   variant's stdout exceeds 1 MiB, do not record the oversize output
+   block; instead:
+   - record, immediately before the split set, the partition-basis
+     transcript: `git ls-tree --name-only HEAD` for a replay, or
+     `git -C <submodule path> ls-tree --name-only HEAD` for a scoped
+     variant;
+   - record one split block per entry listed by the partition-basis
+     transcript, in listed order, each being the source command line
+     with the single path argument `<entry>` (for a replay) or
+     `<submodule path>/<entry>` (for a scoped variant) appended
+     under the item 3 append rule, carrying the mapping line
+     `replays (split <k>/<K>): <replay source artifact filename> Command <m>`
+     or
+     `scoped variant (split <k>/<K>) of: <replay source artifact filename> Command <m>, path: <submodule path>`,
+     with `<k>` running 1..`<K>` over every listed entry so the
+     split scopes together cover the unsplit scope;
+   - splitting applies only when the source command line names no
+     path argument or scope-restricting glob of its own; if it does,
+     or if any single split block's stdout still exceeds 1 MiB, stop
+     and report the exact command line — no bounded mechanical
+     partition captures the evidence, and the user decides how to
+     proceed.
 
 ### Step R3 — Remediation staging validation
 
@@ -486,17 +562,24 @@ Before anything is published:
    checks (nonempty; required header recording the pinned parent SHA;
    at least one `## Command` block with a recorded exit code; ends
    with the `# END OF ARTIFACT` marker) and additionally carries the
-   `# Submodule:` header line with the gitlink SHA verified in
-   Step R1.
+   five `# Submodule:` header lines, in canonical order, each with
+   the gitlink SHA verified in Step R1.
 3. Replay-fidelity check, per supplemental artifact: every replayed
    command line is byte-identical to a `rg`/`grep` command line
-   recorded in its replay source artifact; its `replays:` mapping
-   names that source block; no `rg`/`grep` command line of the source
-   is missing from the replay set; every replay is immediately
-   followed by its submodule-scoped variant, whose command line is
-   the source line with `eth2_libp2p` appended per Step R2's rule
-   and whose `scoped variant of:` mapping names the same source
-   block; and every `rg`/`grep` block records exit code 0 or 1 (any
+   recorded in its replay source artifact and its `replays:` mapping
+   names that source block — or the replay is recorded as a complete
+   split set under Step R2's splitting rule, with its partition-basis
+   transcript, one split block per listed entry, and
+   `replays (split <k>/<K>)` mappings covering `<k>` = 1..`<K>`; no
+   `rg`/`grep` command line of the source
+   is missing from the replay set; every replay (or split set) is
+   immediately followed by its five submodule-scoped variants, one
+   per submodule in canonical order, each variant's command line
+   being the source line with that submodule path appended per
+   Step R2's rule (or its complete split set under the same
+   splitting rule) and each `scoped variant of:` mapping naming the
+   same source block and that submodule path; and every `rg`/`grep`
+   block records exit code 0 or 1 (any
    code ≥ 2 is a validation failure).
 4. Preservation check: recompute the `sha256sum` and byte size of
    `notes/raw/gr-harvest-receipt.txt` and compare them against the
@@ -507,8 +590,9 @@ Before anything is published:
    is a validation failure (report; modify nothing).
 5. Write the validation receipt `gr-sub-remediation-receipt.txt` in
    `.work/p3a/staging-r1/`, containing: the standard header with the
-   `# Submodule:` line; the gate results (pinned parent SHA and
-   recorded gitlink SHA, each verified equal); the first line of
+   five `# Submodule:` lines; the gate results (pinned parent SHA
+   and each of the five recorded gitlink SHAs, all verified equal);
+   the first line of
    `--version` output for each tool used in the remediation (`git`,
    `rg` or `grep`, and `find`), captured at validation time; the
    cluster-identifier → slug → filename mapping; the full expected
@@ -548,9 +632,9 @@ check the SHA recorded in its header: if any such artifact records a
 SHA different from the current pin, stop and report — a re-pin has
 occurred mid-phase, the artifact set must not mix snapshots, and the
 user decides how to proceed. For remediation artifacts this check
-covers both recorded SHAs: the parent SHA must equal the current pin
-and the submodule SHA must equal the gitlink SHA recorded by that
-pinned commit. Then:
+covers every recorded SHA: the parent SHA must equal the current pin
+and each `# Submodule:` line's SHA must equal the gitlink SHA the
+pinned commit records for that path. Then:
 
 - If `notes/raw/gr-harvest-receipt.txt` exists: first check that it
   ends with the `# END OF ARTIFACT` marker. Marker absent → the
@@ -615,7 +699,8 @@ published and receipt-verified):
   plus the remediation receipt.
 - Staged files in `.work/p3a/staging-r1/` may be reused only if they
   pass the Step R3 per-file checks and record both the current pinned
-  parent SHA and the current recorded gitlink SHA.
+  parent SHA and, for every submodule in the inventory, its current
+  recorded gitlink SHA.
 
 A rerun must either cleanly complete the remaining work or stop
 without modifying or duplicating any published state.
@@ -625,11 +710,12 @@ without modifying or duplicating any published state.
 - No interpretation, summarization, synthesis, or classification.
 - No inspection of Lighthouse sources, live or local.
 - No network access other than Step 1's clone/fetch of the pinned
-  Grandine repo and Step R1's `git submodule update --init` fetch of
-  `eth2_libp2p` at its recorded gitlink SHA.
+  Grandine repo and Step R1's `git submodule update --init` fetches
+  of the five inventory submodules at their recorded gitlink SHAs.
 - No initialization, fetch, or checkout of any submodule other than
-  `eth2_libp2p`, and of any submodule revision other than the
-  recorded gitlink SHA.
+  the five listed in the Remediation R inventory, of any nested
+  submodule, and of any submodule revision other than that
+  submodule's recorded gitlink SHA.
 - No edits, replacements, or deletions under `notes/raw/`.
 - No changes to `notes/refs.md`, `notes/open-questions.md`, or any
   file outside `notes/raw/` (other than under `.work/`).
@@ -678,31 +764,40 @@ from the repository state and the declared inputs:
    every listed artifact hash-matched) with the pre-remediation
    baseline (the original receipt's own sha256 and byte size); the
    gitlink enumeration transcript (`git ls-tree -r HEAD` filtered to
-   mode-160000 entries) showing `eth2_libp2p` as the only gitlink in
-   the pinned tree; the `.gitmodules`
-   inventory transcript; a `git ls-tree HEAD -- eth2_libp2p`
-   transcript showing a mode-160000 gitlink and its SHA; the
-   `git submodule update --init -- eth2_libp2p` command with exit
-   code 0; and verification transcripts showing the submodule checked
-   out at exactly the recorded gitlink SHA, clean parent and
-   submodule trees, the nonempty ignore-scope coverage probe (or its
-   recorded grep-only exception), and a nonempty populated-tree
-   listing.
+   mode-160000 entries) showing exactly the five inventory paths
+   (`dedicated_executor`, `eth2_libp2p`, `grandine-snapshot-tests`,
+   `hive`, `slashing-protection-interchange-tests`) and no others;
+   the `.gitmodules` inventory transcript declaring a path and URL
+   for each of the five; per-submodule `git ls-tree HEAD -- <path>`
+   transcripts each showing a mode-160000 gitlink and its SHA; a
+   `git submodule update --init -- <path>` command with exit code 0
+   for each of the five submodules; and verification transcripts
+   showing each submodule checked out at exactly its recorded
+   gitlink SHA with a clean tree, the parent tree clean and still at
+   the pinned SHA, a nonempty populated-tree listing per submodule,
+   an empty-output (exit 1) nested-gitlink enumeration per
+   submodule, and the per-submodule ignore-scope coverage probe
+   transcripts recorded with exit code 0 or 1 (or the recorded
+   grep-only exception).
 10. `notes/raw/gr-sub-fork-case-study.txt` exists, and every
     `rg`/`grep` command line recorded in
     `notes/raw/gr-fork-case-study.txt` is replayed in it
     byte-identically, each with its `replays:` mapping line, an exit
-    code of 0 or 1, and verbatim output, and each replay is
-    immediately followed by its submodule-scoped variant per
-    Step R2's construction rule, with its `scoped variant of:`
-    mapping line and exit code 0 or 1, with file path and symbol
-    recorded for each retained positive hit.
+    code of 0 or 1, and verbatim output — or is recorded as a
+    complete split set per Step R2's splitting rule — and each
+    replay (or split set) is immediately followed by its five
+    submodule-scoped variants, one per inventory submodule in
+    canonical order, per Step R2's construction rule, each with its
+    `scoped variant of:` mapping line naming its submodule path and
+    exit code 0 or 1 (or its complete split set), with file path and
+    symbol recorded for each retained positive hit.
 11. For every cluster identified in `notes/02-clusters.md` there is a
     `notes/raw/gr-sub-search-<slug>.txt` conforming to the slug rule
     and remediation artifact format, in which every `rg`/`grep`
     command line of the corresponding original
     `gr-search-<slug>.txt` is replayed byte-identically and paired
-    with its submodule-scoped variant under the same rules, and
+    with its five per-submodule scoped variants under the same rules
+    (split sets permitted under the same splitting rule), and
     negative results are preserved as empty-output transcripts. No
     extra `gr-sub-search-*.txt` exists.
 12. `notes/raw/gr-sub-remediation-receipt.txt` exists; its recorded
@@ -712,8 +807,8 @@ from the repository state and the declared inputs:
     pre-remediation baseline and recomputed hashes for every artifact
     listed in the original receipt; and it and every published
     remediation artifact end with the `# END OF ARTIFACT` marker line
-    and record both the pinned parent SHA and the recorded gitlink
-    SHA.
+    and record both the pinned parent SHA and every one of the five
+    recorded gitlink SHAs.
 13. Every artifact listed in `notes/raw/gr-harvest-receipt.txt`, and
     that receipt itself, is unchanged across the remediation: the
     receipt's recomputed sha256 and byte size match the
