@@ -338,10 +338,19 @@ Recorded gitlink inventory (canonical order):
 4. `hive`
 5. `slashing-protection-interchange-tests`
 
-Execution of the previous revision of this remediation halted at the
+Execution of an earlier revision of this remediation halted at the
 Step R1 gitlink inventory gate: the pinned tree records these five
-mode-160000 gitlinks, not `eth2_libp2p` alone. This revision
-broadens the remediation to all five. Everywhere in Steps R1–R4,
+mode-160000 gitlinks, not `eth2_libp2p` alone. The remediation was
+accordingly broadened to all five. Execution of the broadened
+revision then halted at Step R2: `gr-fork-case-study.txt` Command 14
+is the only extracted search command containing a shell pipeline,
+and Step R2's stop rule covered every command line containing a
+shell operator. This revision adds a single command-specific scoping
+rule for that pipeline (the Command 14 pipeline exception in Step R2
+item 3) and retains the stop rule for every other command line
+containing a shell operator; Step R1 staging state completed before
+that halt remains reusable exactly as the Resume rules verify and
+permit. Everywhere in Steps R1–R4,
 "each submodule" means each of these five paths, processed in this
 canonical order, and a submodule's **recorded gitlink SHA** means
 the object ID the pinned parent commit records for that path, read
@@ -512,10 +521,96 @@ For each replay source artifact, in order:
    stderr-redirection clause (`|`, `;`, `&`, `<`, `>`, `$(`,
    backquote), a path argument cannot be appended mechanically: stop
    and report the exact command line; the user decides how to scope
-   it.
+   it — with exactly one command-specific exception, the
+   **Command 14 pipeline** defined next.
+
+   Command 14 pipeline exception. The exception applies only to an
+   extracted command line byte-equal to
+
+   `rg -n -il 'enr|metadata' -g '*.rs' | xargs rg -n -i 'gloas'`
+
+   recorded as Command 14 of `gr-fork-case-study.txt`, the only
+   extracted search command containing a shell pipeline. Every other
+   extracted command line containing a shell operator remains under
+   the stop rule above. For this pipeline:
+
+   - the item 2 replay is the pipeline byte-identically, unchanged,
+     with its standard `replays:` mapping line;
+   - each submodule-scoped variant runs the pipeline under `bash`
+     for component-status capture, inserts the submodule path as
+     the path argument to the upstream `rg`, adds `--null` to the
+     upstream `rg` and `-0` to `xargs` so the matched file names
+     travel NUL-delimited and file names containing whitespace or
+     other shell-special bytes cannot alter the downstream search,
+     keeps `xargs -r` so that empty upstream output does not invoke
+     the downstream search at all, wraps the downstream `rg` in a
+     status shim that converts its no-match exit 1 into exit 0
+     while propagating any downstream exit ≥ 2 unchanged (GNU
+     `xargs` returns 123 when an invoked command exits anywhere
+     from 1 through 125, so an unwrapped downstream `rg` no-match
+     is indistinguishable from an `rg` tool error at the pipeline
+     level), and then resolves the final status from both pipeline
+     components' `PIPESTATUS` entries: upstream `rg` exit 1 (no
+     files matched) is remapped to 0, any upstream exit ≥ 2 becomes
+     the final status (an upstream tool error must never be masked
+     by `xargs -r` exiting 0 on empty input), and otherwise the
+     downstream `xargs` status is the final status; the scoped
+     command line is exactly
+
+     `bash -c 'rg -n -il --null "enr|metadata" -g "*.rs" <submodule path> | xargs -0 -r sh -c '\''rg -n -i gloas "$@"; s=$?; [ "$s" -eq 1 ] && exit 0; exit "$s"'\'' rg-gloas; st=("${PIPESTATUS[@]}"); [ "${st[0]}" -eq 1 ] && st[0]=0; [ "${st[0]}" -ne 0 ] && exit "${st[0]}"; exit "${st[1]}"'`
+
+     with `<submodule path>` replaced by that submodule's path and
+     nothing else changed (the upstream `rg` passes the same
+     option, pattern, and glob arguments as the original upstream
+     command plus `--null`, and the shim's `rg -n -i gloas "$@"`
+     passes the same option and pattern arguments as the original
+     `rg -n -i 'gloas'` — the pattern and glob strings are
+     byte-equal, only the shell quoting differs; `PIPESTATUS` is
+     copied into `st` in a single assignment because `bash` resets
+     it after every command), one variant per submodule in
+     canonical order, each carrying the standard
+     `scoped variant of: gr-fork-case-study.txt Command 14, path: <submodule path>`
+     mapping line;
+   - exit-code policy, overriding item 4's `rg`/`grep` rule and the
+     command success policy for these blocks only; the recorded
+     exit code is that of the recorded command line as a whole (for
+     the replay, the pipeline's, i.e. `xargs`'s; for a scoped
+     variant, the `bash` wrapper's resolved final status):
+     - byte-identical replay: exit 0 or exit 123, each with
+       `stderr: empty`, is recorded and the transcript preserved.
+       Exit 123 is ambiguous — `xargs` remaps every downstream exit
+       from 1 through 125 to 123, so it can mask an `rg` tool
+       error — and is therefore never interpreted as proof of no
+       matches and never cited as negative evidence; the
+       per-submodule evidence for this command rests entirely on
+       the scoped variants. Any other exit code, or nonempty
+       stderr, is a step failure.
+     - scoped variants: with the component-status capture, upstream
+       `rg` no-match and downstream `rg` no-match each resolve to
+       final status 0; empty upstream output invokes no downstream
+       search (`xargs -r`); any upstream `rg` exit ≥ 2 resolves to
+       that nonzero final status; and any downstream tool error
+       (a shim-propagated `rg` exit ≥ 2, or any other nonzero
+       `xargs` status) resolves to that nonzero final status. Exit
+       0 with `stderr: empty` is the only valid final scoped
+       result: nonempty output records the matches, and empty
+       output is the preserved negative transcript. Any nonzero
+       exit code, or nonempty stderr, is a step failure.
+
+     Because `bash` (component-status capture via `PIPESTATUS`),
+     `xargs -0 -r`, and the status shim are load-bearing for this
+     evidence, Step R3 additionally records the first line of
+     `bash --version` and of `xargs --version` in the remediation
+     receipt;
+   - the item 5 splitting construction never applies to this
+     pipeline (its upstream command line names a scope-restricting
+     glob of its own); if the stdout of its replay or of any scoped
+     variant exceeds 1 MiB, stop and report the exact command line.
 4. All original recording rules apply unchanged to replays and
    scoped variants alike: exit code 0 or 1 is
-   valid for `rg`/`grep` and ≥ 2 is a step failure; an empty-output
+   valid for `rg`/`grep` and ≥ 2 is a step failure, except that the
+   Command 14 pipeline exit-code policy in item 3 governs that
+   pipeline's replay and scoped-variant blocks; an empty-output
    transcript is preserved as the only permissible negative evidence
    and absence is never asserted; for each positive hit retained as a
    finding — including hits under any submodule path — record the
@@ -576,11 +671,19 @@ Before anything is published:
    immediately followed by its five submodule-scoped variants, one
    per submodule in canonical order, each variant's command line
    being the source line with that submodule path appended per
-   Step R2's rule (or its complete split set under the same
-   splitting rule) and each `scoped variant of:` mapping naming the
-   same source block and that submodule path; and every `rg`/`grep`
-   block records exit code 0 or 1 (any
-   code ≥ 2 is a validation failure).
+   Step R2's rule — or, for the Command 14 pipeline, being exactly
+   the scoped pipeline form Step R2 item 3 defines with that
+   submodule path substituted — (or its complete split set under the
+   same splitting rule) and each `scoped variant of:` mapping naming
+   the same source block and that submodule path; and every
+   `rg`/`grep` block records exit code 0 or 1 (any
+   code ≥ 2 is a validation failure), except that Command 14
+   pipeline blocks follow Step R2 item 3's exit-code policy: the
+   byte-identical replay block must record exit code 0 or 123 with
+   `stderr: empty` — a 123 replay is a preserved ambiguous
+   transcript, never accepted as negative evidence — and every
+   scoped-variant block must record exit code 0 with
+   `stderr: empty` (any other combination is a validation failure).
 4. Preservation check: recompute the `sha256sum` and byte size of
    `notes/raw/gr-harvest-receipt.txt` and compare them against the
    pre-remediation baseline recorded by Step R1 in
@@ -594,7 +697,10 @@ Before anything is published:
    and each of the five recorded gitlink SHAs, all verified equal);
    the first line of
    `--version` output for each tool used in the remediation (`git`,
-   `rg` or `grep`, and `find`), captured at validation time; the
+   `rg` or `grep`, `find`, and — both load-bearing for the
+   Command 14 scoped construction's component-status capture —
+   `bash` and `xargs`), captured at validation
+   time; the
    cluster-identifier → slug → filename mapping; the full expected
    remediation set with per-file sha256 and byte size; the
    preservation-check outcome with the pre-remediation baseline and
@@ -692,8 +798,15 @@ published and receipt-verified):
   equal hashes → the published copy governs (`already-published`),
   different hashes → stop, report both copies' path, byte size, and
   sha256, and modify nothing. Otherwise, after the Step R1 gate,
-  replay (Step R2) only the supplemental artifacts not yet present in
-  either staging or `notes/raw/`, then run Step R3 validation over
+  replay (Step R2) only the supplemental artifacts not yet published
+  under `notes/raw/` and not reusable from staging under the
+  staged-reuse rule below: a staged remediation artifact that fails
+  that rule — for example a supplemental artifact left partial
+  (no `# END OF ARTIFACT` marker) by an interrupted Step R2
+  session — is not reused; it is regenerated in full, and replacing
+  such an invalid copy inside `.work/p3a/staging-r1/` is permitted
+  (staging is not append-only; `notes/raw/` is never touched). Then
+  run Step R3 validation over
   the union of published and staged remediation files (hashing
   published files in place) and Step R4 publication for the remainder
   plus the remediation receipt.
@@ -783,14 +896,23 @@ from the repository state and the declared inputs:
     `rg`/`grep` command line recorded in
     `notes/raw/gr-fork-case-study.txt` is replayed in it
     byte-identically, each with its `replays:` mapping line, an exit
-    code of 0 or 1, and verbatim output — or is recorded as a
-    complete split set per Step R2's splitting rule — and each
-    replay (or split set) is immediately followed by its five
-    submodule-scoped variants, one per inventory submodule in
-    canonical order, per Step R2's construction rule, each with its
-    `scoped variant of:` mapping line naming its submodule path and
-    exit code 0 or 1 (or its complete split set), with file path and
-    symbol recorded for each retained positive hit.
+    code of 0 or 1 (for the Command 14 pipeline replay defined in
+    Step R2 item 3: 0 or 123 with `stderr: empty`, a 123 replay
+    being a preserved ambiguous transcript, never negative
+    evidence), and verbatim output — or is recorded as a complete
+    split set per Step R2's splitting rule, which never applies to
+    the Command 14 pipeline — and each replay (or split set) is
+    immediately followed by its five submodule-scoped variants, one
+    per inventory submodule in canonical order, per Step R2's
+    construction rule (for the Command 14 pipeline, exactly its
+    shimmed, component-status-capturing scoped form — the
+    `bash`/`PIPESTATUS`/NUL-delimited construction Step R2 item 3
+    defines), each with its `scoped variant of:` mapping
+    line naming its submodule path and exit code 0 or 1 (for a
+    Command 14 pipeline variant: exit code 0 with `stderr: empty`,
+    the only valid final scoped result under Step R2 item 3)
+    (or its complete split set), with file path and symbol recorded
+    for each retained positive hit.
 11. For every cluster identified in `notes/02-clusters.md` there is a
     `notes/raw/gr-sub-search-<slug>.txt` conforming to the slug rule
     and remediation artifact format, in which every `rg`/`grep`
