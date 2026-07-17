@@ -1,0 +1,70 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c4.txt
+# Cluster: C4
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: HttpProofEngine
+$ rg -n -i 'http.?proof.?engine' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: ProofNodeClient
+$ rg -n -i 'proof.?node.?client' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: request_proofs
+$ rg -n -i 'request.?proofs' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: verify_execution_proof
+$ rg -n -i 'verify.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+# Search term: ProofType
+$ rg -n -i 'proof.?type' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 6
+# Search term: ProofEngineError
+$ rg -n -i 'proof.?engine.?error' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 7
+# Search term: proof_engine_endpoint
+$ rg -n -i 'proof.?engine.?endpoint' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

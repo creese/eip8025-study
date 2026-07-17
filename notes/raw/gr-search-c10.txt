@@ -1,0 +1,58 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c10.txt
+# Cluster: C10
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: eip8025
+$ rg -n -i 'eip.?8025' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: zkboost
+$ rg -n -i 'zkboost' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: proof_engine_tests
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: gossip_validation
+$ rg -n -i 'gossip.?validation' -g '*.rs'
+exit code: 0
+stderr: empty
+--- output ---
+http_api/src/standard.rs:3971:            // `block` has been passed the gossip validation rules
+http_api/src/standard.rs:3986:                "received no block validation response for gossip validation via HTTP API \
+http_api/src/standard.rs:4012:            // `block` has been passed the gossip validation rules
+http_api/src/standard.rs:4035:                "received no block validation response for gossip validation via HTTP API \
+--- end output ---
+# Retained positive hits — file path : symbol
+#   http_api/src/standard.rs:3971,4012 : comments re: block having passed "gossip validation rules"
+#   http_api/src/standard.rs:3986,4035 : log message strings re: "gossip validation via HTTP API"
+
+## Command 5
+# Search term: kurtosis
+$ rg -n -i 'kurtosis' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

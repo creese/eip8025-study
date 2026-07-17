@@ -1,0 +1,289 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-sub-search-c10.txt
+# Cluster: C10
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Submodule: dedicated_executor @ 0d36fea385dae3c576eff35e4eb7daae07a7d248
+# Submodule: eth2_libp2p @ aab8db7f25f7282a95c9d7094ba682f629473a93
+# Submodule: grandine-snapshot-tests @ e12f98ff7729487be903d6a6321c565a141ef530
+# Submodule: hive @ 79b2c3847e06d176c9cbe7cf3c96ae0565ac217a
+# Submodule: slashing-protection-interchange-tests @ bb7900688eecd287d8723154faac6addb5e63336
+# Date (UTC): 2026-07-17T06:38:27Z
+
+## Command 1
+replays: gr-search-c10.txt Command 1
+$ rg -n -i 'eip.?8025' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+scoped variant of: gr-search-c10.txt Command 1, path: dedicated_executor
+$ rg -n -i 'eip.?8025' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+scoped variant of: gr-search-c10.txt Command 1, path: eth2_libp2p
+$ rg -n -i 'eip.?8025' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+scoped variant of: gr-search-c10.txt Command 1, path: grandine-snapshot-tests
+$ rg -n -i 'eip.?8025' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+scoped variant of: gr-search-c10.txt Command 1, path: hive
+$ rg -n -i 'eip.?8025' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 6
+scoped variant of: gr-search-c10.txt Command 1, path: slashing-protection-interchange-tests
+$ rg -n -i 'eip.?8025' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 7
+replays: gr-search-c10.txt Command 2
+$ rg -n -i 'zkboost' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 8
+scoped variant of: gr-search-c10.txt Command 2, path: dedicated_executor
+$ rg -n -i 'zkboost' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 9
+scoped variant of: gr-search-c10.txt Command 2, path: eth2_libp2p
+$ rg -n -i 'zkboost' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 10
+scoped variant of: gr-search-c10.txt Command 2, path: grandine-snapshot-tests
+$ rg -n -i 'zkboost' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 11
+scoped variant of: gr-search-c10.txt Command 2, path: hive
+$ rg -n -i 'zkboost' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 12
+scoped variant of: gr-search-c10.txt Command 2, path: slashing-protection-interchange-tests
+$ rg -n -i 'zkboost' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 13
+replays: gr-search-c10.txt Command 3
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 14
+scoped variant of: gr-search-c10.txt Command 3, path: dedicated_executor
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 15
+scoped variant of: gr-search-c10.txt Command 3, path: eth2_libp2p
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 16
+scoped variant of: gr-search-c10.txt Command 3, path: grandine-snapshot-tests
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 17
+scoped variant of: gr-search-c10.txt Command 3, path: hive
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 18
+scoped variant of: gr-search-c10.txt Command 3, path: slashing-protection-interchange-tests
+$ rg -n -i 'proof.?engine.?tests' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 19
+replays: gr-search-c10.txt Command 4
+$ rg -n -i 'gossip.?validation' -g '*.rs'
+exit code: 0
+stderr: empty
+--- output ---
+http_api/src/standard.rs:3971:            // `block` has been passed the gossip validation rules
+http_api/src/standard.rs:3986:                "received no block validation response for gossip validation via HTTP API \
+http_api/src/standard.rs:4012:            // `block` has been passed the gossip validation rules
+http_api/src/standard.rs:4035:                "received no block validation response for gossip validation via HTTP API \
+--- end output ---
+# Retained positive hits — file path : symbol
+#   http_api/src/standard.rs:3971:            // `block` has been passed the gossip validation rules
+#   http_api/src/standard.rs:3986:                "received no block validation response for gossip validation via HTTP API \
+#   http_api/src/standard.rs:4012:            // `block` has been passed the gossip validation rules
+#   http_api/src/standard.rs:4035:                "received no block validation response for gossip validation via HTTP API \
+
+## Command 20
+scoped variant of: gr-search-c10.txt Command 4, path: dedicated_executor
+$ rg -n -i 'gossip.?validation' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 21
+scoped variant of: gr-search-c10.txt Command 4, path: eth2_libp2p
+$ rg -n -i 'gossip.?validation' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 22
+scoped variant of: gr-search-c10.txt Command 4, path: grandine-snapshot-tests
+$ rg -n -i 'gossip.?validation' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 23
+scoped variant of: gr-search-c10.txt Command 4, path: hive
+$ rg -n -i 'gossip.?validation' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 24
+scoped variant of: gr-search-c10.txt Command 4, path: slashing-protection-interchange-tests
+$ rg -n -i 'gossip.?validation' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 25
+replays: gr-search-c10.txt Command 5
+$ rg -n -i 'kurtosis' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 26
+scoped variant of: gr-search-c10.txt Command 5, path: dedicated_executor
+$ rg -n -i 'kurtosis' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 27
+scoped variant of: gr-search-c10.txt Command 5, path: eth2_libp2p
+$ rg -n -i 'kurtosis' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 28
+scoped variant of: gr-search-c10.txt Command 5, path: grandine-snapshot-tests
+$ rg -n -i 'kurtosis' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 29
+scoped variant of: gr-search-c10.txt Command 5, path: hive
+$ rg -n -i 'kurtosis' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 30
+scoped variant of: gr-search-c10.txt Command 5, path: slashing-protection-interchange-tests
+$ rg -n -i 'kurtosis' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+# END OF ARTIFACT

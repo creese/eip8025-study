@@ -1,0 +1,79 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c2.txt
+# Cluster: C2
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: verify_and_observe_execution_proof
+$ rg -n -i 'verify.?and.?observe.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: ObservedExecutionProofs
+$ rg -n -i 'observed.?execution.?proofs' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: verify_signed_execution_proof_signature
+$ rg -n -i 'verify.?signed.?execution.?proof.?signature' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: process_gossip_execution_proof
+$ rg -n -i 'process.?gossip.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+# Search term: execution_proof_gossip_topic
+$ rg -n -i 'execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 6
+# Search term: enable_execution_proof
+$ rg -n -i 'enable.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 7
+# Search term: eproof_ENR_field
+$ rg -n -i 'eproof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 8
+# Search term: execution_proofs_endpoint
+$ rg -n -i 'execution.?proofs' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

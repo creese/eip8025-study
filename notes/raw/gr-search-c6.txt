@@ -1,0 +1,34 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c6.txt
+# Cluster: C6
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: execution_proof_quorum
+$ rg -n -i 'execution.?proof.?quorum' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: new_payload_request_root
+$ rg -n -i 'new.?payload.?request.?root' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: min_valid_proof_types
+$ rg -n -i 'min.?valid.?proof.?types' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

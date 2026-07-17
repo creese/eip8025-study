@@ -1,0 +1,553 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-sub-search-c1.txt
+# Cluster: C1
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Submodule: dedicated_executor @ 0d36fea385dae3c576eff35e4eb7daae07a7d248
+# Submodule: eth2_libp2p @ aab8db7f25f7282a95c9d7094ba682f629473a93
+# Submodule: grandine-snapshot-tests @ e12f98ff7729487be903d6a6321c565a141ef530
+# Submodule: hive @ 79b2c3847e06d176c9cbe7cf3c96ae0565ac217a
+# Submodule: slashing-protection-interchange-tests @ bb7900688eecd287d8723154faac6addb5e63336
+# Date (UTC): 2026-07-17T06:38:27Z
+
+## Command 1
+replays: gr-search-c1.txt Command 1
+$ rg -n -i 'public.?input' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+scoped variant of: gr-search-c1.txt Command 1, path: dedicated_executor
+$ rg -n -i 'public.?input' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+scoped variant of: gr-search-c1.txt Command 1, path: eth2_libp2p
+$ rg -n -i 'public.?input' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+scoped variant of: gr-search-c1.txt Command 1, path: grandine-snapshot-tests
+$ rg -n -i 'public.?input' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+scoped variant of: gr-search-c1.txt Command 1, path: hive
+$ rg -n -i 'public.?input' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 6
+scoped variant of: gr-search-c1.txt Command 1, path: slashing-protection-interchange-tests
+$ rg -n -i 'public.?input' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 7
+replays: gr-search-c1.txt Command 2
+$ rg -n -i 'execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 8
+scoped variant of: gr-search-c1.txt Command 2, path: dedicated_executor
+$ rg -n -i 'execution.?proof' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 9
+scoped variant of: gr-search-c1.txt Command 2, path: eth2_libp2p
+$ rg -n -i 'execution.?proof' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 10
+scoped variant of: gr-search-c1.txt Command 2, path: grandine-snapshot-tests
+$ rg -n -i 'execution.?proof' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 11
+scoped variant of: gr-search-c1.txt Command 2, path: hive
+$ rg -n -i 'execution.?proof' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 12
+scoped variant of: gr-search-c1.txt Command 2, path: slashing-protection-interchange-tests
+$ rg -n -i 'execution.?proof' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 13
+replays: gr-search-c1.txt Command 3
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 14
+scoped variant of: gr-search-c1.txt Command 3, path: dedicated_executor
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 15
+scoped variant of: gr-search-c1.txt Command 3, path: eth2_libp2p
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 16
+scoped variant of: gr-search-c1.txt Command 3, path: grandine-snapshot-tests
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 17
+scoped variant of: gr-search-c1.txt Command 3, path: hive
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 18
+scoped variant of: gr-search-c1.txt Command 3, path: slashing-protection-interchange-tests
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 19
+replays: gr-search-c1.txt Command 4
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 20
+scoped variant of: gr-search-c1.txt Command 4, path: dedicated_executor
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 21
+scoped variant of: gr-search-c1.txt Command 4, path: eth2_libp2p
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 22
+scoped variant of: gr-search-c1.txt Command 4, path: grandine-snapshot-tests
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 23
+scoped variant of: gr-search-c1.txt Command 4, path: hive
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 24
+scoped variant of: gr-search-c1.txt Command 4, path: slashing-protection-interchange-tests
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 25
+replays: gr-search-c1.txt Command 5
+$ rg -n -i 'max.?proof.?size' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 26
+scoped variant of: gr-search-c1.txt Command 5, path: dedicated_executor
+$ rg -n -i 'max.?proof.?size' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 27
+scoped variant of: gr-search-c1.txt Command 5, path: eth2_libp2p
+$ rg -n -i 'max.?proof.?size' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 28
+scoped variant of: gr-search-c1.txt Command 5, path: grandine-snapshot-tests
+$ rg -n -i 'max.?proof.?size' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 29
+scoped variant of: gr-search-c1.txt Command 5, path: hive
+$ rg -n -i 'max.?proof.?size' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 30
+scoped variant of: gr-search-c1.txt Command 5, path: slashing-protection-interchange-tests
+$ rg -n -i 'max.?proof.?size' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 31
+replays: gr-search-c1.txt Command 6
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 32
+scoped variant of: gr-search-c1.txt Command 6, path: dedicated_executor
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 33
+scoped variant of: gr-search-c1.txt Command 6, path: eth2_libp2p
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 34
+scoped variant of: gr-search-c1.txt Command 6, path: grandine-snapshot-tests
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 35
+scoped variant of: gr-search-c1.txt Command 6, path: hive
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 36
+scoped variant of: gr-search-c1.txt Command 6, path: slashing-protection-interchange-tests
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 37
+replays: gr-search-c1.txt Command 7
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 38
+scoped variant of: gr-search-c1.txt Command 7, path: dedicated_executor
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 39
+scoped variant of: gr-search-c1.txt Command 7, path: eth2_libp2p
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 40
+scoped variant of: gr-search-c1.txt Command 7, path: grandine-snapshot-tests
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 41
+scoped variant of: gr-search-c1.txt Command 7, path: hive
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 42
+scoped variant of: gr-search-c1.txt Command 7, path: slashing-protection-interchange-tests
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 43
+replays: gr-search-c1.txt Command 8
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 44
+scoped variant of: gr-search-c1.txt Command 8, path: dedicated_executor
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 45
+scoped variant of: gr-search-c1.txt Command 8, path: eth2_libp2p
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 46
+scoped variant of: gr-search-c1.txt Command 8, path: grandine-snapshot-tests
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 47
+scoped variant of: gr-search-c1.txt Command 8, path: hive
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 48
+scoped variant of: gr-search-c1.txt Command 8, path: slashing-protection-interchange-tests
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 49
+replays: gr-search-c1.txt Command 9
+$ rg -n -i 'request.?root' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 50
+scoped variant of: gr-search-c1.txt Command 9, path: dedicated_executor
+$ rg -n -i 'request.?root' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 51
+scoped variant of: gr-search-c1.txt Command 9, path: eth2_libp2p
+$ rg -n -i 'request.?root' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 52
+scoped variant of: gr-search-c1.txt Command 9, path: grandine-snapshot-tests
+$ rg -n -i 'request.?root' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 53
+scoped variant of: gr-search-c1.txt Command 9, path: hive
+$ rg -n -i 'request.?root' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 54
+scoped variant of: gr-search-c1.txt Command 9, path: slashing-protection-interchange-tests
+$ rg -n -i 'request.?root' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 55
+replays: gr-search-c1.txt Command 10
+$ rg -n -i 'new.?payload.?request' -g '*.rs'
+exit code: 0
+stderr: empty
+--- output ---
+types/src/combined.rs:1570:// TODO(feature/deneb): `ExecutionPayloadParams` seems to correspond to `NewPayloadRequest` from
+--- end output ---
+# Retained positive hits — file path : symbol
+#   types/src/combined.rs:1570:// TODO(feature/deneb): `ExecutionPayloadParams` seems to correspond to `NewPayloadRequest` from
+
+## Command 56
+scoped variant of: gr-search-c1.txt Command 10, path: dedicated_executor
+$ rg -n -i 'new.?payload.?request' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 57
+scoped variant of: gr-search-c1.txt Command 10, path: eth2_libp2p
+$ rg -n -i 'new.?payload.?request' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 58
+scoped variant of: gr-search-c1.txt Command 10, path: grandine-snapshot-tests
+$ rg -n -i 'new.?payload.?request' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 59
+scoped variant of: gr-search-c1.txt Command 10, path: hive
+$ rg -n -i 'new.?payload.?request' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 60
+scoped variant of: gr-search-c1.txt Command 10, path: slashing-protection-interchange-tests
+$ rg -n -i 'new.?payload.?request' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+# END OF ARTIFACT

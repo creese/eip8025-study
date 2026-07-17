@@ -1,0 +1,99 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c1.txt
+# Cluster: C1
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: PublicInput
+$ rg -n -i 'public.?input' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: ExecutionProof
+$ rg -n -i 'execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: SignedExecutionProof
+$ rg -n -i 'signed.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: ProofByRootIdentifier
+$ rg -n -i 'proof.?by.?root.?identifier' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+# Search term: MaxProofSize
+$ rg -n -i 'max.?proof.?size' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 6
+# Search term: DOMAIN_EXECUTION_PROOF
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 7
+# Search term: MaxExecutionProofsPerPayload
+$ rg -n -i 'max.?execution.?proofs.?per.?payload' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 8
+# Search term: MIN_REQUIRED_EXECUTION_PROOFS
+$ rg -n -i 'min.?required.?execution.?proofs' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 9
+# Search term: request_root
+$ rg -n -i 'request.?root' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 10
+# Search term: NewPayloadRequest
+$ rg -n -i 'new.?payload.?request' -g '*.rs'
+exit code: 0
+stderr: empty
+--- output ---
+types/src/combined.rs:1570:// TODO(feature/deneb): `ExecutionPayloadParams` seems to correspond to `NewPayloadRequest` from
+--- end output ---
+# Retained positive hit — file path : symbol
+#   types/src/combined.rs:1570 : comment referencing `NewPayloadRequest` (re: `ExecutionPayloadParams`)
+
+# END OF ARTIFACT

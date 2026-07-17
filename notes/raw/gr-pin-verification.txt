@@ -1,0 +1,44 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-pin-verification.txt
+# Cluster: n/a
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:39:44Z
+
+# Pin as read from notes/refs.md `## Pin: Grandine` block:
+#   Repo: https://github.com/grandinetech/grandine
+#   Branch: develop
+#   HEAD SHA at check time: 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+
+## Command 1
+$ git clone https://github.com/grandinetech/grandine repo
+exit code: 0
+stderr: nonempty, see logs
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+$ git checkout 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+exit code: 0
+stderr: nonempty, see logs
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+$ git rev-parse HEAD
+exit code: 0
+stderr: empty
+--- output ---
+6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+--- end output ---
+
+## Command 4
+$ git status --porcelain
+exit code: 0
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

@@ -1,0 +1,34 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c8.txt
+# Cluster: C8
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: ProofService
+$ rg -n -i 'proof.?service' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: sign_execution_proof
+$ rg -n -i 'sign.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: vc_signed_execution_proofs_total
+$ rg -n -i 'signed.?execution.?proofs.?total' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

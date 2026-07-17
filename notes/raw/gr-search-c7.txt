@@ -1,0 +1,52 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c7.txt
+# Cluster: C7
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: proof_engine_endpoint
+$ rg -n -i 'proof.?engine.?endpoint' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: proof_types_flag
+$ rg -n -i 'proof.?types' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: execution_proof_quorum_flag
+$ rg -n -i 'execution.?proof.?quorum' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: ExecutionProofQuorumConfig
+$ rg -n -i 'execution.?proof.?quorum.?config' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+# Search term: domain_execution_proof
+$ rg -n -i 'domain.?execution.?proof' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

@@ -1,0 +1,258 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-layout.txt
+# Cluster: n/a
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:40:36Z
+
+## Command 1
+$ tree -L 2
+exit code: 0
+stderr: empty
+--- output ---
+.
+├── COPYRIGHT
+├── Cargo.lock
+├── Cargo.toml
+├── Cross.toml
+├── Dockerfile
+├── Dockerfile.cross
+├── LICENSE.md
+├── Makefile
+├── README.md
+├── ad_hoc_bench
+│   ├── Cargo.toml
+│   └── src
+├── allocator
+│   ├── Cargo.toml
+│   └── src
+├── arithmetic
+│   ├── Cargo.toml
+│   └── src
+├── attestation_verifier
+│   ├── Cargo.toml
+│   └── src
+├── audit
+│   ├── Matter-Labs-Security-Review-Report-2024-11-21.pdf
+│   └── X41-Code-Review-Grandine-Final-Report-2024-11-29.pdf
+├── benches
+│   ├── Cargo.toml
+│   └── benches
+├── binary_utils
+│   ├── Cargo.toml
+│   └── src
+├── bindings
+│   ├── c
+│   └── csharp
+├── block_producer
+│   ├── Cargo.toml
+│   └── src
+├── bls
+│   ├── Cargo.toml
+│   ├── bls-blst
+│   ├── bls-core
+│   ├── bls-zkcrypto
+│   └── src
+├── book
+│   ├── book.toml
+│   └── src
+├── builder_api
+│   ├── Cargo.toml
+│   └── src
+├── clippy.toml
+├── clock
+│   ├── Cargo.toml
+│   └── src
+├── data_dumper
+│   ├── Cargo.toml
+│   └── src
+├── database
+│   ├── Cargo.toml
+│   └── src
+├── debug_info
+│   ├── Cargo.toml
+│   └── src
+├── dedicated_executor
+├── deposit_tree
+│   ├── Cargo.toml
+│   └── src
+├── directories
+│   ├── Cargo.toml
+│   └── src
+├── doppelganger_protection
+│   ├── Cargo.toml
+│   └── src
+├── eip_2335
+│   ├── Cargo.toml
+│   └── src
+├── eip_7594
+│   ├── Cargo.toml
+│   └── src
+├── eth1
+│   ├── Cargo.toml
+│   └── src
+├── eth1_api
+│   ├── Cargo.toml
+│   └── src
+├── eth2_cache_utils
+│   ├── Cargo.toml
+│   └── src
+├── eth2_libp2p
+├── execution_engine
+│   ├── Cargo.toml
+│   └── src
+├── factory
+│   ├── Cargo.toml
+│   └── src
+├── features
+│   ├── Cargo.toml
+│   ├── src
+│   └── tests
+├── fork_choice_control
+│   ├── Cargo.toml
+│   └── src
+├── fork_choice_store
+│   ├── Cargo.toml
+│   └── src
+├── funding.json
+├── genesis
+│   ├── Cargo.toml
+│   └── src
+├── grandine
+│   ├── Cargo.toml
+│   └── src
+├── grandine-snapshot-tests
+├── grandine_version
+│   ├── Cargo.toml
+│   └── src
+├── hashing
+│   ├── Cargo.toml
+│   └── src
+├── helper_functions
+│   ├── Cargo.toml
+│   └── src
+├── hive
+├── http_api
+│   ├── Cargo.toml
+│   └── src
+├── http_api_utils
+│   ├── Cargo.toml
+│   └── src
+├── interop
+│   ├── Cargo.toml
+│   └── src
+├── keymanager
+│   ├── Cargo.toml
+│   └── src
+├── kzg_utils
+│   ├── Cargo.toml
+│   └── src
+├── liveness_tracker
+│   ├── Cargo.toml
+│   └── src
+├── logging
+│   ├── Cargo.toml
+│   └── src
+├── metrics
+│   ├── Cargo.toml
+│   └── src
+├── operation_pools
+│   ├── Cargo.toml
+│   └── src
+├── p2p
+│   ├── Cargo.toml
+│   └── src
+├── panics
+│   ├── Cargo.toml
+│   └── src
+├── predefined_chains
+│   ├── Cargo.toml
+│   ├── assets
+│   └── src
+├── prometheus_metrics
+│   ├── Cargo.toml
+│   ├── dashboards
+│   └── src
+├── pubkey_cache
+│   ├── Cargo.toml
+│   └── src
+├── runtime
+│   ├── Cargo.toml
+│   └── src
+├── rust-toolchain.toml
+├── rustfmt.toml
+├── scripts
+│   ├── build
+│   ├── ci
+│   ├── download_spec_tests.sh
+│   └── github_release
+├── serde_utils
+│   ├── Cargo.toml
+│   └── src
+├── shuffling
+│   ├── Cargo.toml
+│   └── src
+├── signer
+│   ├── Cargo.toml
+│   └── src
+├── slasher
+│   ├── Cargo.toml
+│   └── src
+├── slashing-protection-interchange-tests
+├── slashing_protection
+│   ├── Cargo.toml
+│   ├── migrations
+│   └── src
+├── snapshot_test_utils
+│   ├── Cargo.toml
+│   └── src
+├── spec_test_utils
+│   ├── Cargo.toml
+│   └── src
+├── ssz
+│   ├── Cargo.toml
+│   └── src
+├── ssz_derive
+│   ├── Cargo.toml
+│   └── src
+├── state_cache
+│   ├── Cargo.toml
+│   └── src
+├── std_ext
+│   ├── Cargo.toml
+│   └── src
+├── transition_functions
+│   ├── Cargo.toml
+│   └── src
+├── try_from_iterator
+│   ├── Cargo.toml
+│   └── src
+├── types
+│   ├── Cargo.toml
+│   └── src
+├── validator
+│   ├── Cargo.toml
+│   └── src
+├── validator_key_cache
+│   ├── Cargo.toml
+│   └── src
+├── validator_statistics
+│   ├── Cargo.toml
+│   └── src
+└── zkvm
+    ├── README.md
+    ├── data
+    ├── guest
+    └── host
+
+153 directories, 81 files
+--- end output ---
+
+## Command 2
+$ cargo metadata --format-version 1 --no-deps --offline
+exit code: 127
+stderr: nonempty, see logs
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

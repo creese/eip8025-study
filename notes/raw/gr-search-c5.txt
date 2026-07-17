@@ -1,0 +1,71 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c5.txt
+# Cluster: C5
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: notify_new_payload
+$ rg -n -i 'notify.?new.?payload' -g '*.rs'
+exit code: 0
+stderr: empty
+--- output ---
+eth1_api/src/execution_service.rs:94:                ExecutionServiceMessage::NotifyNewPayload {
+eth1_api/src/execution_service.rs:101:                        .notify_new_payload(beacon_block_root, *payload.clone(), params)
+eth1_api/src/execution_service.rs:198:    async fn notify_new_payload(
+eth1_api/src/eth1_execution_engine.rs:64:    fn notify_new_payload(
+eth1_api/src/eth1_execution_engine.rs:71:        ExecutionServiceMessage::NotifyNewPayload {
+fork_choice_control/src/mutator.rs:491:                self.execution_engine.notify_new_payload(
+execution_engine/src/messages.rs:24:    NotifyNewPayload {
+execution_engine/src/execution_engine.rs:43:    /// [`notify_new_payload`](https://github.com/ethereum/consensus-specs/blob/1bfefe301da592375e2e02f65849a96aadec1936/specs/bellatrix/beacon-chain.md#notify_new_payload)
+execution_engine/src/execution_engine.rs:44:    fn notify_new_payload(
+execution_engine/src/execution_engine.rs:90:    fn notify_new_payload(
+execution_engine/src/execution_engine.rs:97:        (*self).notify_new_payload(beacon_block_root, payload, params, sender)
+execution_engine/src/execution_engine.rs:141:    fn notify_new_payload(
+execution_engine/src/execution_engine.rs:149:            .notify_new_payload(beacon_block_root, payload, params, sender)
+execution_engine/src/execution_engine.rs:201:    fn notify_new_payload(
+execution_engine/src/execution_engine.rs:210:            .notify_new_payload(beacon_block_root, payload, params, sender)
+execution_engine/src/execution_engine.rs:250:    fn notify_new_payload(
+execution_engine/src/execution_engine.rs:299:    fn notify_new_payload(
+transition_functions/src/capella/block_processing.rs:201:    execution_engine.notify_new_payload(block_root, payload.clone().into(), None, None)?;
+transition_functions/src/bellatrix/block_processing.rs:188:    execution_engine.notify_new_payload(block_root, payload.clone().into(), None, None)?;
+transition_functions/src/gloas/execution_payload_processing.rs:213:    execution_engine.notify_new_payload(
+transition_functions/src/deneb/block_processing.rs:202:    execution_engine.notify_new_payload(
+transition_functions/src/fulu/block_processing.rs:241:    execution_engine.notify_new_payload(
+transition_functions/src/electra/block_processing.rs:477:    execution_engine.notify_new_payload(
+--- end output ---
+# Retained positive hits — file path : symbol
+#   execution_engine/src/execution_engine.rs:44 : trait method ExecutionEngine::notify_new_payload
+#   eth1_api/src/execution_service.rs:198 : ExecutionService::notify_new_payload (async impl)
+#   eth1_api/src/eth1_execution_engine.rs:64 : Eth1ExecutionEngine::notify_new_payload
+#   fork_choice_control/src/mutator.rs:491 : Mutator call site self.execution_engine.notify_new_payload
+#   transition_functions/src/{bellatrix,capella,deneb,electra,fulu,gloas}/block_processing.rs : per-phase execution_engine.notify_new_payload call sites
+
+## Command 2
+# Search term: execution_proof_quorum
+$ rg -n -i 'execution.?proof.?quorum' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: get_mock_proof_engine
+$ rg -n -i 'get.?mock.?proof.?engine' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: parse_mock_index
+$ rg -n -i 'parse.?mock.?index' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT

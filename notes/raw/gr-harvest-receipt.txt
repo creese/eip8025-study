@@ -1,0 +1,53 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-harvest-receipt.txt
+# Cluster: n/a
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:50:39Z
+
+## Gate result
+# Pinned SHA (notes/refs.md, Pin: Grandine): 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# git rev-parse HEAD (Step 1): 6ae713fca1fe6620ef7e45b864c3e136a767b1c1 — verified equal
+# git status --porcelain (Step 1): empty — verified clean tree
+
+## Tool versions (captured at validation time)
+# git --version:   git version 2.55.0
+# rg --version:    ripgrep 14.1.1
+# tree --version:  tree v2.2.1 © 1996 - 2024 by Steve Baker, Thomas Moore, Francesc Rocher, Florian Sesser, Kyosuke Tokoro
+# cargo --version: unavailable — /bin/bash: line 1: cargo: command not found (exit 127; cargo metadata recorded as best-effort failure in gr-layout.txt per spec Step 2.2)
+
+## Cluster identifier -> slug -> filename mapping (from notes/02-clusters.md, in file order)
+# C1 -> c1 -> gr-search-c1.txt
+# C2 -> c2 -> gr-search-c2.txt
+# C3 -> c3 -> gr-search-c3.txt
+# C4 -> c4 -> gr-search-c4.txt
+# C5 -> c5 -> gr-search-c5.txt
+# C6 -> c6 -> gr-search-c6.txt
+# C7 -> c7 -> gr-search-c7.txt
+# C8 -> c8 -> gr-search-c8.txt
+# C9 -> c9 -> gr-search-c9.txt
+# C10 -> c10 -> gr-search-c10.txt
+# C-unassigned -> c-unassigned -> gr-search-c-unassigned.txt
+
+## Expected set — per-file sha256 and byte size
+# gr-fork-case-study.txt  sha256=222af96f6c4d04bb93c9c3728ed0d6b5f5ebbc7d8e1ee7d439014fe33aaaa21f  bytes=42674
+# gr-layout.txt  sha256=cd769414181413ba8ca921eb1239ea97c03a0301831b948923c12d64b18467d5  bytes=6273
+# gr-pin-verification.txt  sha256=ce222ad58c481fc5d19f435fc41abc997c01d8a3d88b3f0b9fd4ff5ad4e13579  bytes=1033
+# gr-readme-docs.txt  sha256=164f9f2a2dae316ce31af5d8c18ceade93ec3b30f35eaca2a65adc778366e128  bytes=5972
+# gr-search-c-unassigned.txt  sha256=374c6e2f9aba8a33d2867898c55833d78d4c9d98485bab94be8e8b383080288d  bytes=32654
+# gr-search-c1.txt  sha256=a24e53460cb23390b48f37c5017b6bbcbed19167078b2b1af09296849e8128f1  bytes=2276
+# gr-search-c10.txt  sha256=3267777793b989b8946bbb53993358b2264e38fcf863cbec59f449d8fd3d1272  bytes=1702
+# gr-search-c2.txt  sha256=6cd9b14554bbac895b85eaaa85b7a17c77a0ebaaf435f8b61cdcf2bdba2cc787  bytes=1759
+# gr-search-c3.txt  sha256=7748d304b864d4809a2da1d9ac79f6c878837be58a3dda8eba62c76920f9ae14  bytes=1131
+# gr-search-c4.txt  sha256=3115ac64b6b94c1ff15e77ba5909f95326d7ed344b11378414fbc5a5d8f3542d  bytes=1442
+# gr-search-c5.txt  sha256=22a60e69f114e479e478c2ed785363c43118271872e44128901b5df99b663cac  bytes=3823
+# gr-search-c6.txt  sha256=4653c36ee794fb6885949b8b82319fb6bfd2fdf3198ae2af8094d34bf8dcb30e  bytes=785
+# gr-search-c7.txt  sha256=0d06e4fd734b0861f4b9973666b006184ad3095f8afaa49072a1f0980254089a  bytes=1148
+# gr-search-c8.txt  sha256=5a56b3583b0ca6679b39e8caafa8d39d3454682372768da74094caa2a1b4945d  bytes=775
+# gr-search-c9.txt  sha256=3f3a8e170446221c5417ae5be1e0684a57a046eb4c2d501f479659a4990e7cdb  bytes=1119
+
+## Validation outcome (Step 6 checks 1-3)
+# Check 1 (expected set complete, no missing/extra): PASS — 4 fixed artifacts + 11 gr-search-<slug>.txt (one per cluster in notes/02-clusters.md), no extras
+# Check 2 (nonempty, header present, >=1 ## Command block with exit code, pinned SHA in header, ends with # END OF ARTIFACT): PASS for all 15 staged artifacts
+# Check 3 (every rg/grep block records exit code 0 or 1): PASS — all rg blocks across all artifacts record exit code 0 or 1; the one exit-code-127 command in gr-layout.txt is the best-effort `cargo metadata` command (not an rg/grep block), permitted by Step 2.2
+
+# END OF ARTIFACT

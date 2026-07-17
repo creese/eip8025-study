@@ -1,0 +1,81 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-sub-remediation-receipt.txt
+# Cluster: n/a
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Submodule: dedicated_executor @ 0d36fea385dae3c576eff35e4eb7daae07a7d248
+# Submodule: eth2_libp2p @ aab8db7f25f7282a95c9d7094ba682f629473a93
+# Submodule: grandine-snapshot-tests @ e12f98ff7729487be903d6a6321c565a141ef530
+# Submodule: hive @ 79b2c3847e06d176c9cbe7cf3c96ae0565ac217a
+# Submodule: slashing-protection-interchange-tests @ bb7900688eecd287d8723154faac6addb5e63336
+# Date (UTC): 2026-07-17T06:40:46Z
+
+## Gate results (Step R1, verified in this session)
+# Pinned parent SHA (notes/refs.md, Pin: Grandine): 6ae713fca1fe6620ef7e45b864c3e136a767b1c1 — git rev-parse HEAD verified equal, tree clean
+# Submodule dedicated_executor recorded gitlink SHA: 0d36fea385dae3c576eff35e4eb7daae07a7d248 — checked out and verified equal, clean tree, no nested gitlink
+# Submodule eth2_libp2p recorded gitlink SHA: aab8db7f25f7282a95c9d7094ba682f629473a93 — checked out and verified equal, clean tree, no nested gitlink
+# Submodule grandine-snapshot-tests recorded gitlink SHA: e12f98ff7729487be903d6a6321c565a141ef530 — checked out and verified equal, clean tree, no nested gitlink
+# Submodule hive recorded gitlink SHA: 79b2c3847e06d176c9cbe7cf3c96ae0565ac217a — checked out and verified equal, clean tree, no nested gitlink
+# Submodule slashing-protection-interchange-tests recorded gitlink SHA: bb7900688eecd287d8723154faac6addb5e63336 — checked out and verified equal, clean tree, no nested gitlink
+
+## Tool versions (first --version line, captured at validation time)
+# git --version: git version 2.55.0
+# rg --version: ripgrep 14.1.1
+# find --version: find (GNU findutils) 4.10.0
+# bash --version: GNU bash, version 5.3.0(1)-release (x86_64-redhat-linux-gnu)
+# xargs --version: xargs (GNU findutils) 4.10.0
+
+## Cluster identifier -> slug -> remediation filename (from notes/02-clusters.md, in file order)
+# C1 -> c1 -> gr-sub-search-c1.txt
+# C2 -> c2 -> gr-sub-search-c2.txt
+# C3 -> c3 -> gr-sub-search-c3.txt
+# C4 -> c4 -> gr-sub-search-c4.txt
+# C5 -> c5 -> gr-sub-search-c5.txt
+# C6 -> c6 -> gr-sub-search-c6.txt
+# C7 -> c7 -> gr-sub-search-c7.txt
+# C8 -> c8 -> gr-sub-search-c8.txt
+# C9 -> c9 -> gr-sub-search-c9.txt
+# C10 -> c10 -> gr-sub-search-c10.txt
+# C-unassigned -> c-unassigned -> gr-sub-search-c-unassigned.txt
+
+## Expected remediation set — per-file sha256 and byte size
+# gr-sub-pin-verification.txt  sha256=3c46440c4a3841a62fae06c80babeb32e305dd6d6effe09a3ebcf53c11d72f97  bytes=273435
+# gr-sub-fork-case-study.txt  sha256=1da3507ecd1afbbbbd20c1d5ebd166983fb9f21664591bac6c61f1a3144a2408  bytes=543051
+# gr-sub-search-c1.txt  sha256=a9299b7bb252cd3ec1daee139e02ad76b2e7b07ef0f08b99e42bfaed68ac9089  bytes=14622
+# gr-sub-search-c2.txt  sha256=027c699dc703e62600fb7727bd65eac95797139175f784dd0a6ff4dad3e2df26  bytes=11750
+# gr-sub-search-c3.txt  sha256=6dc432b6943bfca28c4331e3f6fca3c48997b3b2c89a444fa6939dff6c8b67c2  bytes=7469
+# gr-sub-search-c4.txt  sha256=a8d100692a4739bbdf91030def96773ae508eb851455e3ca9977f99e6d02beeb  bytes=10071
+# gr-sub-search-c5.txt  sha256=9faaf62803116b46c1daafc8b314935c41f0662fcc202d7b2961785b46f1ba11  bytes=10828
+# gr-sub-search-c6.txt  sha256=67cfabed267b815e9b59f0c7a1de63a0069d896151cbafc949067cf1d9f48a62  bytes=4771
+# gr-sub-search-c7.txt  sha256=8923b7b90fa53f03c597229042d833abe0cd16fb7b460bafb02fdfbac2915d13  bytes=7493
+# gr-sub-search-c8.txt  sha256=c551dadcb52b4500fd8e094f1168d953c299a19134b3af560130c2030ee54569  bytes=4729
+# gr-sub-search-c9.txt  sha256=055c13771d776bfecad9d68fff9619272cf4bec13938271f49cac1a552f68759  bytes=7457
+# gr-sub-search-c10.txt  sha256=f3d817f9dd98bb13b52ba291923b1e169e9dcb2f4e2f038ec1f8ac4c9b22a5c5  bytes=8123
+# gr-sub-search-c-unassigned.txt  sha256=89aad8148c05b2fb7efe8c8f7c83f9e062672d742b15b281104a8043b7179ae3  bytes=78727
+
+## Preservation check (Step R3.4) — original set unchanged across remediation
+# Pre-remediation baseline (from gr-sub-pin-verification.txt): gr-harvest-receipt.txt sha256=5afa1a2cc844d42af136a02c340d9cd57b49514060606e6b5886bffa260ebba3 bytes=3635
+# Recomputed now:                                             gr-harvest-receipt.txt sha256=5afa1a2cc844d42af136a02c340d9cd57b49514060606e6b5886bffa260ebba3 bytes=3635 — MATCH
+# Every artifact listed in gr-harvest-receipt.txt, recomputed sha256 vs receipt-recorded value:
+#   gr-fork-case-study.txt  sha256=222af96f6c4d04bb93c9c3728ed0d6b5f5ebbc7d8e1ee7d439014fe33aaaa21f  — MATCH
+#   gr-layout.txt  sha256=cd769414181413ba8ca921eb1239ea97c03a0301831b948923c12d64b18467d5  — MATCH
+#   gr-pin-verification.txt  sha256=ce222ad58c481fc5d19f435fc41abc997c01d8a3d88b3f0b9fd4ff5ad4e13579  — MATCH
+#   gr-readme-docs.txt  sha256=164f9f2a2dae316ce31af5d8c18ceade93ec3b30f35eaca2a65adc778366e128  — MATCH
+#   gr-search-c-unassigned.txt  sha256=374c6e2f9aba8a33d2867898c55833d78d4c9d98485bab94be8e8b383080288d  — MATCH
+#   gr-search-c1.txt  sha256=a24e53460cb23390b48f37c5017b6bbcbed19167078b2b1af09296849e8128f1  — MATCH
+#   gr-search-c10.txt  sha256=3267777793b989b8946bbb53993358b2264e38fcf863cbec59f449d8fd3d1272  — MATCH
+#   gr-search-c2.txt  sha256=6cd9b14554bbac895b85eaaa85b7a17c77a0ebaaf435f8b61cdcf2bdba2cc787  — MATCH
+#   gr-search-c3.txt  sha256=7748d304b864d4809a2da1d9ac79f6c878837be58a3dda8eba62c76920f9ae14  — MATCH
+#   gr-search-c4.txt  sha256=3115ac64b6b94c1ff15e77ba5909f95326d7ed344b11378414fbc5a5d8f3542d  — MATCH
+#   gr-search-c5.txt  sha256=22a60e69f114e479e478c2ed785363c43118271872e44128901b5df99b663cac  — MATCH
+#   gr-search-c6.txt  sha256=4653c36ee794fb6885949b8b82319fb6bfd2fdf3198ae2af8094d34bf8dcb30e  — MATCH
+#   gr-search-c7.txt  sha256=0d06e4fd734b0861f4b9973666b006184ad3095f8afaa49072a1f0980254089a  — MATCH
+#   gr-search-c8.txt  sha256=5a56b3583b0ca6679b39e8caafa8d39d3454682372768da74094caa2a1b4945d  — MATCH
+#   gr-search-c9.txt  sha256=3f3a8e170446221c5417ae5be1e0684a57a046eb4c2d501f479659a4990e7cdb  — MATCH
+# Preservation check: PASS (no original artifact or the original receipt modified)
+
+## Validation outcome (Step R3 checks 1-4)
+# Check 1 (expected remediation set complete, no missing/extra): PASS — gr-sub-pin-verification.txt, gr-sub-fork-case-study.txt, and one gr-sub-search-<slug>.txt per cluster (11), no extras
+# Check 2 (nonempty; header with pinned parent SHA and five # Submodule lines in canonical order; >=1 ## Command block with exit code; ends with # END OF ARTIFACT): PASS for all 13 artifacts
+# Check 3 (replay fidelity: every rg/grep source command line replayed byte-identically with replays: mapping; each replay followed by its five canonical-order submodule-scoped variants; rg/grep exit 0 or 1, Command 14 pipeline replay 0 or 123 and scoped variants 0, all stderr empty): PASS
+# Check 4 (preservation: original receipt sha256/bytes equal the pre-remediation baseline; every listed artifact hash matches the receipt): PASS
+# END OF ARTIFACT

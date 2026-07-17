@@ -1,0 +1,907 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-sub-search-c-unassigned.txt
+# Cluster: C-unassigned
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Submodule: dedicated_executor @ 0d36fea385dae3c576eff35e4eb7daae07a7d248
+# Submodule: eth2_libp2p @ aab8db7f25f7282a95c9d7094ba682f629473a93
+# Submodule: grandine-snapshot-tests @ e12f98ff7729487be903d6a6321c565a141ef530
+# Submodule: hive @ 79b2c3847e06d176c9cbe7cf3c96ae0565ac217a
+# Submodule: slashing-protection-interchange-tests @ bb7900688eecd287d8723154faac6addb5e63336
+# Date (UTC): 2026-07-17T06:38:27Z
+
+## Command 1
+replays: gr-search-c-unassigned.txt Command 1
+$ rg -n -i 'proof.?(dedup|status).?cache' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+scoped variant of: gr-search-c-unassigned.txt Command 1, path: dedicated_executor
+$ rg -n -i 'proof.?(dedup|status).?cache' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+scoped variant of: gr-search-c-unassigned.txt Command 1, path: eth2_libp2p
+$ rg -n -i 'proof.?(dedup|status).?cache' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+scoped variant of: gr-search-c-unassigned.txt Command 1, path: grandine-snapshot-tests
+$ rg -n -i 'proof.?(dedup|status).?cache' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+scoped variant of: gr-search-c-unassigned.txt Command 1, path: hive
+$ rg -n -i 'proof.?(dedup|status).?cache' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 6
+scoped variant of: gr-search-c-unassigned.txt Command 1, path: slashing-protection-interchange-tests
+$ rg -n -i 'proof.?(dedup|status).?cache' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 7
+replays: gr-search-c-unassigned.txt Command 2
+$ rg -n -i 'event.?bus' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 8
+scoped variant of: gr-search-c-unassigned.txt Command 2, path: dedicated_executor
+$ rg -n -i 'event.?bus' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 9
+scoped variant of: gr-search-c-unassigned.txt Command 2, path: eth2_libp2p
+$ rg -n -i 'event.?bus' -g '*.rs' eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 10
+scoped variant of: gr-search-c-unassigned.txt Command 2, path: grandine-snapshot-tests
+$ rg -n -i 'event.?bus' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 11
+scoped variant of: gr-search-c-unassigned.txt Command 2, path: hive
+$ rg -n -i 'event.?bus' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 12
+scoped variant of: gr-search-c-unassigned.txt Command 2, path: slashing-protection-interchange-tests
+$ rg -n -i 'event.?bus' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 13
+replays: gr-search-c-unassigned.txt Command 3
+$ rg -n -i 'payload.?bid' -g '*.rs'
+exit code: 0
+stderr: empty
+--- output ---
+fork_choice_store/src/store.rs:67:            SignedExecutionPayloadBid,
+fork_choice_store/src/store.rs:93:        Difference, DifferenceAtLocation, DissolvedDifference, ExecutionPayloadBidAction,
+fork_choice_store/src/store.rs:94:        ExecutionPayloadBidOrigin, LatestMessage, Location, PartialAttestationAction,
+fork_choice_store/src/store.rs:256:    accepted_payload_bids: HashMap<Slot, HashMap<BuilderIndex, Arc<SignedExecutionPayloadBid<P>>>>,
+fork_choice_store/src/store.rs:350:            accepted_payload_bids: HashMap::default(),
+fork_choice_store/src/store.rs:428:    pub fn accepted_payload_bid_at_slot(
+fork_choice_store/src/store.rs:431:    ) -> Option<&Arc<SignedExecutionPayloadBid<P>>> {
+fork_choice_store/src/store.rs:432:        self.accepted_payload_bids
+fork_choice_store/src/store.rs:439:    pub fn get_payload_bid_from(
+fork_choice_store/src/store.rs:443:    ) -> Option<&Arc<SignedExecutionPayloadBid<P>>> {
+fork_choice_store/src/store.rs:444:        self.accepted_payload_bids.get(&slot)?.get(&builder_index)
+fork_choice_store/src/store.rs:1372:    pub fn validate_execution_payload_bid(
+fork_choice_store/src/store.rs:1374:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_store/src/store.rs:1375:        origin: &ExecutionPayloadBidOrigin,
+fork_choice_store/src/store.rs:1376:    ) -> Result<ExecutionPayloadBidAction<P>> {
+fork_choice_store/src/store.rs:1377:        let bid = &payload_bid.message;
+fork_choice_store/src/store.rs:1383:            Error::<P>::ExecutionPayloadBidOffProtocolPaymentDisallowed { payload_bid }
+fork_choice_store/src/store.rs:1388:            return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1410:            return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1417:            return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1424:            return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1432:            Error::<P>::ExecutionPayloadBidFeeRecipientMismatch {
+fork_choice_store/src/store.rs:1441:            Error::<P>::ExecutionPayloadBidGasLimitMismatch {
+fork_choice_store/src/store.rs:1451:            return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1458:                payload_bid.signature.is_empty(),
+fork_choice_store/src/store.rs:1459:                Error::<P>::ExecutionPayloadBidSignatureNotEmpty
+fork_choice_store/src/store.rs:1464:                Error::<P>::ExecutionPayloadBidValueNonZero { value: bid.value }
+fork_choice_store/src/store.rs:1468:                return Ok(ExecutionPayloadBidAction::Ignore("state pre-gloas"));
+fork_choice_store/src/store.rs:1477:                Error::<P>::ExecutionPayloadBidBuilderInactive {
+fork_choice_store/src/store.rs:1478:                    payload_bid,
+fork_choice_store/src/store.rs:1485:                return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1493:                // > `signed_execution_payload_bid.signature` is valid builder's signature
+fork_choice_store/src/store.rs:1495:                    bid.verify(&self.chain_config, &state, payload_bid.signature, pubkey)
+fork_choice_store/src/store.rs:1498:                        error.context(Error::<P>::InvalidExecutionPayloadBidSignature {
+fork_choice_store/src/store.rs:1499:                            payload_bid
+fork_choice_store/src/store.rs:1506:        if let Some(payload_bids) = self.accepted_payload_bids.get(&bid.slot) {
+fork_choice_store/src/store.rs:1508:            if payload_bids.contains_key(&builder_index) {
+fork_choice_store/src/store.rs:1509:                return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1516:            if let Some(highest_bid) = payload_bids
+fork_choice_store/src/store.rs:1532:                return Ok(ExecutionPayloadBidAction::Ignore(
+fork_choice_store/src/store.rs:1538:        Ok(ExecutionPayloadBidAction::Accept(payload_bid))
+fork_choice_store/src/store.rs:2665:            .with_payload_bid()
+fork_choice_store/src/store.rs:2666:            .map(|body| body.signed_execution_payload_bid().blob_kzg_commitments())
+fork_choice_store/src/store.rs:2668:            return Err(Error::DataColumnSidecarBlockWithoutPayloadBid {
+fork_choice_store/src/store.rs:3145:    pub fn apply_execution_payload_bid(&mut self, payload_bid: Arc<SignedExecutionPayloadBid<P>>) {
+fork_choice_store/src/store.rs:3147:            .accepted_payload_bids
+fork_choice_store/src/store.rs:3148:            .entry(payload_bid.message.slot)
+fork_choice_store/src/store.rs:3151:        accepted_bids.insert(payload_bid.message.builder_index, payload_bid);
+fork_choice_store/src/store.rs:3630:        self.accepted_payload_bids
+fork_choice_store/src/misc.rs:27:    gloas::containers::SignedExecutionPayloadBid,
+fork_choice_store/src/misc.rs:298:pub enum ExecutionPayloadBidOrigin {
+fork_choice_store/src/misc.rs:303:impl Serialize for ExecutionPayloadBidOrigin {
+fork_choice_store/src/misc.rs:312:impl ExecutionPayloadBidOrigin {
+fork_choice_store/src/misc.rs:815:pub enum ExecutionPayloadBidAction<P: Preset> {
+fork_choice_store/src/misc.rs:816:    Accept(Arc<SignedExecutionPayloadBid<P>>),
+fork_choice_store/src/lib.rs:85:        ExecutionPayloadBidAction, ExecutionPayloadBidOrigin, PartialBlockAction, PayloadAction,
+fork_choice_store/src/error.rs:10:    gloas::containers::SignedExecutionPayloadBid,
+fork_choice_store/src/error.rs:97:        "data column sidecar's block has no signed execution payload bid: {data_column_sidecar:?}"
+fork_choice_store/src/error.rs:99:    DataColumnSidecarBlockWithoutPayloadBid {
+fork_choice_store/src/error.rs:157:    #[error("execution payload bid's builder is not active at epoch {epoch}: {payload_bid:?}")]
+fork_choice_store/src/error.rs:158:    ExecutionPayloadBidBuilderInactive {
+fork_choice_store/src/error.rs:159:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_store/src/error.rs:163:        "execution payload bid's fee recipient mismatch (in_bid: {in_bid:?}, in_preference: {in_preference:?})"
+fork_choice_store/src/error.rs:165:    ExecutionPayloadBidFeeRecipientMismatch {
+fork_choice_store/src/error.rs:170:        "execution payload bid's gas limit mismatch (in_bid: {in_bid}, in_preference: {in_preference})"
+fork_choice_store/src/error.rs:172:    ExecutionPayloadBidGasLimitMismatch { in_preference: Gas, in_bid: Gas },
+fork_choice_store/src/error.rs:173:    #[error("off-protocol payment is disallowed in gossip: {payload_bid:?}")]
+fork_choice_store/src/error.rs:174:    ExecutionPayloadBidOffProtocolPaymentDisallowed {
+fork_choice_store/src/error.rs:175:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_store/src/error.rs:177:    #[error("execution payload bid's signature for self-build is not empty")]
+fork_choice_store/src/error.rs:178:    ExecutionPayloadBidSignatureNotEmpty,
+fork_choice_store/src/error.rs:179:    #[error("execution payload bid's value for self-build is not zero, value: {value} gwei")]
+fork_choice_store/src/error.rs:180:    ExecutionPayloadBidValueNonZero { value: Gwei },
+fork_choice_store/src/error.rs:187:    #[error("execution payload bid has invalid signature: {payload_bid:?}")]
+fork_choice_store/src/error.rs:188:    InvalidExecutionPayloadBidSignature {
+fork_choice_store/src/error.rs:189:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+transition_functions/src/unphased/error.rs:88:    #[error("execution payload bid's signature is invalid")]
+transition_functions/src/unphased/error.rs:89:    ExecutionPayloadBidSignatureInvalid,
+fork_choice_control/src/thread_pool.rs:29:        DataColumnSidecarTask, ExecutionPayloadBidTask, PersistBlobSidecarsTask,
+fork_choice_control/src/thread_pool.rs:151:    PayloadBid(ExecutionPayloadBidTask<P, W>),
+fork_choice_control/src/thread_pool.rs:166:            Self::PayloadBid(task) => task.run(),
+fork_choice_control/src/thread_pool.rs:240:impl<P: Preset, E, W> Spawn<P, E, W> for ExecutionPayloadBidTask<P, W> {
+fork_choice_control/src/tasks.rs:14:    ExecutionPayloadBidOrigin, StateCacheProcessor, Store,
+fork_choice_control/src/tasks.rs:34:    gloas::containers::SignedExecutionPayloadBid,
+fork_choice_control/src/tasks.rs:504:pub struct ExecutionPayloadBidTask<P: Preset, W> {
+fork_choice_control/src/tasks.rs:507:    pub payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/tasks.rs:508:    pub origin: ExecutionPayloadBidOrigin,
+fork_choice_control/src/tasks.rs:511:impl<P: Preset, W> Run for ExecutionPayloadBidTask<P, W> {
+fork_choice_control/src/tasks.rs:512:    #[instrument(skip_all, level = "debug", name = "ExecutionPayloadBidTask::run")]
+fork_choice_control/src/tasks.rs:517:            payload_bid,
+fork_choice_control/src/tasks.rs:521:        let result = store_snapshot.validate_execution_payload_bid(payload_bid, &origin);
+fork_choice_control/src/tasks.rs:523:        MutatorMessage::PayloadBid { result, origin }.send(&mutator_tx);
+fork_choice_control/src/queries.rs:25:    gloas::{containers::SignedExecutionPayloadBid, primitives::BuilderIndex},
+fork_choice_control/src/queries.rs:865:    pub fn accepted_payload_bid_at_slot(
+fork_choice_control/src/queries.rs:868:    ) -> Option<Arc<SignedExecutionPayloadBid<P>>> {
+fork_choice_control/src/queries.rs:870:            .accepted_payload_bid_at_slot(slot)
+fork_choice_control/src/queries.rs:875:    pub fn get_payload_bid_from(
+fork_choice_control/src/queries.rs:879:    ) -> Option<Arc<SignedExecutionPayloadBid<P>>> {
+fork_choice_control/src/queries.rs:881:            .get_payload_bid_from(slot, builder_index)
+transition_functions/src/gloas/execution_payload_processing.rs:113:    let committed_bid = state.latest_execution_payload_bid();
+transition_functions/src/gloas/execution_payload_processing.rs:205:    let committed_bid = state.latest_execution_payload_bid();
+fork_choice_control/src/mutator.rs:39:    DataColumnSidecarAction, DataColumnSidecarOrigin, Error, ExecutionPayloadBidAction,
+fork_choice_control/src/mutator.rs:40:    ExecutionPayloadBidOrigin, PayloadAction, StateCacheProcessor, Store, ValidAttestation,
+fork_choice_control/src/mutator.rs:318:                MutatorMessage::PayloadBid { result, origin } => {
+fork_choice_control/src/mutator.rs:319:                    self.handle_payload_bid(result, origin)
+fork_choice_control/src/mutator.rs:1845:    fn handle_payload_bid(
+fork_choice_control/src/mutator.rs:1847:        result: Result<ExecutionPayloadBidAction<P>>,
+fork_choice_control/src/mutator.rs:1848:        origin: ExecutionPayloadBidOrigin,
+fork_choice_control/src/mutator.rs:1851:            Ok(ExecutionPayloadBidAction::Accept(payload_bid)) => {
+fork_choice_control/src/mutator.rs:1852:                trace_with_peers!("payload bid accepted (payload_bid: {payload_bid:?})");
+fork_choice_control/src/mutator.rs:1854:                self.event_channels.send_execution_payload_bid_event(
+fork_choice_control/src/mutator.rs:1856:                    payload_bid.clone_arc(),
+fork_choice_control/src/mutator.rs:1865:                reply_execution_payload_bid_validation_result_to_http_api(
+fork_choice_control/src/mutator.rs:1870:                self.store_mut().apply_execution_payload_bid(payload_bid);
+fork_choice_control/src/mutator.rs:1873:            Ok(ExecutionPayloadBidAction::Ignore(message)) => {
+fork_choice_control/src/mutator.rs:1880:                reply_execution_payload_bid_validation_result_to_http_api(
+fork_choice_control/src/mutator.rs:1887:                warn_with_peers!("payload bid rejected (error: {error:?})",);
+fork_choice_control/src/mutator.rs:1894:                        MutatorRejectionReason::InvalidPayloadBid,
+fork_choice_control/src/mutator.rs:1898:                reply_execution_payload_bid_validation_result_to_http_api(
+fork_choice_control/src/mutator.rs:2389:        if let Some(body) = block.message().body().with_payload_bid() {
+fork_choice_control/src/mutator.rs:2391:                .signed_execution_payload_bid()
+fork_choice_control/src/mutator.rs:4058:fn reply_execution_payload_bid_validation_result_to_http_api(
+fork_choice_control/src/misc.rs:198:    InvalidPayloadBid,
+fork_choice_control/src/messages.rs:14:    ChainLink, DataColumnSidecarAction, DataColumnSidecarOrigin, ExecutionPayloadBidAction,
+fork_choice_control/src/messages.rs:15:    ExecutionPayloadBidOrigin,
+fork_choice_control/src/messages.rs:152:    PayloadBid {
+fork_choice_control/src/messages.rs:153:        result: Result<ExecutionPayloadBidAction<P>>,
+fork_choice_control/src/messages.rs:154:        origin: ExecutionPayloadBidOrigin,
+transition_functions/src/gloas/block_processing.rs:51:            BeaconBlock, BuilderPendingPayment, BuilderPendingWithdrawal, ExecutionPayloadBid,
+transition_functions/src/gloas/block_processing.rs:52:            PayloadAttestation, SignedBeaconBlock, SignedExecutionPayloadBid,
+transition_functions/src/gloas/block_processing.rs:162:    process_execution_payload_bid(config, pubkey_cache, state, block)?;
+transition_functions/src/gloas/block_processing.rs:460:    if state.latest_execution_payload_bid().block_hash != state.latest_block_hash() {
+transition_functions/src/gloas/block_processing.rs:549:fn validate_execution_payload_bid_signature_with_verifier<P: Preset>(
+transition_functions/src/gloas/block_processing.rs:553:    signed_bid: &SignedExecutionPayloadBid<P>,
+transition_functions/src/gloas/block_processing.rs:556:    let SignedExecutionPayloadBid {
+transition_functions/src/gloas/block_processing.rs:557:        message: execution_payload_bid,
+transition_functions/src/gloas/block_processing.rs:561:    let builder = state.builders().get(execution_payload_bid.builder_index)?;
+transition_functions/src/gloas/block_processing.rs:565:        execution_payload_bid.signing_root(config, state),
+transition_functions/src/gloas/block_processing.rs:568:        SignatureKind::ExecutionPayloadBid,
+transition_functions/src/gloas/block_processing.rs:572:fn validate_execution_payload_bid<P: Preset>(
+transition_functions/src/gloas/block_processing.rs:579:    let signed_bid = &block.body.signed_execution_payload_bid;
+transition_functions/src/gloas/block_processing.rs:580:    let ExecutionPayloadBid {
+transition_functions/src/gloas/block_processing.rs:596:            Error::<P>::ExecutionPayloadBidSignatureInvalid
+transition_functions/src/gloas/block_processing.rs:615:            validate_execution_payload_bid_signature_with_verifier(
+transition_functions/src/gloas/block_processing.rs:623:            Error::<P>::ExecutionPayloadBidSignatureInvalid
+transition_functions/src/gloas/block_processing.rs:676:pub fn process_execution_payload_bid<P: Preset>(
+transition_functions/src/gloas/block_processing.rs:682:    let payload_bid = block.body.signed_execution_payload_bid.message.clone();
+transition_functions/src/gloas/block_processing.rs:683:    let ExecutionPayloadBid {
+transition_functions/src/gloas/block_processing.rs:689:    } = payload_bid;
+transition_functions/src/gloas/block_processing.rs:691:    validate_execution_payload_bid(config, pubkey_cache, state, block)?;
+transition_functions/src/gloas/block_processing.rs:708:    // > Cache the signed execution payload bid
+transition_functions/src/gloas/block_processing.rs:709:    *state.latest_execution_payload_bid_mut() = payload_bid;
+transition_functions/src/gloas/block_processing.rs:1441:        process_execution_payload_bid,
+transition_functions/src/gloas/block_processing.rs:1443:            process_execution_payload_bid(
+transition_functions/src/gloas/block_processing.rs:1451:        "consensus-spec-tests/tests/mainnet/gloas/operations/execution_payload_bid/*/*",
+transition_functions/src/gloas/block_processing.rs:1452:        "consensus-spec-tests/tests/minimal/gloas/operations/execution_payload_bid/*/*",
+fork_choice_control/src/events.rs:28:    gloas::containers::SignedExecutionPayloadBid,
+fork_choice_control/src/events.rs:55:    ExecutionPayloadBid,
+fork_choice_control/src/events.rs:75:    ExecutionPayloadBid(ExecutionPayloadBidEvent<P>),
+fork_choice_control/src/events.rs:97:            Self::ExecutionPayloadBid(_) => Topic::ExecutionPayloadBid,
+fork_choice_control/src/events.rs:120:    pub execution_payload_bids: Sender<Event<P>>,
+fork_choice_control/src/events.rs:150:            execution_payload_bids: broadcast::channel(max_events).0,
+fork_choice_control/src/events.rs:173:            Topic::ExecutionPayloadBid => &self.execution_payload_bids,
+fork_choice_control/src/events.rs:268:    pub fn send_execution_payload_bid_event(
+fork_choice_control/src/events.rs:271:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/events.rs:273:        if let Err(error) = self.send_execution_payload_bid_event_internal(phase, payload_bid) {
+fork_choice_control/src/events.rs:274:            warn_with_peers!("unable to send execution payload bid event: {error}");
+fork_choice_control/src/events.rs:491:    fn send_execution_payload_bid_event_internal(
+fork_choice_control/src/events.rs:494:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/events.rs:496:        if self.execution_payload_bids.receiver_count() > 0 {
+fork_choice_control/src/events.rs:497:            let event = Event::ExecutionPayloadBid(ExecutionPayloadBidEvent {
+fork_choice_control/src/events.rs:499:                data: payload_bid,
+fork_choice_control/src/events.rs:501:            self.execution_payload_bids.send(event)?;
+fork_choice_control/src/events.rs:778:pub struct ExecutionPayloadBidEvent<P: Preset> {
+fork_choice_control/src/events.rs:780:    pub data: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/controller.rs:26:    BlobSidecarOrigin, BlockOrigin, DataColumnSidecarOrigin, ExecutionPayloadBidOrigin,
+fork_choice_control/src/controller.rs:46:    gloas::containers::SignedExecutionPayloadBid,
+fork_choice_control/src/controller.rs:72:        BlockVerifyForGossipTask, DataColumnSidecarTask, ExecutionPayloadBidTask,
+fork_choice_control/src/controller.rs:383:    pub fn on_gossip_execution_payload_bid(
+fork_choice_control/src/controller.rs:385:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/controller.rs:388:        self.spawn_execution_payload_bid_task(
+fork_choice_control/src/controller.rs:389:            payload_bid,
+fork_choice_control/src/controller.rs:390:            ExecutionPayloadBidOrigin::Gossip(gossip_id),
+fork_choice_control/src/controller.rs:394:    pub fn on_api_execution_payload_bid(
+fork_choice_control/src/controller.rs:396:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/controller.rs:399:        self.spawn_execution_payload_bid_task(payload_bid, ExecutionPayloadBidOrigin::Api(sender))
+fork_choice_control/src/controller.rs:798:    fn spawn_execution_payload_bid_task(
+fork_choice_control/src/controller.rs:800:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+fork_choice_control/src/controller.rs:801:        origin: ExecutionPayloadBidOrigin,
+fork_choice_control/src/controller.rs:803:        self.spawn(ExecutionPayloadBidTask {
+fork_choice_control/src/controller.rs:806:            payload_bid,
+factory/src/lib.rs:53:            ExecutionPayloadBid, SignedExecutionPayloadBid,
+factory/src/lib.rs:377:fn signed_execution_payload_bid<P: Preset>(
+factory/src/lib.rs:379:) -> SignedExecutionPayloadBid<P> {
+factory/src/lib.rs:382:    SignedExecutionPayloadBid {
+factory/src/lib.rs:383:        message: ExecutionPayloadBid {
+factory/src/lib.rs:511:    let signed_execution_payload_bid = advanced_state
+factory/src/lib.rs:513:        .map(signed_execution_payload_bid);
+factory/src/lib.rs:635:        .with_signed_execution_payload_bid(signed_execution_payload_bid),
+helper_functions/src/signing.rs:35:            BeaconBlock as GloasBeaconBlock, ExecutionPayloadBid, ExecutionPayloadEnvelope,
+helper_functions/src/signing.rs:467:// <https://github.com/ethereum/consensus-specs/blob/v1.6.0-beta.0/specs/gloas/beacon-chain.md#new-verify_execution_payload_bid_signature>
+helper_functions/src/signing.rs:468:impl<P: Preset> SignForSingleFork<P> for ExecutionPayloadBid<P> {
+helper_functions/src/signing.rs:470:    const SIGNATURE_KIND: SignatureKind = SignatureKind::ExecutionPayloadBid;
+types/src/traits.rs:99:            ExecutionPayloadBid, PayloadAttestation, SignedExecutionPayloadBid,
+types/src/traits.rs:677:        &self.latest_execution_payload_bid
+types/src/traits.rs:681:        &mut self.latest_execution_payload_bid
+types/src/traits.rs:931:    fn latest_execution_payload_bid(&self) -> &ExecutionPayloadBid<P>;
+types/src/traits.rs:941:    fn latest_execution_payload_bid_mut(&mut self) -> &mut ExecutionPayloadBid<P>;
+types/src/traits.rs:984:        [latest_execution_payload_bid]      [ExecutionPayloadBid<P>];
+types/src/traits.rs:997:        [latest_execution_payload_bid]     [latest_execution_payload_bid_mut]     [ExecutionPayloadBid<P>];
+types/src/traits.rs:1210:    fn with_payload_bid(&self) -> Option<&dyn BlockBodyWithPayloadBid<P>>;
+types/src/traits.rs:1221:    implementor                          pre_electra_body body_with_sync_aggregate body_with_execution_payload body_with_bls_to_execution_changes body_with_blob_kzg_commitments body_with_electra_attestations body_with_execution_requests body_with_payload_bid body_with_payload_attestations;
+types/src/traits.rs:1309:    fn with_payload_bid(&self) -> Option<&dyn BlockBodyWithPayloadBid<P>> {
+types/src/traits.rs:1310:        body_with_payload_bid
+types/src/traits.rs:1706:        self.signed_execution_payload_bid().blob_kzg_commitments()
+types/src/traits.rs:1807:pub trait BlockBodyWithPayloadBid<P: Preset>: BeaconBlockBody<P> {
+types/src/traits.rs:1808:    fn signed_execution_payload_bid(&self) -> &SignedExecutionPayloadBid<P>;
+types/src/traits.rs:1811:impl<P: Preset> BlockBodyWithPayloadBid<P> for GloasBeaconBlockBody<P> {
+types/src/traits.rs:1812:    fn signed_execution_payload_bid(&self) -> &SignedExecutionPayloadBid<P> {
+types/src/traits.rs:1813:        &self.signed_execution_payload_bid
+types/src/traits.rs:1972:impl<P: Preset> ExecutionPayload<P> for ExecutionPayloadBid<P> {
+types/src/traits.rs:1978:        // TODO: (gloas): there is no `block_number` field in payload bid
+helper_functions/src/fork.rs:38:    gloas::{beacon_state::BeaconState as GloasBeaconState, containers::ExecutionPayloadBid},
+helper_functions/src/fork.rs:851:    let latest_execution_payload_bid = ExecutionPayloadBid {
+helper_functions/src/fork.rs:892:        latest_execution_payload_bid,
+block_producer/src/block_producer.rs:77:        SignedExecutionPayloadBid,
+block_producer/src/block_producer.rs:1016:                                signed_execution_payload_bid: SignedExecutionPayloadBid::default(),
+helper_functions/src/error.rs:96:    #[display("execution payload bid signature")]
+helper_functions/src/error.rs:97:    ExecutionPayloadBid,
+p2p/src/network.rs:64:    gloas::containers::SignedExecutionPayloadBid,
+p2p/src/network.rs:391:                        ApiToP2p::PublishPayloadBid(payload_bid) => {
+p2p/src/network.rs:392:                            self.publish_execution_payload_bid(payload_bid);
+p2p/src/network.rs:756:    fn publish_execution_payload_bid(&self, payload_bid: Arc<SignedExecutionPayloadBid<P>>) {
+p2p/src/network.rs:758:            "publishing signed execution payload bid (slot: {}, parent_block_root: {:?}, parent block hash: {:?})",
+p2p/src/network.rs:759:            payload_bid.message.slot,
+p2p/src/network.rs:760:            payload_bid.message.parent_block_root,
+p2p/src/network.rs:761:            payload_bid.message.parent_block_hash
+p2p/src/network.rs:764:        self.publish(PubsubMessage::ExecutionPayloadBid(payload_bid));
+p2p/src/network.rs:2219:            PubsubMessage::ExecutionPayloadBid(payload_bid) => {
+p2p/src/network.rs:2221:                    metrics.register_gossip_object(&["execution_payload_bid"]);
+p2p/src/network.rs:2225:                    "received signed execution payload bid as gossip: \
+p2p/src/network.rs:2226:                    {payload_bid:?} from {source}"
+p2p/src/network.rs:2230:                    .on_gossip_execution_payload_bid(payload_bid, GossipId { source, message_id });
+p2p/src/messages.rs:31:    gloas::containers::SignedExecutionPayloadBid,
+p2p/src/messages.rs:99:    PublishPayloadBid(Arc<SignedExecutionPayloadBid<P>>),
+eth2_libp2p/src/types/topics.rs:36:pub const EXECUTION_PAYLOAD_BID_TOPIC: &str = "execution_payload_bid";
+eth2_libp2p/src/types/topics.rs:98:        topics.push(GossipKind::ExecutionPayloadBid);
+eth2_libp2p/src/types/topics.rs:125:        | GossipKind::ExecutionPayloadBid => false,
+eth2_libp2p/src/types/topics.rs:184:    /// Topic for publishing execution payload bids.
+eth2_libp2p/src/types/topics.rs:185:    ExecutionPayloadBid,
+eth2_libp2p/src/types/topics.rs:264:                EXECUTION_PAYLOAD_BID_TOPIC => GossipKind::ExecutionPayloadBid,
+eth2_libp2p/src/types/topics.rs:329:            GossipKind::ExecutionPayloadBid => EXECUTION_PAYLOAD_BID_TOPIC.into(),
+eth2_libp2p/src/types/pubsub.rs:34:        SignedExecutionPayloadBid,
+eth2_libp2p/src/types/pubsub.rs:77:    /// Gossipsub message providing notification of an execution payload bid.
+eth2_libp2p/src/types/pubsub.rs:78:    ExecutionPayloadBid(Arc<SignedExecutionPayloadBid<P>>),
+eth2_libp2p/src/types/pubsub.rs:175:            PubsubMessage::ExecutionPayloadBid(_) => GossipKind::ExecutionPayloadBid,
+eth2_libp2p/src/types/pubsub.rs:513:                    GossipKind::ExecutionPayloadBid => {
+eth2_libp2p/src/types/pubsub.rs:516:                                let execution_payload_bid = Arc::new(
+eth2_libp2p/src/types/pubsub.rs:517:                                    SignedExecutionPayloadBid::from_ssz_default(data)
+eth2_libp2p/src/types/pubsub.rs:520:                                Ok(PubsubMessage::ExecutionPayloadBid(execution_payload_bid))
+eth2_libp2p/src/types/pubsub.rs:532:                                "execution_payload_bid topic invalid for given fork digest {:?}",
+eth2_libp2p/src/types/pubsub.rs:563:            PubsubMessage::ExecutionPayloadBid(data) => data.to_ssz(),
+eth2_libp2p/src/types/pubsub.rs:628:            PubsubMessage::ExecutionPayloadBid(data) => {
+eth2_libp2p/src/types/pubsub.rs:631:                    "Execution Payload Bid: slot: {}, parent_block_root: {:?}, builder_index: {}",
+types/src/gloas/spec_tests.rs:217:    ExecutionPayloadBid<_>,
+types/src/gloas/spec_tests.rs:218:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:219:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:409:    SignedExecutionPayloadBid<_>,
+types/src/gloas/spec_tests.rs:410:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:411:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedExecutionPayloadBid/*/*",
+http_api/src/error.rs:59:    #[error("execution payload bid not available for slot and builder")]
+http_api/src/error.rs:60:    ExecutionPayloadBidNotFound,
+http_api/src/error.rs:107:    #[error("invalid signed execution payload bid")]
+http_api/src/error.rs:108:    InvalidPayloadBid(#[source] AnyhowError),
+http_api/src/error.rs:229:            | Self::ExecutionPayloadBidNotFound
+http_api/src/error.rs:258:            | Self::InvalidPayloadBid(_)
+http_api/src/standard.rs:86:        containers::{ExecutionPayloadBid, SignedExecutionPayloadBid},
+http_api/src/standard.rs:120:        SignedExecutionPayloadBidPhaseDeserializer, SingleApiAttestation,
+http_api/src/standard.rs:1771:/// `POST /eth/v1/beacon/execution_payload_bid`
+http_api/src/standard.rs:1772:pub async fn publish_execution_payload_bid<P: Preset, W: Wait>(
+http_api/src/standard.rs:1775:    EthJsonOrSsz(signed_payload_bid, _): EthJsonOrSsz<
+http_api/src/standard.rs:1776:        Arc<SignedExecutionPayloadBid<P>>,
+http_api/src/standard.rs:1777:        SignedExecutionPayloadBidPhaseDeserializer<P>,
+http_api/src/standard.rs:1782:    controller.on_api_execution_payload_bid(signed_payload_bid.clone_arc(), sender);
+http_api/src/standard.rs:1788:            ApiToP2p::PublishPayloadBid(signed_payload_bid).send(&api_to_p2p_tx);
+http_api/src/standard.rs:1792:            Err(Error::InvalidPayloadBid(AnyhowError::msg(message)))
+http_api/src/standard.rs:1794:        Err(error) => Err(Error::InvalidPayloadBid(error)),
+http_api/src/standard.rs:2512:                Event::ExecutionPayloadBid(data) => ssevent.json_data(data),
+http_api/src/standard.rs:3506:/// `GET /eth/v1/validator/execution_payload_bid/{slot}/{builder_index}`
+http_api/src/standard.rs:3507:pub async fn validator_execution_payload_bid<P: Preset, W: Wait>(
+http_api/src/standard.rs:3512:) -> Result<EthResponse<ExecutionPayloadBid<P>, (), JsonOrSsz>, Error> {
+http_api/src/standard.rs:3532:        .get_payload_bid_from(slot, builder_index)
+http_api/src/standard.rs:3533:        .ok_or(Error::ExecutionPayloadBidNotFound)?;
+types/src/gloas/containers.rs:58:    pub signed_execution_payload_bid: SignedExecutionPayloadBid<P>,
+types/src/gloas/containers.rs:109:pub struct ExecutionPayloadBid<P: Preset> {
+types/src/gloas/containers.rs:255:pub struct SignedExecutionPayloadBid<P: Preset> {
+types/src/gloas/containers.rs:256:    pub message: ExecutionPayloadBid<P>,
+types/src/gloas/container_impls.rs:17:        PayloadAttestationData, SignedExecutionPayloadBid, SignedExecutionPayloadEnvelope,
+types/src/gloas/container_impls.rs:89:impl<P: Preset> SignedExecutionPayloadBid<P> {
+http_api/src/routing.rs:42:        publish_block_v2, publish_execution_payload_bid, state_committees,
+http_api/src/routing.rs:53:        validator_block_v3, validator_execution_payload_bid, validator_liveness,
+http_api/src/routing.rs:409:        "/eth/v1/beacon/execution_payload_bid",
+http_api/src/routing.rs:410:        post(publish_execution_payload_bid),
+http_api/src/routing.rs:603:            "/eth/v1/validator/execution_payload_bid/{slot}/{builder_index}",
+http_api/src/routing.rs:604:            get(validator_execution_payload_bid),
+types/src/gloas/beacon_state.rs:18:    gloas::{containers::ExecutionPayloadBid, primitives::BuilderIndex},
+types/src/gloas/beacon_state.rs:86:    pub latest_execution_payload_bid: ExecutionPayloadBid<P>,
+eth2_libp2p/src/service/mod.rs:271:                .execution_payload_bid_timeout(chain_config.slot_duration_ms)
+http_api/src/misc.rs:48:    gloas::containers::{SignedBeaconBlock as GloasSignedBeaconBlock, SignedExecutionPayloadBid},
+http_api/src/misc.rs:325:pub struct SignedExecutionPayloadBidPhaseDeserializer<P> {
+http_api/src/misc.rs:330:impl<P: Preset> From<Phase> for SignedExecutionPayloadBidPhaseDeserializer<P> {
+http_api/src/misc.rs:339:impl<'de, P: Preset> DeserializeSeed<'de> for SignedExecutionPayloadBidPhaseDeserializer<P> {
+http_api/src/misc.rs:340:    type Value = Arc<SignedExecutionPayloadBid<P>>;
+http_api/src/misc.rs:347:            SignedExecutionPayloadBid::deserialize(deserializer).map(Arc::new)
+eth2_libp2p/src/service/gossip_cache.rs:45:    /// Timeout for execution payload bids.
+eth2_libp2p/src/service/gossip_cache.rs:46:    execution_payload_bid: Option<Duration>,
+eth2_libp2p/src/service/gossip_cache.rs:76:    /// Timeout for execution payload bids.
+eth2_libp2p/src/service/gossip_cache.rs:77:    execution_payload_bid: Option<Duration>,
+eth2_libp2p/src/service/gossip_cache.rs:154:    /// Timeout for execution payload bid messages.
+eth2_libp2p/src/service/gossip_cache.rs:155:    pub fn execution_payload_bid_timeout(mut self, timeout: Duration) -> Self {
+eth2_libp2p/src/service/gossip_cache.rs:156:        self.execution_payload_bid = Some(timeout);
+eth2_libp2p/src/service/gossip_cache.rs:175:            execution_payload_bid,
+eth2_libp2p/src/service/gossip_cache.rs:192:            execution_payload_bid: execution_payload_bid.or(default_timeout),
+eth2_libp2p/src/service/gossip_cache.rs:219:            GossipKind::ExecutionPayloadBid => self.execution_payload_bid,
+types/src/combined.rs:101:            ExecutionPayloadBid, LightClientBootstrap as GloasLightClientBootstrap,
+types/src/combined.rs:105:            SignedBeaconBlock as GloasSignedBeaconBlock, SignedExecutionPayloadBid,
+types/src/combined.rs:271:    pub fn with_execution_payload_bid(
+types/src/combined.rs:273:        execution_payload_bid: Option<ExecutionPayloadBid<P>>,
+types/src/combined.rs:275:        let Some(execution_payload_bid) = execution_payload_bid else {
+types/src/combined.rs:281:                state.latest_execution_payload_bid = execution_payload_bid;
+types/src/combined.rs:696:            .with_payload_bid()
+types/src/combined.rs:697:            .map(|body| body.signed_execution_payload_bid().message.block_hash)
+types/src/combined.rs:963:    pub fn with_signed_execution_payload_bid(
+types/src/combined.rs:965:        payload_bid: Option<SignedExecutionPayloadBid<P>>,
+types/src/combined.rs:967:        let Some(payload_bid) = payload_bid else {
+types/src/combined.rs:972:            Self::Gloas(block) => block.body.signed_execution_payload_bid = payload_bid,
+types/src/combined.rs:1556:    Gloas(ExecutionPayloadBid<P>),
+--- end output ---
+# Retained positive hits — file path : symbol
+#   fork_choice_store/src/store.rs:67:            SignedExecutionPayloadBid,
+#   fork_choice_store/src/store.rs:93:        Difference, DifferenceAtLocation, DissolvedDifference, ExecutionPayloadBidAction,
+#   fork_choice_store/src/store.rs:94:        ExecutionPayloadBidOrigin, LatestMessage, Location, PartialAttestationAction,
+#   fork_choice_store/src/store.rs:256:    accepted_payload_bids: HashMap<Slot, HashMap<BuilderIndex, Arc<SignedExecutionPayloadBid<P>>>>,
+#   fork_choice_store/src/store.rs:350:            accepted_payload_bids: HashMap::default(),
+#   fork_choice_store/src/store.rs:428:    pub fn accepted_payload_bid_at_slot(
+#   fork_choice_store/src/store.rs:431:    ) -> Option<&Arc<SignedExecutionPayloadBid<P>>> {
+#   fork_choice_store/src/store.rs:432:        self.accepted_payload_bids
+#   fork_choice_store/src/store.rs:439:    pub fn get_payload_bid_from(
+#   fork_choice_store/src/store.rs:443:    ) -> Option<&Arc<SignedExecutionPayloadBid<P>>> {
+#   fork_choice_store/src/store.rs:444:        self.accepted_payload_bids.get(&slot)?.get(&builder_index)
+#   fork_choice_store/src/store.rs:1372:    pub fn validate_execution_payload_bid(
+#   fork_choice_store/src/store.rs:1374:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_store/src/store.rs:1375:        origin: &ExecutionPayloadBidOrigin,
+#   fork_choice_store/src/store.rs:1376:    ) -> Result<ExecutionPayloadBidAction<P>> {
+#   fork_choice_store/src/store.rs:1377:        let bid = &payload_bid.message;
+#   fork_choice_store/src/store.rs:1383:            Error::<P>::ExecutionPayloadBidOffProtocolPaymentDisallowed { payload_bid }
+#   fork_choice_store/src/store.rs:1388:            return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1410:            return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1417:            return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1424:            return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1432:            Error::<P>::ExecutionPayloadBidFeeRecipientMismatch {
+#   fork_choice_store/src/store.rs:1441:            Error::<P>::ExecutionPayloadBidGasLimitMismatch {
+#   fork_choice_store/src/store.rs:1451:            return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1458:                payload_bid.signature.is_empty(),
+#   fork_choice_store/src/store.rs:1459:                Error::<P>::ExecutionPayloadBidSignatureNotEmpty
+#   fork_choice_store/src/store.rs:1464:                Error::<P>::ExecutionPayloadBidValueNonZero { value: bid.value }
+#   fork_choice_store/src/store.rs:1468:                return Ok(ExecutionPayloadBidAction::Ignore("state pre-gloas"));
+#   fork_choice_store/src/store.rs:1477:                Error::<P>::ExecutionPayloadBidBuilderInactive {
+#   fork_choice_store/src/store.rs:1478:                    payload_bid,
+#   fork_choice_store/src/store.rs:1485:                return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1493:                // > `signed_execution_payload_bid.signature` is valid builder's signature
+#   fork_choice_store/src/store.rs:1495:                    bid.verify(&self.chain_config, &state, payload_bid.signature, pubkey)
+#   fork_choice_store/src/store.rs:1498:                        error.context(Error::<P>::InvalidExecutionPayloadBidSignature {
+#   fork_choice_store/src/store.rs:1499:                            payload_bid
+#   fork_choice_store/src/store.rs:1506:        if let Some(payload_bids) = self.accepted_payload_bids.get(&bid.slot) {
+#   fork_choice_store/src/store.rs:1508:            if payload_bids.contains_key(&builder_index) {
+#   fork_choice_store/src/store.rs:1509:                return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1516:            if let Some(highest_bid) = payload_bids
+#   fork_choice_store/src/store.rs:1532:                return Ok(ExecutionPayloadBidAction::Ignore(
+#   fork_choice_store/src/store.rs:1538:        Ok(ExecutionPayloadBidAction::Accept(payload_bid))
+#   fork_choice_store/src/store.rs:2665:            .with_payload_bid()
+#   fork_choice_store/src/store.rs:2666:            .map(|body| body.signed_execution_payload_bid().blob_kzg_commitments())
+#   fork_choice_store/src/store.rs:2668:            return Err(Error::DataColumnSidecarBlockWithoutPayloadBid {
+#   fork_choice_store/src/store.rs:3145:    pub fn apply_execution_payload_bid(&mut self, payload_bid: Arc<SignedExecutionPayloadBid<P>>) {
+#   fork_choice_store/src/store.rs:3147:            .accepted_payload_bids
+#   fork_choice_store/src/store.rs:3148:            .entry(payload_bid.message.slot)
+#   fork_choice_store/src/store.rs:3151:        accepted_bids.insert(payload_bid.message.builder_index, payload_bid);
+#   fork_choice_store/src/store.rs:3630:        self.accepted_payload_bids
+#   fork_choice_store/src/misc.rs:27:    gloas::containers::SignedExecutionPayloadBid,
+#   fork_choice_store/src/misc.rs:298:pub enum ExecutionPayloadBidOrigin {
+#   fork_choice_store/src/misc.rs:303:impl Serialize for ExecutionPayloadBidOrigin {
+#   fork_choice_store/src/misc.rs:312:impl ExecutionPayloadBidOrigin {
+#   fork_choice_store/src/misc.rs:815:pub enum ExecutionPayloadBidAction<P: Preset> {
+#   fork_choice_store/src/misc.rs:816:    Accept(Arc<SignedExecutionPayloadBid<P>>),
+#   fork_choice_store/src/lib.rs:85:        ExecutionPayloadBidAction, ExecutionPayloadBidOrigin, PartialBlockAction, PayloadAction,
+#   fork_choice_store/src/error.rs:10:    gloas::containers::SignedExecutionPayloadBid,
+#   fork_choice_store/src/error.rs:97:        "data column sidecar's block has no signed execution payload bid: {data_column_sidecar:?}"
+#   fork_choice_store/src/error.rs:99:    DataColumnSidecarBlockWithoutPayloadBid {
+#   fork_choice_store/src/error.rs:157:    #[error("execution payload bid's builder is not active at epoch {epoch}: {payload_bid:?}")]
+#   fork_choice_store/src/error.rs:158:    ExecutionPayloadBidBuilderInactive {
+#   fork_choice_store/src/error.rs:159:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_store/src/error.rs:163:        "execution payload bid's fee recipient mismatch (in_bid: {in_bid:?}, in_preference: {in_preference:?})"
+#   fork_choice_store/src/error.rs:165:    ExecutionPayloadBidFeeRecipientMismatch {
+#   fork_choice_store/src/error.rs:170:        "execution payload bid's gas limit mismatch (in_bid: {in_bid}, in_preference: {in_preference})"
+#   fork_choice_store/src/error.rs:172:    ExecutionPayloadBidGasLimitMismatch { in_preference: Gas, in_bid: Gas },
+#   fork_choice_store/src/error.rs:173:    #[error("off-protocol payment is disallowed in gossip: {payload_bid:?}")]
+#   fork_choice_store/src/error.rs:174:    ExecutionPayloadBidOffProtocolPaymentDisallowed {
+#   fork_choice_store/src/error.rs:175:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_store/src/error.rs:177:    #[error("execution payload bid's signature for self-build is not empty")]
+#   fork_choice_store/src/error.rs:178:    ExecutionPayloadBidSignatureNotEmpty,
+#   fork_choice_store/src/error.rs:179:    #[error("execution payload bid's value for self-build is not zero, value: {value} gwei")]
+#   fork_choice_store/src/error.rs:180:    ExecutionPayloadBidValueNonZero { value: Gwei },
+#   fork_choice_store/src/error.rs:187:    #[error("execution payload bid has invalid signature: {payload_bid:?}")]
+#   fork_choice_store/src/error.rs:188:    InvalidExecutionPayloadBidSignature {
+#   fork_choice_store/src/error.rs:189:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   transition_functions/src/unphased/error.rs:88:    #[error("execution payload bid's signature is invalid")]
+#   transition_functions/src/unphased/error.rs:89:    ExecutionPayloadBidSignatureInvalid,
+#   fork_choice_control/src/thread_pool.rs:29:        DataColumnSidecarTask, ExecutionPayloadBidTask, PersistBlobSidecarsTask,
+#   fork_choice_control/src/thread_pool.rs:151:    PayloadBid(ExecutionPayloadBidTask<P, W>),
+#   fork_choice_control/src/thread_pool.rs:166:            Self::PayloadBid(task) => task.run(),
+#   fork_choice_control/src/thread_pool.rs:240:impl<P: Preset, E, W> Spawn<P, E, W> for ExecutionPayloadBidTask<P, W> {
+#   fork_choice_control/src/tasks.rs:14:    ExecutionPayloadBidOrigin, StateCacheProcessor, Store,
+#   fork_choice_control/src/tasks.rs:34:    gloas::containers::SignedExecutionPayloadBid,
+#   fork_choice_control/src/tasks.rs:504:pub struct ExecutionPayloadBidTask<P: Preset, W> {
+#   fork_choice_control/src/tasks.rs:507:    pub payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/tasks.rs:508:    pub origin: ExecutionPayloadBidOrigin,
+#   fork_choice_control/src/tasks.rs:511:impl<P: Preset, W> Run for ExecutionPayloadBidTask<P, W> {
+#   fork_choice_control/src/tasks.rs:512:    #[instrument(skip_all, level = "debug", name = "ExecutionPayloadBidTask::run")]
+#   fork_choice_control/src/tasks.rs:517:            payload_bid,
+#   fork_choice_control/src/tasks.rs:521:        let result = store_snapshot.validate_execution_payload_bid(payload_bid, &origin);
+#   fork_choice_control/src/tasks.rs:523:        MutatorMessage::PayloadBid { result, origin }.send(&mutator_tx);
+#   fork_choice_control/src/queries.rs:25:    gloas::{containers::SignedExecutionPayloadBid, primitives::BuilderIndex},
+#   fork_choice_control/src/queries.rs:865:    pub fn accepted_payload_bid_at_slot(
+#   fork_choice_control/src/queries.rs:868:    ) -> Option<Arc<SignedExecutionPayloadBid<P>>> {
+#   fork_choice_control/src/queries.rs:870:            .accepted_payload_bid_at_slot(slot)
+#   fork_choice_control/src/queries.rs:875:    pub fn get_payload_bid_from(
+#   fork_choice_control/src/queries.rs:879:    ) -> Option<Arc<SignedExecutionPayloadBid<P>>> {
+#   fork_choice_control/src/queries.rs:881:            .get_payload_bid_from(slot, builder_index)
+#   transition_functions/src/gloas/execution_payload_processing.rs:113:    let committed_bid = state.latest_execution_payload_bid();
+#   transition_functions/src/gloas/execution_payload_processing.rs:205:    let committed_bid = state.latest_execution_payload_bid();
+#   fork_choice_control/src/mutator.rs:39:    DataColumnSidecarAction, DataColumnSidecarOrigin, Error, ExecutionPayloadBidAction,
+#   fork_choice_control/src/mutator.rs:40:    ExecutionPayloadBidOrigin, PayloadAction, StateCacheProcessor, Store, ValidAttestation,
+#   fork_choice_control/src/mutator.rs:318:                MutatorMessage::PayloadBid { result, origin } => {
+#   fork_choice_control/src/mutator.rs:319:                    self.handle_payload_bid(result, origin)
+#   fork_choice_control/src/mutator.rs:1845:    fn handle_payload_bid(
+#   fork_choice_control/src/mutator.rs:1847:        result: Result<ExecutionPayloadBidAction<P>>,
+#   fork_choice_control/src/mutator.rs:1848:        origin: ExecutionPayloadBidOrigin,
+#   fork_choice_control/src/mutator.rs:1851:            Ok(ExecutionPayloadBidAction::Accept(payload_bid)) => {
+#   fork_choice_control/src/mutator.rs:1852:                trace_with_peers!("payload bid accepted (payload_bid: {payload_bid:?})");
+#   fork_choice_control/src/mutator.rs:1854:                self.event_channels.send_execution_payload_bid_event(
+#   fork_choice_control/src/mutator.rs:1856:                    payload_bid.clone_arc(),
+#   fork_choice_control/src/mutator.rs:1865:                reply_execution_payload_bid_validation_result_to_http_api(
+#   fork_choice_control/src/mutator.rs:1870:                self.store_mut().apply_execution_payload_bid(payload_bid);
+#   fork_choice_control/src/mutator.rs:1873:            Ok(ExecutionPayloadBidAction::Ignore(message)) => {
+#   fork_choice_control/src/mutator.rs:1880:                reply_execution_payload_bid_validation_result_to_http_api(
+#   fork_choice_control/src/mutator.rs:1887:                warn_with_peers!("payload bid rejected (error: {error:?})",);
+#   fork_choice_control/src/mutator.rs:1894:                        MutatorRejectionReason::InvalidPayloadBid,
+#   fork_choice_control/src/mutator.rs:1898:                reply_execution_payload_bid_validation_result_to_http_api(
+#   fork_choice_control/src/mutator.rs:2389:        if let Some(body) = block.message().body().with_payload_bid() {
+#   fork_choice_control/src/mutator.rs:2391:                .signed_execution_payload_bid()
+#   fork_choice_control/src/mutator.rs:4058:fn reply_execution_payload_bid_validation_result_to_http_api(
+#   fork_choice_control/src/misc.rs:198:    InvalidPayloadBid,
+#   fork_choice_control/src/messages.rs:14:    ChainLink, DataColumnSidecarAction, DataColumnSidecarOrigin, ExecutionPayloadBidAction,
+#   fork_choice_control/src/messages.rs:15:    ExecutionPayloadBidOrigin,
+#   fork_choice_control/src/messages.rs:152:    PayloadBid {
+#   fork_choice_control/src/messages.rs:153:        result: Result<ExecutionPayloadBidAction<P>>,
+#   fork_choice_control/src/messages.rs:154:        origin: ExecutionPayloadBidOrigin,
+#   transition_functions/src/gloas/block_processing.rs:51:            BeaconBlock, BuilderPendingPayment, BuilderPendingWithdrawal, ExecutionPayloadBid,
+#   transition_functions/src/gloas/block_processing.rs:52:            PayloadAttestation, SignedBeaconBlock, SignedExecutionPayloadBid,
+#   transition_functions/src/gloas/block_processing.rs:162:    process_execution_payload_bid(config, pubkey_cache, state, block)?;
+#   transition_functions/src/gloas/block_processing.rs:460:    if state.latest_execution_payload_bid().block_hash != state.latest_block_hash() {
+#   transition_functions/src/gloas/block_processing.rs:549:fn validate_execution_payload_bid_signature_with_verifier<P: Preset>(
+#   transition_functions/src/gloas/block_processing.rs:553:    signed_bid: &SignedExecutionPayloadBid<P>,
+#   transition_functions/src/gloas/block_processing.rs:556:    let SignedExecutionPayloadBid {
+#   transition_functions/src/gloas/block_processing.rs:557:        message: execution_payload_bid,
+#   transition_functions/src/gloas/block_processing.rs:561:    let builder = state.builders().get(execution_payload_bid.builder_index)?;
+#   transition_functions/src/gloas/block_processing.rs:565:        execution_payload_bid.signing_root(config, state),
+#   transition_functions/src/gloas/block_processing.rs:568:        SignatureKind::ExecutionPayloadBid,
+#   transition_functions/src/gloas/block_processing.rs:572:fn validate_execution_payload_bid<P: Preset>(
+#   transition_functions/src/gloas/block_processing.rs:579:    let signed_bid = &block.body.signed_execution_payload_bid;
+#   transition_functions/src/gloas/block_processing.rs:580:    let ExecutionPayloadBid {
+#   transition_functions/src/gloas/block_processing.rs:596:            Error::<P>::ExecutionPayloadBidSignatureInvalid
+#   transition_functions/src/gloas/block_processing.rs:615:            validate_execution_payload_bid_signature_with_verifier(
+#   transition_functions/src/gloas/block_processing.rs:623:            Error::<P>::ExecutionPayloadBidSignatureInvalid
+#   transition_functions/src/gloas/block_processing.rs:676:pub fn process_execution_payload_bid<P: Preset>(
+#   transition_functions/src/gloas/block_processing.rs:682:    let payload_bid = block.body.signed_execution_payload_bid.message.clone();
+#   transition_functions/src/gloas/block_processing.rs:683:    let ExecutionPayloadBid {
+#   transition_functions/src/gloas/block_processing.rs:689:    } = payload_bid;
+#   transition_functions/src/gloas/block_processing.rs:691:    validate_execution_payload_bid(config, pubkey_cache, state, block)?;
+#   transition_functions/src/gloas/block_processing.rs:708:    // > Cache the signed execution payload bid
+#   transition_functions/src/gloas/block_processing.rs:709:    *state.latest_execution_payload_bid_mut() = payload_bid;
+#   transition_functions/src/gloas/block_processing.rs:1441:        process_execution_payload_bid,
+#   transition_functions/src/gloas/block_processing.rs:1443:            process_execution_payload_bid(
+#   transition_functions/src/gloas/block_processing.rs:1451:        "consensus-spec-tests/tests/mainnet/gloas/operations/execution_payload_bid/*/*",
+#   transition_functions/src/gloas/block_processing.rs:1452:        "consensus-spec-tests/tests/minimal/gloas/operations/execution_payload_bid/*/*",
+#   fork_choice_control/src/events.rs:28:    gloas::containers::SignedExecutionPayloadBid,
+#   fork_choice_control/src/events.rs:55:    ExecutionPayloadBid,
+#   fork_choice_control/src/events.rs:75:    ExecutionPayloadBid(ExecutionPayloadBidEvent<P>),
+#   fork_choice_control/src/events.rs:97:            Self::ExecutionPayloadBid(_) => Topic::ExecutionPayloadBid,
+#   fork_choice_control/src/events.rs:120:    pub execution_payload_bids: Sender<Event<P>>,
+#   fork_choice_control/src/events.rs:150:            execution_payload_bids: broadcast::channel(max_events).0,
+#   fork_choice_control/src/events.rs:173:            Topic::ExecutionPayloadBid => &self.execution_payload_bids,
+#   fork_choice_control/src/events.rs:268:    pub fn send_execution_payload_bid_event(
+#   fork_choice_control/src/events.rs:271:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/events.rs:273:        if let Err(error) = self.send_execution_payload_bid_event_internal(phase, payload_bid) {
+#   fork_choice_control/src/events.rs:274:            warn_with_peers!("unable to send execution payload bid event: {error}");
+#   fork_choice_control/src/events.rs:491:    fn send_execution_payload_bid_event_internal(
+#   fork_choice_control/src/events.rs:494:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/events.rs:496:        if self.execution_payload_bids.receiver_count() > 0 {
+#   fork_choice_control/src/events.rs:497:            let event = Event::ExecutionPayloadBid(ExecutionPayloadBidEvent {
+#   fork_choice_control/src/events.rs:499:                data: payload_bid,
+#   fork_choice_control/src/events.rs:501:            self.execution_payload_bids.send(event)?;
+#   fork_choice_control/src/events.rs:778:pub struct ExecutionPayloadBidEvent<P: Preset> {
+#   fork_choice_control/src/events.rs:780:    pub data: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/controller.rs:26:    BlobSidecarOrigin, BlockOrigin, DataColumnSidecarOrigin, ExecutionPayloadBidOrigin,
+#   fork_choice_control/src/controller.rs:46:    gloas::containers::SignedExecutionPayloadBid,
+#   fork_choice_control/src/controller.rs:72:        BlockVerifyForGossipTask, DataColumnSidecarTask, ExecutionPayloadBidTask,
+#   fork_choice_control/src/controller.rs:383:    pub fn on_gossip_execution_payload_bid(
+#   fork_choice_control/src/controller.rs:385:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/controller.rs:388:        self.spawn_execution_payload_bid_task(
+#   fork_choice_control/src/controller.rs:389:            payload_bid,
+#   fork_choice_control/src/controller.rs:390:            ExecutionPayloadBidOrigin::Gossip(gossip_id),
+#   fork_choice_control/src/controller.rs:394:    pub fn on_api_execution_payload_bid(
+#   fork_choice_control/src/controller.rs:396:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/controller.rs:399:        self.spawn_execution_payload_bid_task(payload_bid, ExecutionPayloadBidOrigin::Api(sender))
+#   fork_choice_control/src/controller.rs:798:    fn spawn_execution_payload_bid_task(
+#   fork_choice_control/src/controller.rs:800:        payload_bid: Arc<SignedExecutionPayloadBid<P>>,
+#   fork_choice_control/src/controller.rs:801:        origin: ExecutionPayloadBidOrigin,
+#   fork_choice_control/src/controller.rs:803:        self.spawn(ExecutionPayloadBidTask {
+#   fork_choice_control/src/controller.rs:806:            payload_bid,
+#   factory/src/lib.rs:53:            ExecutionPayloadBid, SignedExecutionPayloadBid,
+#   factory/src/lib.rs:377:fn signed_execution_payload_bid<P: Preset>(
+#   factory/src/lib.rs:379:) -> SignedExecutionPayloadBid<P> {
+#   factory/src/lib.rs:382:    SignedExecutionPayloadBid {
+#   factory/src/lib.rs:383:        message: ExecutionPayloadBid {
+#   factory/src/lib.rs:511:    let signed_execution_payload_bid = advanced_state
+#   factory/src/lib.rs:513:        .map(signed_execution_payload_bid);
+#   factory/src/lib.rs:635:        .with_signed_execution_payload_bid(signed_execution_payload_bid),
+#   helper_functions/src/signing.rs:35:            BeaconBlock as GloasBeaconBlock, ExecutionPayloadBid, ExecutionPayloadEnvelope,
+#   helper_functions/src/signing.rs:467:// <https://github.com/ethereum/consensus-specs/blob/v1.6.0-beta.0/specs/gloas/beacon-chain.md#new-verify_execution_payload_bid_signature>
+#   helper_functions/src/signing.rs:468:impl<P: Preset> SignForSingleFork<P> for ExecutionPayloadBid<P> {
+#   helper_functions/src/signing.rs:470:    const SIGNATURE_KIND: SignatureKind = SignatureKind::ExecutionPayloadBid;
+#   types/src/traits.rs:99:            ExecutionPayloadBid, PayloadAttestation, SignedExecutionPayloadBid,
+#   types/src/traits.rs:677:        &self.latest_execution_payload_bid
+#   types/src/traits.rs:681:        &mut self.latest_execution_payload_bid
+#   types/src/traits.rs:931:    fn latest_execution_payload_bid(&self) -> &ExecutionPayloadBid<P>;
+#   types/src/traits.rs:941:    fn latest_execution_payload_bid_mut(&mut self) -> &mut ExecutionPayloadBid<P>;
+#   types/src/traits.rs:984:        [latest_execution_payload_bid]      [ExecutionPayloadBid<P>];
+#   types/src/traits.rs:997:        [latest_execution_payload_bid]     [latest_execution_payload_bid_mut]     [ExecutionPayloadBid<P>];
+#   types/src/traits.rs:1210:    fn with_payload_bid(&self) -> Option<&dyn BlockBodyWithPayloadBid<P>>;
+#   types/src/traits.rs:1221:    implementor                          pre_electra_body body_with_sync_aggregate body_with_execution_payload body_with_bls_to_execution_changes body_with_blob_kzg_commitments body_with_electra_attestations body_with_execution_requests body_with_payload_bid body_with_payload_attestations;
+#   types/src/traits.rs:1309:    fn with_payload_bid(&self) -> Option<&dyn BlockBodyWithPayloadBid<P>> {
+#   types/src/traits.rs:1310:        body_with_payload_bid
+#   types/src/traits.rs:1706:        self.signed_execution_payload_bid().blob_kzg_commitments()
+#   types/src/traits.rs:1807:pub trait BlockBodyWithPayloadBid<P: Preset>: BeaconBlockBody<P> {
+#   types/src/traits.rs:1808:    fn signed_execution_payload_bid(&self) -> &SignedExecutionPayloadBid<P>;
+#   types/src/traits.rs:1811:impl<P: Preset> BlockBodyWithPayloadBid<P> for GloasBeaconBlockBody<P> {
+#   types/src/traits.rs:1812:    fn signed_execution_payload_bid(&self) -> &SignedExecutionPayloadBid<P> {
+#   types/src/traits.rs:1813:        &self.signed_execution_payload_bid
+#   types/src/traits.rs:1972:impl<P: Preset> ExecutionPayload<P> for ExecutionPayloadBid<P> {
+#   types/src/traits.rs:1978:        // TODO: (gloas): there is no `block_number` field in payload bid
+#   helper_functions/src/fork.rs:38:    gloas::{beacon_state::BeaconState as GloasBeaconState, containers::ExecutionPayloadBid},
+#   helper_functions/src/fork.rs:851:    let latest_execution_payload_bid = ExecutionPayloadBid {
+#   helper_functions/src/fork.rs:892:        latest_execution_payload_bid,
+#   block_producer/src/block_producer.rs:77:        SignedExecutionPayloadBid,
+#   block_producer/src/block_producer.rs:1016:                                signed_execution_payload_bid: SignedExecutionPayloadBid::default(),
+#   helper_functions/src/error.rs:96:    #[display("execution payload bid signature")]
+#   helper_functions/src/error.rs:97:    ExecutionPayloadBid,
+#   p2p/src/network.rs:64:    gloas::containers::SignedExecutionPayloadBid,
+#   p2p/src/network.rs:391:                        ApiToP2p::PublishPayloadBid(payload_bid) => {
+#   p2p/src/network.rs:392:                            self.publish_execution_payload_bid(payload_bid);
+#   p2p/src/network.rs:756:    fn publish_execution_payload_bid(&self, payload_bid: Arc<SignedExecutionPayloadBid<P>>) {
+#   p2p/src/network.rs:758:            "publishing signed execution payload bid (slot: {}, parent_block_root: {:?}, parent block hash: {:?})",
+#   p2p/src/network.rs:759:            payload_bid.message.slot,
+#   p2p/src/network.rs:760:            payload_bid.message.parent_block_root,
+#   p2p/src/network.rs:761:            payload_bid.message.parent_block_hash
+#   p2p/src/network.rs:764:        self.publish(PubsubMessage::ExecutionPayloadBid(payload_bid));
+#   p2p/src/network.rs:2219:            PubsubMessage::ExecutionPayloadBid(payload_bid) => {
+#   p2p/src/network.rs:2221:                    metrics.register_gossip_object(&["execution_payload_bid"]);
+#   p2p/src/network.rs:2225:                    "received signed execution payload bid as gossip: \
+#   p2p/src/network.rs:2226:                    {payload_bid:?} from {source}"
+#   p2p/src/network.rs:2230:                    .on_gossip_execution_payload_bid(payload_bid, GossipId { source, message_id });
+#   p2p/src/messages.rs:31:    gloas::containers::SignedExecutionPayloadBid,
+#   p2p/src/messages.rs:99:    PublishPayloadBid(Arc<SignedExecutionPayloadBid<P>>),
+#   eth2_libp2p/src/types/topics.rs:36:pub const EXECUTION_PAYLOAD_BID_TOPIC: &str = "execution_payload_bid";
+#   eth2_libp2p/src/types/topics.rs:98:        topics.push(GossipKind::ExecutionPayloadBid);
+#   eth2_libp2p/src/types/topics.rs:125:        | GossipKind::ExecutionPayloadBid => false,
+#   eth2_libp2p/src/types/topics.rs:184:    /// Topic for publishing execution payload bids.
+#   eth2_libp2p/src/types/topics.rs:185:    ExecutionPayloadBid,
+#   eth2_libp2p/src/types/topics.rs:264:                EXECUTION_PAYLOAD_BID_TOPIC => GossipKind::ExecutionPayloadBid,
+#   eth2_libp2p/src/types/topics.rs:329:            GossipKind::ExecutionPayloadBid => EXECUTION_PAYLOAD_BID_TOPIC.into(),
+#   eth2_libp2p/src/types/pubsub.rs:34:        SignedExecutionPayloadBid,
+#   eth2_libp2p/src/types/pubsub.rs:77:    /// Gossipsub message providing notification of an execution payload bid.
+#   eth2_libp2p/src/types/pubsub.rs:78:    ExecutionPayloadBid(Arc<SignedExecutionPayloadBid<P>>),
+#   eth2_libp2p/src/types/pubsub.rs:175:            PubsubMessage::ExecutionPayloadBid(_) => GossipKind::ExecutionPayloadBid,
+#   eth2_libp2p/src/types/pubsub.rs:513:                    GossipKind::ExecutionPayloadBid => {
+#   eth2_libp2p/src/types/pubsub.rs:516:                                let execution_payload_bid = Arc::new(
+#   eth2_libp2p/src/types/pubsub.rs:517:                                    SignedExecutionPayloadBid::from_ssz_default(data)
+#   eth2_libp2p/src/types/pubsub.rs:520:                                Ok(PubsubMessage::ExecutionPayloadBid(execution_payload_bid))
+#   eth2_libp2p/src/types/pubsub.rs:532:                                "execution_payload_bid topic invalid for given fork digest {:?}",
+#   eth2_libp2p/src/types/pubsub.rs:563:            PubsubMessage::ExecutionPayloadBid(data) => data.to_ssz(),
+#   eth2_libp2p/src/types/pubsub.rs:628:            PubsubMessage::ExecutionPayloadBid(data) => {
+#   eth2_libp2p/src/types/pubsub.rs:631:                    "Execution Payload Bid: slot: {}, parent_block_root: {:?}, builder_index: {}",
+#   types/src/gloas/spec_tests.rs:217:    ExecutionPayloadBid<_>,
+#   types/src/gloas/spec_tests.rs:218:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionPayloadBid/*/*",
+#   types/src/gloas/spec_tests.rs:219:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionPayloadBid/*/*",
+#   types/src/gloas/spec_tests.rs:409:    SignedExecutionPayloadBid<_>,
+#   types/src/gloas/spec_tests.rs:410:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedExecutionPayloadBid/*/*",
+#   types/src/gloas/spec_tests.rs:411:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedExecutionPayloadBid/*/*",
+#   http_api/src/error.rs:59:    #[error("execution payload bid not available for slot and builder")]
+#   http_api/src/error.rs:60:    ExecutionPayloadBidNotFound,
+#   http_api/src/error.rs:107:    #[error("invalid signed execution payload bid")]
+#   http_api/src/error.rs:108:    InvalidPayloadBid(#[source] AnyhowError),
+#   http_api/src/error.rs:229:            | Self::ExecutionPayloadBidNotFound
+#   http_api/src/error.rs:258:            | Self::InvalidPayloadBid(_)
+#   http_api/src/standard.rs:86:        containers::{ExecutionPayloadBid, SignedExecutionPayloadBid},
+#   http_api/src/standard.rs:120:        SignedExecutionPayloadBidPhaseDeserializer, SingleApiAttestation,
+#   http_api/src/standard.rs:1771:/// `POST /eth/v1/beacon/execution_payload_bid`
+#   http_api/src/standard.rs:1772:pub async fn publish_execution_payload_bid<P: Preset, W: Wait>(
+#   http_api/src/standard.rs:1775:    EthJsonOrSsz(signed_payload_bid, _): EthJsonOrSsz<
+#   http_api/src/standard.rs:1776:        Arc<SignedExecutionPayloadBid<P>>,
+#   http_api/src/standard.rs:1777:        SignedExecutionPayloadBidPhaseDeserializer<P>,
+#   http_api/src/standard.rs:1782:    controller.on_api_execution_payload_bid(signed_payload_bid.clone_arc(), sender);
+#   http_api/src/standard.rs:1788:            ApiToP2p::PublishPayloadBid(signed_payload_bid).send(&api_to_p2p_tx);
+#   http_api/src/standard.rs:1792:            Err(Error::InvalidPayloadBid(AnyhowError::msg(message)))
+#   http_api/src/standard.rs:1794:        Err(error) => Err(Error::InvalidPayloadBid(error)),
+#   http_api/src/standard.rs:2512:                Event::ExecutionPayloadBid(data) => ssevent.json_data(data),
+#   http_api/src/standard.rs:3506:/// `GET /eth/v1/validator/execution_payload_bid/{slot}/{builder_index}`
+#   http_api/src/standard.rs:3507:pub async fn validator_execution_payload_bid<P: Preset, W: Wait>(
+#   http_api/src/standard.rs:3512:) -> Result<EthResponse<ExecutionPayloadBid<P>, (), JsonOrSsz>, Error> {
+#   http_api/src/standard.rs:3532:        .get_payload_bid_from(slot, builder_index)
+#   http_api/src/standard.rs:3533:        .ok_or(Error::ExecutionPayloadBidNotFound)?;
+#   types/src/gloas/containers.rs:58:    pub signed_execution_payload_bid: SignedExecutionPayloadBid<P>,
+#   types/src/gloas/containers.rs:109:pub struct ExecutionPayloadBid<P: Preset> {
+#   types/src/gloas/containers.rs:255:pub struct SignedExecutionPayloadBid<P: Preset> {
+#   types/src/gloas/containers.rs:256:    pub message: ExecutionPayloadBid<P>,
+#   types/src/gloas/container_impls.rs:17:        PayloadAttestationData, SignedExecutionPayloadBid, SignedExecutionPayloadEnvelope,
+#   types/src/gloas/container_impls.rs:89:impl<P: Preset> SignedExecutionPayloadBid<P> {
+#   http_api/src/routing.rs:42:        publish_block_v2, publish_execution_payload_bid, state_committees,
+#   http_api/src/routing.rs:53:        validator_block_v3, validator_execution_payload_bid, validator_liveness,
+#   http_api/src/routing.rs:409:        "/eth/v1/beacon/execution_payload_bid",
+#   http_api/src/routing.rs:410:        post(publish_execution_payload_bid),
+#   http_api/src/routing.rs:603:            "/eth/v1/validator/execution_payload_bid/{slot}/{builder_index}",
+#   http_api/src/routing.rs:604:            get(validator_execution_payload_bid),
+#   types/src/gloas/beacon_state.rs:18:    gloas::{containers::ExecutionPayloadBid, primitives::BuilderIndex},
+#   types/src/gloas/beacon_state.rs:86:    pub latest_execution_payload_bid: ExecutionPayloadBid<P>,
+#   eth2_libp2p/src/service/mod.rs:271:                .execution_payload_bid_timeout(chain_config.slot_duration_ms)
+#   http_api/src/misc.rs:48:    gloas::containers::{SignedBeaconBlock as GloasSignedBeaconBlock, SignedExecutionPayloadBid},
+#   http_api/src/misc.rs:325:pub struct SignedExecutionPayloadBidPhaseDeserializer<P> {
+#   http_api/src/misc.rs:330:impl<P: Preset> From<Phase> for SignedExecutionPayloadBidPhaseDeserializer<P> {
+#   http_api/src/misc.rs:339:impl<'de, P: Preset> DeserializeSeed<'de> for SignedExecutionPayloadBidPhaseDeserializer<P> {
+#   http_api/src/misc.rs:340:    type Value = Arc<SignedExecutionPayloadBid<P>>;
+#   http_api/src/misc.rs:347:            SignedExecutionPayloadBid::deserialize(deserializer).map(Arc::new)
+#   eth2_libp2p/src/service/gossip_cache.rs:45:    /// Timeout for execution payload bids.
+#   eth2_libp2p/src/service/gossip_cache.rs:46:    execution_payload_bid: Option<Duration>,
+#   eth2_libp2p/src/service/gossip_cache.rs:76:    /// Timeout for execution payload bids.
+#   eth2_libp2p/src/service/gossip_cache.rs:77:    execution_payload_bid: Option<Duration>,
+#   eth2_libp2p/src/service/gossip_cache.rs:154:    /// Timeout for execution payload bid messages.
+#   eth2_libp2p/src/service/gossip_cache.rs:155:    pub fn execution_payload_bid_timeout(mut self, timeout: Duration) -> Self {
+#   eth2_libp2p/src/service/gossip_cache.rs:156:        self.execution_payload_bid = Some(timeout);
+#   eth2_libp2p/src/service/gossip_cache.rs:175:            execution_payload_bid,
+#   eth2_libp2p/src/service/gossip_cache.rs:192:            execution_payload_bid: execution_payload_bid.or(default_timeout),
+#   eth2_libp2p/src/service/gossip_cache.rs:219:            GossipKind::ExecutionPayloadBid => self.execution_payload_bid,
+#   types/src/combined.rs:101:            ExecutionPayloadBid, LightClientBootstrap as GloasLightClientBootstrap,
+#   types/src/combined.rs:105:            SignedBeaconBlock as GloasSignedBeaconBlock, SignedExecutionPayloadBid,
+#   types/src/combined.rs:271:    pub fn with_execution_payload_bid(
+#   types/src/combined.rs:273:        execution_payload_bid: Option<ExecutionPayloadBid<P>>,
+#   types/src/combined.rs:275:        let Some(execution_payload_bid) = execution_payload_bid else {
+#   types/src/combined.rs:281:                state.latest_execution_payload_bid = execution_payload_bid;
+#   types/src/combined.rs:696:            .with_payload_bid()
+#   types/src/combined.rs:697:            .map(|body| body.signed_execution_payload_bid().message.block_hash)
+#   types/src/combined.rs:963:    pub fn with_signed_execution_payload_bid(
+#   types/src/combined.rs:965:        payload_bid: Option<SignedExecutionPayloadBid<P>>,
+#   types/src/combined.rs:967:        let Some(payload_bid) = payload_bid else {
+#   types/src/combined.rs:972:            Self::Gloas(block) => block.body.signed_execution_payload_bid = payload_bid,
+#   types/src/combined.rs:1556:    Gloas(ExecutionPayloadBid<P>),
+
+## Command 14
+scoped variant of: gr-search-c-unassigned.txt Command 3, path: dedicated_executor
+$ rg -n -i 'payload.?bid' -g '*.rs' dedicated_executor
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 15
+scoped variant of: gr-search-c-unassigned.txt Command 3, path: eth2_libp2p
+$ rg -n -i 'payload.?bid' -g '*.rs' eth2_libp2p
+exit code: 0
+stderr: empty
+--- output ---
+eth2_libp2p/src/types/topics.rs:36:pub const EXECUTION_PAYLOAD_BID_TOPIC: &str = "execution_payload_bid";
+eth2_libp2p/src/types/topics.rs:98:        topics.push(GossipKind::ExecutionPayloadBid);
+eth2_libp2p/src/types/topics.rs:125:        | GossipKind::ExecutionPayloadBid => false,
+eth2_libp2p/src/types/topics.rs:184:    /// Topic for publishing execution payload bids.
+eth2_libp2p/src/types/topics.rs:185:    ExecutionPayloadBid,
+eth2_libp2p/src/types/topics.rs:264:                EXECUTION_PAYLOAD_BID_TOPIC => GossipKind::ExecutionPayloadBid,
+eth2_libp2p/src/types/topics.rs:329:            GossipKind::ExecutionPayloadBid => EXECUTION_PAYLOAD_BID_TOPIC.into(),
+eth2_libp2p/src/types/pubsub.rs:34:        SignedExecutionPayloadBid,
+eth2_libp2p/src/types/pubsub.rs:77:    /// Gossipsub message providing notification of an execution payload bid.
+eth2_libp2p/src/types/pubsub.rs:78:    ExecutionPayloadBid(Arc<SignedExecutionPayloadBid<P>>),
+eth2_libp2p/src/types/pubsub.rs:175:            PubsubMessage::ExecutionPayloadBid(_) => GossipKind::ExecutionPayloadBid,
+eth2_libp2p/src/types/pubsub.rs:513:                    GossipKind::ExecutionPayloadBid => {
+eth2_libp2p/src/types/pubsub.rs:516:                                let execution_payload_bid = Arc::new(
+eth2_libp2p/src/types/pubsub.rs:517:                                    SignedExecutionPayloadBid::from_ssz_default(data)
+eth2_libp2p/src/types/pubsub.rs:520:                                Ok(PubsubMessage::ExecutionPayloadBid(execution_payload_bid))
+eth2_libp2p/src/types/pubsub.rs:532:                                "execution_payload_bid topic invalid for given fork digest {:?}",
+eth2_libp2p/src/types/pubsub.rs:563:            PubsubMessage::ExecutionPayloadBid(data) => data.to_ssz(),
+eth2_libp2p/src/types/pubsub.rs:628:            PubsubMessage::ExecutionPayloadBid(data) => {
+eth2_libp2p/src/types/pubsub.rs:631:                    "Execution Payload Bid: slot: {}, parent_block_root: {:?}, builder_index: {}",
+eth2_libp2p/src/service/mod.rs:271:                .execution_payload_bid_timeout(chain_config.slot_duration_ms)
+eth2_libp2p/src/service/gossip_cache.rs:45:    /// Timeout for execution payload bids.
+eth2_libp2p/src/service/gossip_cache.rs:46:    execution_payload_bid: Option<Duration>,
+eth2_libp2p/src/service/gossip_cache.rs:76:    /// Timeout for execution payload bids.
+eth2_libp2p/src/service/gossip_cache.rs:77:    execution_payload_bid: Option<Duration>,
+eth2_libp2p/src/service/gossip_cache.rs:154:    /// Timeout for execution payload bid messages.
+eth2_libp2p/src/service/gossip_cache.rs:155:    pub fn execution_payload_bid_timeout(mut self, timeout: Duration) -> Self {
+eth2_libp2p/src/service/gossip_cache.rs:156:        self.execution_payload_bid = Some(timeout);
+eth2_libp2p/src/service/gossip_cache.rs:175:            execution_payload_bid,
+eth2_libp2p/src/service/gossip_cache.rs:192:            execution_payload_bid: execution_payload_bid.or(default_timeout),
+eth2_libp2p/src/service/gossip_cache.rs:219:            GossipKind::ExecutionPayloadBid => self.execution_payload_bid,
+--- end output ---
+# Retained positive hits — file path : symbol
+#   eth2_libp2p/src/types/topics.rs:36:pub const EXECUTION_PAYLOAD_BID_TOPIC: &str = "execution_payload_bid";
+#   eth2_libp2p/src/types/topics.rs:98:        topics.push(GossipKind::ExecutionPayloadBid);
+#   eth2_libp2p/src/types/topics.rs:125:        | GossipKind::ExecutionPayloadBid => false,
+#   eth2_libp2p/src/types/topics.rs:184:    /// Topic for publishing execution payload bids.
+#   eth2_libp2p/src/types/topics.rs:185:    ExecutionPayloadBid,
+#   eth2_libp2p/src/types/topics.rs:264:                EXECUTION_PAYLOAD_BID_TOPIC => GossipKind::ExecutionPayloadBid,
+#   eth2_libp2p/src/types/topics.rs:329:            GossipKind::ExecutionPayloadBid => EXECUTION_PAYLOAD_BID_TOPIC.into(),
+#   eth2_libp2p/src/types/pubsub.rs:34:        SignedExecutionPayloadBid,
+#   eth2_libp2p/src/types/pubsub.rs:77:    /// Gossipsub message providing notification of an execution payload bid.
+#   eth2_libp2p/src/types/pubsub.rs:78:    ExecutionPayloadBid(Arc<SignedExecutionPayloadBid<P>>),
+#   eth2_libp2p/src/types/pubsub.rs:175:            PubsubMessage::ExecutionPayloadBid(_) => GossipKind::ExecutionPayloadBid,
+#   eth2_libp2p/src/types/pubsub.rs:513:                    GossipKind::ExecutionPayloadBid => {
+#   eth2_libp2p/src/types/pubsub.rs:516:                                let execution_payload_bid = Arc::new(
+#   eth2_libp2p/src/types/pubsub.rs:517:                                    SignedExecutionPayloadBid::from_ssz_default(data)
+#   eth2_libp2p/src/types/pubsub.rs:520:                                Ok(PubsubMessage::ExecutionPayloadBid(execution_payload_bid))
+#   eth2_libp2p/src/types/pubsub.rs:532:                                "execution_payload_bid topic invalid for given fork digest {:?}",
+#   eth2_libp2p/src/types/pubsub.rs:563:            PubsubMessage::ExecutionPayloadBid(data) => data.to_ssz(),
+#   eth2_libp2p/src/types/pubsub.rs:628:            PubsubMessage::ExecutionPayloadBid(data) => {
+#   eth2_libp2p/src/types/pubsub.rs:631:                    "Execution Payload Bid: slot: {}, parent_block_root: {:?}, builder_index: {}",
+#   eth2_libp2p/src/service/mod.rs:271:                .execution_payload_bid_timeout(chain_config.slot_duration_ms)
+#   eth2_libp2p/src/service/gossip_cache.rs:45:    /// Timeout for execution payload bids.
+#   eth2_libp2p/src/service/gossip_cache.rs:46:    execution_payload_bid: Option<Duration>,
+#   eth2_libp2p/src/service/gossip_cache.rs:76:    /// Timeout for execution payload bids.
+#   eth2_libp2p/src/service/gossip_cache.rs:77:    execution_payload_bid: Option<Duration>,
+#   eth2_libp2p/src/service/gossip_cache.rs:154:    /// Timeout for execution payload bid messages.
+#   eth2_libp2p/src/service/gossip_cache.rs:155:    pub fn execution_payload_bid_timeout(mut self, timeout: Duration) -> Self {
+#   eth2_libp2p/src/service/gossip_cache.rs:156:        self.execution_payload_bid = Some(timeout);
+#   eth2_libp2p/src/service/gossip_cache.rs:175:            execution_payload_bid,
+#   eth2_libp2p/src/service/gossip_cache.rs:192:            execution_payload_bid: execution_payload_bid.or(default_timeout),
+#   eth2_libp2p/src/service/gossip_cache.rs:219:            GossipKind::ExecutionPayloadBid => self.execution_payload_bid,
+
+## Command 16
+scoped variant of: gr-search-c-unassigned.txt Command 3, path: grandine-snapshot-tests
+$ rg -n -i 'payload.?bid' -g '*.rs' grandine-snapshot-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 17
+scoped variant of: gr-search-c-unassigned.txt Command 3, path: hive
+$ rg -n -i 'payload.?bid' -g '*.rs' hive
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 18
+scoped variant of: gr-search-c-unassigned.txt Command 3, path: slashing-protection-interchange-tests
+$ rg -n -i 'payload.?bid' -g '*.rs' slashing-protection-interchange-tests
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+# END OF ARTIFACT

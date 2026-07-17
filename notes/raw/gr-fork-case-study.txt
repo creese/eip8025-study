@@ -1,0 +1,511 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-fork-case-study.txt
+# Cluster: n/a
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:44:04Z
+
+## Command 1
+$ rg -n "enum Phase" --type rust
+exit code: 0
+stderr: empty
+--- output ---
+http_api_utils/src/helpers.rs:70:pub enum PhaseHeaderError {
+types/src/nonstandard.rs:61:pub enum Phase {
+--- end output ---
+
+## Command 2
+$ rg -n -A 30 "pub enum Phase \{" types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+61:pub enum Phase {
+62-    Phase0,
+63-    Altair,
+64-    Bellatrix,
+65-    Capella,
+66-    Deneb,
+67-    Electra,
+68-    Fulu,
+69-    Gloas,
+70-}
+71-
+72-impl Phase {
+73-    // Modify condition if we want to change the peerdas activation behaviour
+74-    #[must_use]
+75-    pub fn is_peerdas_activated(self) -> bool {
+76-        self >= Self::Fulu
+77-    }
+78-}
+79-
+80-/// Like [`Option`], but with [`None`] greater than any [`Some`].
+81-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+82-#[cfg_attr(test, derive(Debug))]
+83-pub enum Toption<T> {
+84-    // The order of variants affects the derived `PartialOrd` and `Ord` impls.
+85-    Some(T),
+86-    None,
+87-}
+88-
+89-impl<T> Toption<T> {
+90-    #[must_use]
+91-    pub fn into_option(self) -> Option<T> {
+--- end output ---
+# Enumeration file: types/src/nonstandard.rs ; symbol: enum Phase { Phase0, Altair, Bellatrix, Capella, Deneb, Electra, Fulu, Gloas }
+
+## Command 3
+$ git log --reverse --format='%H %cI %s' -S'Phase0' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+c185f885270d8d087a6ffcd08d8f1edab5ca054a 2025-02-12T12:44:46+02:00 Upgrade consensus-spec-tests to v1.5.0-alpha10:
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+--- end output ---
+# Variant Phase0 — introducing commit (first line of -S transcript): 6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+
+## Command 4
+$ git log --reverse --format='%H %cI %s' -S'Altair' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+c185f885270d8d087a6ffcd08d8f1edab5ca054a 2025-02-12T12:44:46+02:00 Upgrade consensus-spec-tests to v1.5.0-alpha10:
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+--- end output ---
+# Variant Altair — introducing commit (first line of -S transcript): 6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+
+## Command 5
+$ git log --reverse --format='%H %cI %s' -S'Bellatrix' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+c185f885270d8d087a6ffcd08d8f1edab5ca054a 2025-02-12T12:44:46+02:00 Upgrade consensus-spec-tests to v1.5.0-alpha10:
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+--- end output ---
+# Variant Bellatrix — introducing commit (first line of -S transcript): 6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+
+## Command 6
+$ git log --reverse --format='%H %cI %s' -S'Capella' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+c185f885270d8d087a6ffcd08d8f1edab5ca054a 2025-02-12T12:44:46+02:00 Upgrade consensus-spec-tests to v1.5.0-alpha10:
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+--- end output ---
+# Variant Capella — introducing commit (first line of -S transcript): 6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+
+## Command 7
+$ git log --reverse --format='%H %cI %s' -S'Deneb' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+c185f885270d8d087a6ffcd08d8f1edab5ca054a 2025-02-12T12:44:46+02:00 Upgrade consensus-spec-tests to v1.5.0-alpha10:
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+37bbb501b45a21b4b10e381fd0a77f13cc0853b7 2025-09-05T13:07:52+03:00 Combine different KzgProof collections into a combined type
+--- end output ---
+# Variant Deneb — introducing commit (first line of -S transcript): 6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00 Genesis
+
+## Command 8
+$ git log --reverse --format='%H %cI %s' -S'Electra' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+e50e41f1c9d263c2b28f365a26e054906ec089f5 2024-09-30T16:10:23+03:00 WIP: Electra fork
+c185f885270d8d087a6ffcd08d8f1edab5ca054a 2025-02-12T12:44:46+02:00 Upgrade consensus-spec-tests to v1.5.0-alpha10:
+325f96fb41b82feb6c0d60d08ff399b59524b86c 2025-03-18T17:12:05+02:00 Move `max_blobs_per_block` and `max_blobs_per_block_electra` values from preset to config
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+--- end output ---
+# Variant Electra — introducing commit (first line of -S transcript): e50e41f1c9d263c2b28f365a26e054906ec089f5 2024-09-30T16:10:23+03:00 WIP: Electra fork
+
+## Command 9
+$ git log --reverse --format='%H %cI %s' -S'Fulu' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+4c5ccd951a55c3be95f3fd0aa50d7fd48212cdfc 2025-09-05T13:07:52+03:00 Implement PeerDAS with Fulu fork activation
+ccb9a52022a3e6b7070f5d8cb9ccc88f831067a9 2025-09-05T13:07:52+03:00 Use `MAX_BLOBS_PER_BLOCK_ELECTRA` as default BPO blob schedule
+37bbb501b45a21b4b10e381fd0a77f13cc0853b7 2025-09-05T13:07:52+03:00 Combine different KzgProof collections into a combined type
+--- end output ---
+# Variant Fulu — introducing commit (first line of -S transcript): 4c5ccd951a55c3be95f3fd0aa50d7fd48212cdfc 2025-09-05T13:07:52+03:00 Implement PeerDAS with Fulu fork activation
+
+## Command 10
+$ git log --reverse --format='%H %cI %s' -S'Gloas' -- types/src/nonstandard.rs
+exit code: 0
+stderr: empty
+--- output ---
+b634b96d2ad5000ff64a1234c1c7342c0b605ff9 2026-01-26T20:29:48+07:00 Add Gloas containers and functions (#572)
+--- end output ---
+# Variant Gloas — introducing commit (first line of -S transcript): b634b96d2ad5000ff64a1234c1c7342c0b605ff9 2026-01-26T20:29:48+07:00 Add Gloas containers and functions (#572)
+
+## Selection
+# Introducing commits recorded above, by variant:
+#   Phase0:    6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00
+#   Altair:    6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00
+#   Bellatrix: 6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00
+#   Capella:   6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00
+#   Deneb:     6037d7fab1ae5b577798d19fb2460be3245eb06b 2024-03-13T16:47:33+02:00
+#   Electra:   e50e41f1c9d263c2b28f365a26e054906ec089f5 2024-09-30T16:10:23+03:00
+#   Fulu:      4c5ccd951a55c3be95f3fd0aa50d7fd48212cdfc 2025-09-05T13:07:52+03:00
+#   Gloas:     b634b96d2ad5000ff64a1234c1c7342c0b605ff9 2026-01-26T20:29:48+07:00
+# No variant yielded an empty transcript; no two candidates share the latest date.
+# Selected fork (latest introducing-commit date) = Gloas, introduced by
+# b634b96d2ad5000ff64a1234c1c7342c0b605ff9 2026-01-26T20:29:48+07:00 "Add Gloas containers and functions (#572)".
+
+## Command 11
+# Domain: gossip topic/validation registration (p2p crate)
+$ rg -n -i 'gloas' p2p/src/messages.rs p2p/src/network.rs
+exit code: 0
+stderr: empty
+--- output ---
+p2p/src/messages.rs:31:    gloas::containers::SignedExecutionPayloadBid,
+p2p/src/network.rs:64:    gloas::containers::SignedExecutionPayloadBid,
+--- end output ---
+# Retained positive hits — file path : symbol
+#   p2p/src/messages.rs:31 : gloas::containers::SignedExecutionPayloadBid
+#   p2p/src/network.rs:64 : gloas::containers::SignedExecutionPayloadBid
+
+## Command 12
+# Domain: Req/Resp registration (p2p sync/range/subnet files)
+$ rg -n -i 'gloas' p2p/src/block_sync_service.rs p2p/src/range_and_root_requests.rs p2p/src/sync_manager.rs p2p/src/subnet_service.rs p2p/src/attestation_subnets.rs
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 13
+# Domain: Req/Resp / gossip / ENR wiring in eth2_libp2p (uninitialized git submodule — directory present but empty in this checkout; see Command 13 note)
+$ rg -n -i gloas eth2_libp2p
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 14
+# Domain: ENR/metadata fields (files matching 'enr' or 'metadata', filtered for gloas)
+$ rg -n -il 'enr|metadata' -g '*.rs' | xargs rg -n -i 'gloas'
+exit code: 0
+stderr: empty
+--- output ---
+p2p/src/network.rs:64:    gloas::containers::SignedExecutionPayloadBid,
+p2p/src/messages.rs:31:    gloas::containers::SignedExecutionPayloadBid,
+fork_choice_control/src/queries.rs:25:    gloas::{containers::SignedExecutionPayloadBid, primitives::BuilderIndex},
+fork_choice_control/src/queries.rs:924:            DataColumnSidecar::Gloas(data_column_sidecar) => self
+fork_choice_control/src/queries.rs:926:                .validate_gloas_data_column_sidecar_with_state(
+types/src/config.rs:83:    pub gloas_fork_epoch: Epoch,
+types/src/config.rs:84:    pub gloas_fork_version: Version,
+types/src/config.rs:247:            gloas_fork_epoch: FAR_FUTURE_EPOCH,
+types/src/config.rs:248:            gloas_fork_version: H32(hex!("07000000")),
+types/src/config.rs:404:            gloas_fork_version: H32(hex!("07000001")),
+types/src/config.rs:909:            Phase::Gloas => self.gloas_fork_version,
+types/src/config.rs:930:            Phase::Gloas => self.gloas_fork_epoch,
+types/src/config.rs:982:            Phase::Deneb | Phase::Electra | Phase::Fulu | Phase::Gloas => {
+types/src/config.rs:1000:            Phase::Electra | Phase::Fulu | Phase::Gloas => self.blob_sidecar_subnet_count_electra,
+types/src/config.rs:1010:            Phase::Electra | Phase::Fulu | Phase::Gloas => self.max_blobs_per_block_electra,
+types/src/config.rs:1109:            Phase::Fulu | Phase::Gloas => self.get_blob_schedule_entry(epoch).max_blobs_per_block,
+types/src/config.rs:1147:            self.gloas_fork_epoch,
+types/src/config.rs:1163:            &mut self.gloas_fork_epoch,
+transition_functions/src/combined.rs:32:    bellatrix, capella, deneb, electra, fulu, gloas,
+transition_functions/src/combined.rs:218:        (BeaconState::Gloas(state), SignedBeaconBlock::Gloas(block)) => gloas::state_transition(
+transition_functions/src/combined.rs:301:        (BeaconState::Gloas(state), SignedBeaconBlock::Gloas(block)) => {
+transition_functions/src/combined.rs:302:            gloas::verify_signatures(config, pubkey_cache, state, block, verifier)
+transition_functions/src/combined.rs:493:                let gloas_fork_slot = config.fork_slot::<P>(Phase::Gloas);
+transition_functions/src/combined.rs:496:                    .min(gloas_fork_slot)
+transition_functions/src/combined.rs:505:                if Toption::Some(last_slot_in_phase) == gloas_fork_slot {
+transition_functions/src/combined.rs:507:                        fork::upgrade_to_gloas(config, pubkey_cache, fulu_state.as_ref().clone())?
+transition_functions/src/combined.rs:513:            BeaconState::Gloas(gloas_state) => {
+transition_functions/src/combined.rs:516:                gloas::process_slots(config, pubkey_cache, gloas_state, slot)?;
+transition_functions/src/combined.rs:561:        BeaconState::Gloas(state) => {
+transition_functions/src/combined.rs:583:        BeaconState::Gloas(state) => gloas::process_epoch(config, pubkey_cache, state),
+transition_functions/src/combined.rs:604:        BeaconState::Gloas(state) => electra::epoch_report(config, pubkey_cache, state)?.into(),
+transition_functions/src/combined.rs:698:                let gloas_fork_slot = config.fork_slot::<P>(Phase::Gloas);
+transition_functions/src/combined.rs:700:                if Toption::Some(post_slot) == gloas_fork_slot {
+transition_functions/src/combined.rs:702:                        fork::upgrade_to_gloas(config, pubkey_cache, fulu_state.as_ref().clone())?
+transition_functions/src/combined.rs:706:            BeaconState::Gloas(_) => {}
+transition_functions/src/combined.rs:781:        (BeaconState::Gloas(state), BeaconBlock::Gloas(block)) => {
+transition_functions/src/combined.rs:782:            gloas::process_block(config, pubkey_cache, state, block, verifier, slot_report)
+transition_functions/src/combined.rs:828:        (BeaconState::Gloas(state), SignedBeaconBlock::Gloas(block)) => {
+transition_functions/src/combined.rs:829:            gloas::process_block_for_gossip(config, pubkey_cache, state, block)
+transition_functions/src/combined.rs:994:        BeaconState::Gloas(state) => {
+transition_functions/src/combined.rs:1013:        BeaconState::Gloas(state) => altair::statistics(state)?.into(),
+transition_functions/src/combined.rs:1065:        ["consensus-spec-tests/tests/mainnet/gloas/sanity/slots/*/*"]     [gloas_mainnet_slots]     [Mainnet] [Gloas];
+transition_functions/src/combined.rs:1066:        ["consensus-spec-tests/tests/minimal/gloas/sanity/slots/*/*"]     [gloas_minimal_slots]     [Minimal] [Gloas];
+transition_functions/src/combined.rs:1118:        ["consensus-spec-tests/tests/mainnet/gloas/finality/*/*/*"]        [gloas_mainnet_random]       [Mainnet] [Gloas];
+transition_functions/src/combined.rs:1119:        // ["consensus-spec-tests/tests/mainnet/gloas/random/*/*/*"]          [gloas_mainnet_random]       [Mainnet] [Gloas];
+transition_functions/src/combined.rs:1120:        ["consensus-spec-tests/tests/mainnet/gloas/sanity/blocks/*/*"]     [gloas_mainnet_sanity]       [Mainnet] [Gloas];
+transition_functions/src/combined.rs:1121:        ["consensus-spec-tests/tests/minimal/gloas/finality/*/*/*"]        [gloas_minimal_random]       [Minimal] [Gloas];
+transition_functions/src/combined.rs:1122:        // ["consensus-spec-tests/tests/minimal/gloas/random/*/*/*"]          [gloas_minimal_random]       [Minimal] [Gloas];
+transition_functions/src/combined.rs:1123:        ["consensus-spec-tests/tests/minimal/gloas/sanity/blocks/*/*"]     [gloas_minimal_sanity]       [Minimal] [Gloas];
+transition_functions/src/combined.rs:1145:        ["consensus-spec-tests/tests/mainnet/gloas/transition/*/*/*"]     [gloas_mainnet_transition]      [Mainnet];
+transition_functions/src/combined.rs:1146:        ["consensus-spec-tests/tests/minimal/gloas/transition/*/*/*"]     [gloas_minimal_transition]      [Minimal];
+transition_functions/src/combined.rs:1253:        // Since Gloas, there is no blinded block processing
+transition_functions/src/combined.rs:1254:        if state.phase() >= Phase::Capella && state.phase() < Phase::Gloas {
+--- end output ---
+# Retained positive hits — file path : symbol
+#   p2p/src/network.rs:64 : gloas::containers::SignedExecutionPayloadBid
+#   p2p/src/messages.rs:31 : gloas::containers::SignedExecutionPayloadBid
+#   fork_choice_control/src/queries.rs:25 : gloas::{containers::SignedExecutionPayloadBid, primitives::BuilderIndex}
+#   fork_choice_control/src/queries.rs:924,926 : DataColumnSidecar::Gloas / validate_gloas_data_column_sidecar_with_state
+#   types/src/config.rs:83-84 : Config::gloas_fork_epoch, Config::gloas_fork_version (fields)
+#   types/src/config.rs:909,930 : Config::fork_version()/fork_epoch() match arms for Phase::Gloas
+#   transition_functions/src/combined.rs:32,218,301,513,561,583,781,828,994 : gloas module dispatch (state_transition, verify_signatures, process_slots, process_epoch, process_block, process_block_for_gossip) via BeaconState::Gloas / SignedBeaconBlock::Gloas match arms
+#   transition_functions/src/combined.rs:1065-1146 : gloas spec-test path table entries (gloas_mainnet_slots, gloas_mainnet_sanity, gloas_mainnet_transition, etc.)
+
+## Command 15
+# Domain: storage/pruning (database crate, fork_choice_store)
+$ rg -n -i 'gloas' -g '*.rs' database fork_choice_store/src/store.rs fork_choice_store/src/data_column_cache.rs
+exit code: 0
+stderr: empty
+--- output ---
+fork_choice_store/src/data_column_cache.rs:28:                // post-Gloas data column sidecar.
+fork_choice_store/src/data_column_cache.rs:30:                    data_column_sidecar.pre_gloas().map(|data_column_sidecar| {
+fork_choice_store/src/store.rs:63:    gloas::{
+fork_choice_store/src/store.rs:66:            DataColumnSidecar as GloasDataColumnSidecar, ProposerPreferences,
+fork_choice_store/src/store.rs:255:    accepted_gloas_data_column_sidecars: HashMap<(H256, ColumnIndex), Slot>,
+fork_choice_store/src/store.rs:349:            accepted_gloas_data_column_sidecars: HashMap::default(),
+fork_choice_store/src/store.rs:562:                (phase < Phase::Gloas).then_some(proposer_index),
+fork_choice_store/src/store.rs:1467:            let Some(post_gloas_state) = state.post_gloas() else {
+fork_choice_store/src/store.rs:1468:                return Ok(ExecutionPayloadBidAction::Ignore("state pre-gloas"));
+fork_choice_store/src/store.rs:1471:            let builder = post_gloas_state.builders().get(builder_index)?;
+fork_choice_store/src/store.rs:1484:            if !predicates::can_builder_cover_bid(post_gloas_state, builder_index, bid.value)? {
+fork_choice_store/src/store.rs:1933:            if self.phase() >= Phase::Gloas {
+fork_choice_store/src/store.rs:2550:            if let Some(fulu_data_column_sidecar) = data_column_sidecar.pre_gloas() {
+fork_choice_store/src/store.rs:2606:    pub fn validate_gloas_data_column_sidecar_with_state(
+fork_choice_store/src/store.rs:2608:        data_column_sidecar: GloasDataColumnSidecar<P>,
+fork_choice_store/src/store.rs:2623:        // TODO: (gloas): gloas block can be imported without sidecars, change this to
+fork_choice_store/src/store.rs:2699:            .accepted_gloas_data_column_sidecars
+fork_choice_store/src/store.rs:2772:            DataColumnSidecar::Gloas(data_column_sidecar) => self
+fork_choice_store/src/store.rs:2773:                .validate_gloas_data_column_sidecar_with_state(
+fork_choice_store/src/store.rs:3155:        if let Some(data_sidecar) = data_sidecar.pre_gloas() {
+fork_choice_store/src/store.rs:3173:            self.accepted_gloas_data_column_sidecars
+fork_choice_store/src/store.rs:3186:        if let Some(data_column_sidecar) = data_column_sidecar.pre_gloas() {
+fork_choice_store/src/store.rs:3198:            self.accepted_gloas_data_column_sidecars
+fork_choice_store/src/store.rs:3213:        if let Some(data_column_sidecar) = data_column_sidecar.pre_gloas() {
+fork_choice_store/src/store.rs:3226:            self.accepted_gloas_data_column_sidecars
+fork_choice_store/src/store.rs:3627:        self.accepted_gloas_data_column_sidecars
+fork_choice_store/src/store.rs:3629:        // TODO: (gloas): prune after block imported, as it's no longer relevant
+fork_choice_store/src/store.rs:4397:                if phase >= Phase::Gloas {
+fork_choice_store/src/store.rs:4398:                    self.accepted_gloas_data_column_sidecars
+--- end output ---
+# Retained positive hits — file path : symbol
+#   fork_choice_store/src/store.rs:63,66 : gloas::{..., DataColumnSidecar as GloasDataColumnSidecar, ProposerPreferences}
+#   fork_choice_store/src/store.rs:255,349,2699,3173,3198,3213,3226,3627 : Store::accepted_gloas_data_column_sidecars field and its uses (incl. TODO at 3629 re: pruning)
+#   fork_choice_store/src/store.rs:1467,1468,1471,1484 : Store::post_gloas() / pre-gloas guard in execution-payload-bid handling
+#   fork_choice_store/src/store.rs:2606,2608 : Store::validate_gloas_data_column_sidecar_with_state(data_column_sidecar: GloasDataColumnSidecar<P>)
+#   fork_choice_store/src/store.rs:2772,2773 : DataColumnSidecar::Gloas match arm dispatch to validate_gloas_data_column_sidecar_with_state
+#   fork_choice_store/src/data_column_cache.rs:28,30 : pre_gloas() usage in data column cache
+
+## Command 16
+# Domain: EL boundary (execution_engine, eth1_api, builder_api)
+$ rg -n -i 'gloas' execution_engine/src/types.rs eth1_api/src/eth1_api/embed_api.rs eth1_api/src/eth1_api/http_api.rs eth1_api/src/execution_blob_fetcher.rs builder_api/src/combined.rs
+exit code: 0
+stderr: empty
+--- output ---
+execution_engine/src/types.rs:658:    Gloas(PayloadAttributesV3<P>),
+execution_engine/src/types.rs:670:            Self::Gloas(_) => Phase::Gloas,
+execution_engine/src/types.rs:776:    Gloas(H64),
+eth1_api/src/eth1_api/embed_api.rs:542:            Phase::Deneb | Phase::Electra | Phase::Fulu | Phase::Gloas => {
+eth1_api/src/eth1_api/embed_api.rs:555:                        | PayloadAttributes::Gloas(value) = value
+eth1_api/src/eth1_api/embed_api.rs:585:            Phase::Gloas => payload_id.map(PayloadId::Gloas),
+eth1_api/src/eth1_api/embed_api.rs:692:            PayloadId::Fulu(payload_id) | PayloadId::Gloas(payload_id) => {
+eth1_api/src/execution_blob_fetcher.rs:228:        // TODO: (gloas): block can be imported before data available
+eth1_api/src/eth1_api/http_api.rs:392:            Phase::Deneb | Phase::Electra | Phase::Fulu | Phase::Gloas => {
+eth1_api/src/eth1_api/http_api.rs:417:            Phase::Gloas => payload_id.map(PayloadId::Gloas),
+eth1_api/src/eth1_api/http_api.rs:496:            PayloadId::Fulu(payload_id) | PayloadId::Gloas(payload_id) => {
+builder_api/src/combined.rs:78:            Phase::Gloas => {
+builder_api/src/combined.rs:80:                    message: "signed builder bid is not available in Gloas",
+builder_api/src/combined.rs:213:            Phase::Gloas => {
+builder_api/src/combined.rs:215:                    message: "execution payload and blobs bundle is not available in Gloas",
+--- end output ---
+# Retained positive hits — file path : symbol
+#   execution_engine/src/types.rs:658,670,776 : PayloadAttributes::Gloas / PayloadId::Gloas variants
+#   eth1_api/src/eth1_api/embed_api.rs:542,555,585,692 : PayloadAttributes::Gloas / PayloadId::Gloas match arms (embedded EL API)
+#   eth1_api/src/eth1_api/http_api.rs:392,417,496 : PayloadAttributes::Gloas / PayloadId::Gloas match arms (HTTP EL API)
+#   eth1_api/src/execution_blob_fetcher.rs:228 : TODO comment re: gloas block import before data available
+#   builder_api/src/combined.rs:78,80,213,215 : Phase::Gloas match arms rejecting signed-builder-bid / payload-and-blobs-bundle paths
+
+## Command 17
+# Domain: config/CLI/feature flags (features, grandine, predefined_chains crates)
+$ rg -n -i 'gloas' -g '*.rs' features grandine predefined_chains
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 18
+# Domain: spec-test harness (fork_choice_control, types/gloas, validator gossip spec tests, eip_7594 tests)
+$ rg -n -i 'gloas' fork_choice_control/src/spec_tests.rs types/src/gloas/spec_tests.rs validator/src/gossip_spec_tests.rs eip_7594/src/tests.rs
+exit code: 0
+stderr: empty
+--- output ---
+fork_choice_control/src/spec_tests.rs:313:                    Phase::Electra | Phase::Fulu | Phase::Gloas => {
+validator/src/gossip_spec_tests.rs:532:    ["consensus-spec-tests/tests/mainnet/gloas/networking/gossip_proposer_slashing/*/*"]            [gloas_mainnet_gossip_proposer_slashing]            [Mainnet] [Gloas];
+validator/src/gossip_spec_tests.rs:533:    ["consensus-spec-tests/tests/minimal/gloas/networking/gossip_proposer_slashing/*/*"]            [gloas_minimal_gossip_proposer_slashing]            [Minimal] [Gloas];
+validator/src/gossip_spec_tests.rs:548:    ["consensus-spec-tests/tests/mainnet/gloas/networking/gossip_attester_slashing/*/*"]            [gloas_mainnet_gossip_attester_slashing]            [Mainnet] [Gloas];
+validator/src/gossip_spec_tests.rs:549:    ["consensus-spec-tests/tests/minimal/gloas/networking/gossip_attester_slashing/*/*"]            [gloas_minimal_gossip_attester_slashing]            [Minimal] [Gloas];
+validator/src/gossip_spec_tests.rs:739:                    Phase::Electra | Phase::Fulu | Phase::Gloas => {
+validator/src/gossip_spec_tests.rs:755:                    Phase::Electra | Phase::Fulu | Phase::Gloas => {
+types/src/gloas/spec_tests.rs:30:        gloas::{beacon_state::BeaconState, containers::*},
+types/src/gloas/spec_tests.rs:62:// We do not run `consensus-spec-tests/tests/*/gloas/ssz_static/Eth1Block/*/*`.
+types/src/gloas/spec_tests.rs:68:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/AggregateAndProof/*/*",
+types/src/gloas/spec_tests.rs:69:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/AggregateAndProof/*/*",
+types/src/gloas/spec_tests.rs:74:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Attestation/*/*",
+types/src/gloas/spec_tests.rs:75:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Attestation/*/*",
+types/src/gloas/spec_tests.rs:80:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/AttestationData/*/*",
+types/src/gloas/spec_tests.rs:81:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/AttestationData/*/*",
+types/src/gloas/spec_tests.rs:86:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/AttesterSlashing/*/*",
+types/src/gloas/spec_tests.rs:87:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/AttesterSlashing/*/*",
+types/src/gloas/spec_tests.rs:92:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BeaconBlock/*/*",
+types/src/gloas/spec_tests.rs:93:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BeaconBlock/*/*",
+types/src/gloas/spec_tests.rs:98:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BeaconBlockBody/*/*",
+types/src/gloas/spec_tests.rs:99:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BeaconBlockBody/*/*",
+types/src/gloas/spec_tests.rs:104:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BeaconBlockHeader/*/*",
+types/src/gloas/spec_tests.rs:105:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BeaconBlockHeader/*/*",
+types/src/gloas/spec_tests.rs:110:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BeaconState/*/*",
+types/src/gloas/spec_tests.rs:111:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BeaconState/*/*",
+types/src/gloas/spec_tests.rs:116:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BlobIdentifier/*/*",
+types/src/gloas/spec_tests.rs:117:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BlobIdentifier/*/*",
+types/src/gloas/spec_tests.rs:122:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BlobSidecar/*/*",
+types/src/gloas/spec_tests.rs:123:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BlobSidecar/*/*",
+types/src/gloas/spec_tests.rs:128:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BLSToExecutionChange/*/*",
+types/src/gloas/spec_tests.rs:129:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BLSToExecutionChange/*/*",
+types/src/gloas/spec_tests.rs:134:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Builder/*/*",
+types/src/gloas/spec_tests.rs:135:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Builder/*/*",
+types/src/gloas/spec_tests.rs:140:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BuilderPendingPayment/*/*",
+types/src/gloas/spec_tests.rs:141:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BuilderPendingPayment/*/*",
+types/src/gloas/spec_tests.rs:146:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/BuilderPendingWithdrawal/*/*",
+types/src/gloas/spec_tests.rs:147:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/BuilderPendingWithdrawal/*/*",
+types/src/gloas/spec_tests.rs:152:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Checkpoint/*/*",
+types/src/gloas/spec_tests.rs:153:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Checkpoint/*/*",
+types/src/gloas/spec_tests.rs:158:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ConsolidationRequest/*/*",
+types/src/gloas/spec_tests.rs:159:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ConsolidationRequest/*/*",
+types/src/gloas/spec_tests.rs:164:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ContributionAndProof/*/*",
+types/src/gloas/spec_tests.rs:165:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ContributionAndProof/*/*",
+types/src/gloas/spec_tests.rs:170:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/DataColumnSidecar/*/*",
+types/src/gloas/spec_tests.rs:171:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/DataColumnSidecar/*/*",
+types/src/gloas/spec_tests.rs:176:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/DataColumnsByRootIdentifier/*/*",
+types/src/gloas/spec_tests.rs:177:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/DataColumnsByRootIdentifier/*/*",
+types/src/gloas/spec_tests.rs:182:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Deposit/*/*",
+types/src/gloas/spec_tests.rs:183:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Deposit/*/*",
+types/src/gloas/spec_tests.rs:188:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/DepositData/*/*",
+types/src/gloas/spec_tests.rs:189:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/DepositData/*/*",
+types/src/gloas/spec_tests.rs:194:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/DepositMessage/*/*",
+types/src/gloas/spec_tests.rs:195:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/DepositMessage/*/*",
+types/src/gloas/spec_tests.rs:200:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/DepositRequest/*/*",
+types/src/gloas/spec_tests.rs:201:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/DepositRequest/*/*",
+types/src/gloas/spec_tests.rs:206:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Eth1Data/*/*",
+types/src/gloas/spec_tests.rs:207:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Eth1Data/*/*",
+types/src/gloas/spec_tests.rs:212:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionPayload/*/*",
+types/src/gloas/spec_tests.rs:213:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionPayload/*/*",
+types/src/gloas/spec_tests.rs:218:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:219:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:224:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionPayloadEnvelope/*/*",
+types/src/gloas/spec_tests.rs:225:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionPayloadEnvelope/*/*",
+types/src/gloas/spec_tests.rs:230:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionPayloadHeader/*/*",
+types/src/gloas/spec_tests.rs:231:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionPayloadHeader/*/*",
+types/src/gloas/spec_tests.rs:236:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ExecutionRequests/*/*",
+types/src/gloas/spec_tests.rs:237:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ExecutionRequests/*/*",
+types/src/gloas/spec_tests.rs:242:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Fork/*/*",
+types/src/gloas/spec_tests.rs:243:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Fork/*/*",
+types/src/gloas/spec_tests.rs:248:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ForkChoiceNode/*/*",
+types/src/gloas/spec_tests.rs:249:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ForkChoiceNode/*/*",
+types/src/gloas/spec_tests.rs:254:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ForkData/*/*",
+types/src/gloas/spec_tests.rs:255:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ForkData/*/*",
+types/src/gloas/spec_tests.rs:260:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/HistoricalBatch/*/*",
+types/src/gloas/spec_tests.rs:261:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/HistoricalBatch/*/*",
+types/src/gloas/spec_tests.rs:266:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/HistoricalSummary/*/*",
+types/src/gloas/spec_tests.rs:267:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/HistoricalSummary/*/*",
+types/src/gloas/spec_tests.rs:272:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/IndexedAttestation/*/*",
+types/src/gloas/spec_tests.rs:273:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/IndexedAttestation/*/*",
+types/src/gloas/spec_tests.rs:278:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/IndexedPayloadAttestation/*/*",
+types/src/gloas/spec_tests.rs:279:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/IndexedPayloadAttestation/*/*",
+types/src/gloas/spec_tests.rs:284:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/LightClientBootstrap/*/*",
+types/src/gloas/spec_tests.rs:285:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/LightClientBootstrap/*/*",
+types/src/gloas/spec_tests.rs:290:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/LightClientFinalityUpdate/*/*",
+types/src/gloas/spec_tests.rs:291:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/LightClientFinalityUpdate/*/*",
+types/src/gloas/spec_tests.rs:296:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/LightClientHeader/*/*",
+types/src/gloas/spec_tests.rs:297:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/LightClientHeader/*/*",
+types/src/gloas/spec_tests.rs:302:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/LightClientOptimisticUpdate/*/*",
+types/src/gloas/spec_tests.rs:303:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/LightClientOptimisticUpdate/*/*",
+types/src/gloas/spec_tests.rs:308:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/LightClientUpdate/*/*",
+types/src/gloas/spec_tests.rs:309:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/LightClientUpdate/*/*",
+types/src/gloas/spec_tests.rs:314:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/MatrixEntry/*/*",
+types/src/gloas/spec_tests.rs:315:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/MatrixEntry/*/*",
+types/src/gloas/spec_tests.rs:320:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PayloadAttestation/*/*",
+types/src/gloas/spec_tests.rs:321:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PayloadAttestation/*/*",
+types/src/gloas/spec_tests.rs:326:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PayloadAttestationData/*/*",
+types/src/gloas/spec_tests.rs:327:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PayloadAttestationData/*/*",
+types/src/gloas/spec_tests.rs:332:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PayloadAttestationMessage/*/*",
+types/src/gloas/spec_tests.rs:333:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PayloadAttestationMessage/*/*",
+types/src/gloas/spec_tests.rs:338:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PendingAttestation/*/*",
+types/src/gloas/spec_tests.rs:339:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PendingAttestation/*/*",
+types/src/gloas/spec_tests.rs:344:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PendingConsolidation/*/*",
+types/src/gloas/spec_tests.rs:345:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PendingConsolidation/*/*",
+types/src/gloas/spec_tests.rs:350:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PendingDeposit/*/*",
+types/src/gloas/spec_tests.rs:351:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PendingDeposit/*/*",
+types/src/gloas/spec_tests.rs:356:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PendingPartialWithdrawal/*/*",
+types/src/gloas/spec_tests.rs:357:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PendingPartialWithdrawal/*/*",
+types/src/gloas/spec_tests.rs:362:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/PowBlock/*/*",
+types/src/gloas/spec_tests.rs:363:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/PowBlock/*/*",
+types/src/gloas/spec_tests.rs:368:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ProposerPreferences/*/*",
+types/src/gloas/spec_tests.rs:369:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ProposerPreferences/*/*",
+types/src/gloas/spec_tests.rs:374:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/ProposerSlashing/*/*",
+types/src/gloas/spec_tests.rs:375:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/ProposerSlashing/*/*",
+types/src/gloas/spec_tests.rs:380:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedAggregateAndProof/*/*",
+types/src/gloas/spec_tests.rs:381:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedAggregateAndProof/*/*",
+types/src/gloas/spec_tests.rs:386:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedBeaconBlock/*/*",
+types/src/gloas/spec_tests.rs:387:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedBeaconBlock/*/*",
+types/src/gloas/spec_tests.rs:392:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedBeaconBlockHeader/*/*",
+types/src/gloas/spec_tests.rs:393:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedBeaconBlockHeader/*/*",
+types/src/gloas/spec_tests.rs:398:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedBLSToExecutionChange/*/*",
+types/src/gloas/spec_tests.rs:399:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedBLSToExecutionChange/*/*",
+types/src/gloas/spec_tests.rs:404:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedContributionAndProof/*/*",
+types/src/gloas/spec_tests.rs:405:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedContributionAndProof/*/*",
+types/src/gloas/spec_tests.rs:410:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:411:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedExecutionPayloadBid/*/*",
+types/src/gloas/spec_tests.rs:416:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedExecutionPayloadEnvelope/*/*",
+types/src/gloas/spec_tests.rs:417:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedExecutionPayloadEnvelope/*/*",
+types/src/gloas/spec_tests.rs:422:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedProposerPreferences/*/*",
+types/src/gloas/spec_tests.rs:423:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedProposerPreferences/*/*",
+types/src/gloas/spec_tests.rs:428:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SignedVoluntaryExit/*/*",
+types/src/gloas/spec_tests.rs:429:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SignedVoluntaryExit/*/*",
+types/src/gloas/spec_tests.rs:434:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SigningData/*/*",
+types/src/gloas/spec_tests.rs:435:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SigningData/*/*",
+types/src/gloas/spec_tests.rs:440:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SingleAttestation/*/*",
+types/src/gloas/spec_tests.rs:441:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SingleAttestation/*/*",
+types/src/gloas/spec_tests.rs:446:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SyncAggregate/*/*",
+types/src/gloas/spec_tests.rs:447:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SyncAggregate/*/*",
+types/src/gloas/spec_tests.rs:452:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SyncAggregatorSelectionData/*/*",
+types/src/gloas/spec_tests.rs:453:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SyncAggregatorSelectionData/*/*",
+types/src/gloas/spec_tests.rs:458:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SyncCommittee/*/*",
+types/src/gloas/spec_tests.rs:459:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SyncCommittee/*/*",
+types/src/gloas/spec_tests.rs:464:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SyncCommitteeContribution/*/*",
+types/src/gloas/spec_tests.rs:465:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SyncCommitteeContribution/*/*",
+types/src/gloas/spec_tests.rs:470:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/SyncCommitteeMessage/*/*",
+types/src/gloas/spec_tests.rs:471:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/SyncCommitteeMessage/*/*",
+types/src/gloas/spec_tests.rs:476:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Validator/*/*",
+types/src/gloas/spec_tests.rs:477:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Validator/*/*",
+types/src/gloas/spec_tests.rs:482:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/VoluntaryExit/*/*",
+types/src/gloas/spec_tests.rs:483:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/VoluntaryExit/*/*",
+types/src/gloas/spec_tests.rs:488:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/Withdrawal/*/*",
+types/src/gloas/spec_tests.rs:489:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/Withdrawal/*/*",
+types/src/gloas/spec_tests.rs:494:    "consensus-spec-tests/tests/mainnet/gloas/ssz_static/WithdrawalRequest/*/*",
+types/src/gloas/spec_tests.rs:495:    "consensus-spec-tests/tests/minimal/gloas/ssz_static/WithdrawalRequest/*/*",
+eip_7594/src/tests.rs:29:    ["consensus-spec-tests/tests/mainnet/gloas/networking/get_custody_groups/*/*"]  [gloas_get_custody_groups_mainnet]  [Mainnet]   [Gloas];
+eip_7594/src/tests.rs:30:    ["consensus-spec-tests/tests/minimal/gloas/networking/get_custody_groups/*/*"]  [gloas_get_custody_groups_minimal]  [Minimal]   [Gloas];
+eip_7594/src/tests.rs:64:    ["consensus-spec-tests/tests/mainnet/gloas/networking/compute_columns_for_custody_group/*/*"]   [gloas_compute_columns_mainnet] [Mainnet]  [Gloas];
+eip_7594/src/tests.rs:65:    ["consensus-spec-tests/tests/minimal/gloas/networking/compute_columns_for_custody_group/*/*"]   [gloas_compute_columns_minimal] [Minimal]  [Gloas];
+--- end output ---
+# Retained positive hits — file path : symbol
+#   fork_choice_control/src/spec_tests.rs:313 : Phase::Electra | Phase::Fulu | Phase::Gloas match arm (spec-test harness dispatch)
+#   validator/src/gossip_spec_tests.rs:532,533,548,549 : gloas_mainnet_gossip_proposer_slashing / gloas_minimal_gossip_proposer_slashing / gloas_mainnet_gossip_attester_slashing / gloas_minimal_gossip_attester_slashing (spec-test macro entries)
+#   validator/src/gossip_spec_tests.rs:739,755 : Phase::Electra | Phase::Fulu | Phase::Gloas match arms
+#   types/src/gloas/spec_tests.rs:30,68-495 : gloas::{beacon_state::BeaconState, containers::*} import and per-container ssz_static spec-test path table (AggregateAndProof through WithdrawalRequest)
+#   eip_7594/src/tests.rs:29,30,64,65 : gloas_get_custody_groups_mainnet / gloas_get_custody_groups_minimal / gloas_compute_columns_mainnet / gloas_compute_columns_minimal (spec-test macro entries)
+
+# END OF ARTIFACT

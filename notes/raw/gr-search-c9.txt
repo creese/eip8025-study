@@ -1,0 +1,52 @@
+# EIP-8025 Phase 3a harvest artifact
+# Artifact: gr-search-c9.txt
+# Cluster: C9
+# Repo: https://github.com/grandinetech/grandine @ 6ae713fca1fe6620ef7e45b864c3e136a767b1c1
+# Date (UTC): 2026-07-16T18:48:03Z
+
+## Command 1
+# Search term: ProofSync
+$ rg -n -i 'proof.?sync' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 2
+# Search term: ExecutionProofsByRange
+$ rg -n -i 'execution.?proofs.?by.?range' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 3
+# Search term: ExecutionProofsByRoot
+$ rg -n -i 'execution.?proofs.?by.?root' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 4
+# Search term: ExecutionProofStatus
+$ rg -n -i 'execution.?proof.?status' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+## Command 5
+# Search term: proof_serve_range
+$ rg -n -i 'proof.?serve.?range' -g '*.rs'
+exit code: 1
+stderr: empty
+--- output ---
+--- end output ---
+stdout: empty (0 bytes)
+
+# END OF ARTIFACT
