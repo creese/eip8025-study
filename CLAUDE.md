@@ -1,4 +1,4 @@
-# EIP-8025 Grandine study — ground rules
+# Grandine Execution Proof Study — Ground Rules
 
 This file defines stable rules that apply across the study.
 

@@ -1,4 +1,4 @@
-# EIP-8025 Study for Grandine
+# Grandine Execution Proof Study
 
 This project is an evidence-backed study of what it would take to add [EIP-8025: Optional Execution Proofs](https://eips.ethereum.org/EIPS/eip-8025) to Grandine.
 

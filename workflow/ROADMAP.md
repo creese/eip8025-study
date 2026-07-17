@@ -1,4 +1,4 @@
-# EIP-8025 Grandine Proposal Study — Roadmap
+# Grandine Execution Proof Study — Roadmap
 
 This file defines phase order, primary outputs, handoffs, and human
 checkpoints.
